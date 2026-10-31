@@ -1,6 +1,6 @@
 # Complete Tool List
 
-Total: **460** tools across **20** categories.
+Total: **494** tools across **20** categories.
 
 Generated from `src/tools/**/*.meta.ts` (source of truth).
 
@@ -23,7 +23,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `file-split` | Split File into Chunks | file | stable | Split a large file into numbered part chunks plus a JSON manifest. |
 | `warc-archive-inspector` | WARC Archive Inspector | file | stable | Inspect WARC web archives: records, block digests, target URIs, lengths and damage. |
 
-## audio (19)
+## audio (24)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -35,10 +35,14 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `audio-convert` | Convert Audio | file | stable | Convert audio to WAV, MP3 or Opus/OGG — locally in your browser, no uploads. |
 | `audio-to-wav` | Convert Audio to WAV | file | stable | Convert browser-supported audio files to uncompressed 16-bit PCM WAV. |
 | `audio-fade` | Fade Audio In / Out | file | stable | Apply a linear, exponential or logarithmic fade in and fade out to audio. |
+| `flac-inspector` | FLAC Audio Inspector | file | stable | Inspect a FLAC audio file: metadata blocks, sample rate, channels, bit depth, duration, and tags. |
+| `loudness-meter` | Loudness Meter (LUFS) | file | stable | Measure the perceived loudness of an audio file in integrated LUFS, with momentary/short-term levels, LRA and true peak. |
 | `audio-merge` | Merge / Concatenate Audio | file | stable | Join audio files end-to-end or mix them together into one WAV. |
+| `midi-inspector` | MIDI File Inspector | file | stable | Inspect a Standard MIDI File: header format, timing, track chunks, and note, tempo, and meta events. |
 | `id3-tag-reader` | MP3 Tag (ID3) Reader | file | stable | Read ID3v2 and ID3v1 tags from an MP3: title, artist, album, year, track and cover art. |
 | `noise-reduction` | Noise Reduction | file | beta | Remove background noise from speech with RNNoise, then blend the result back into the original. |
 | `audio-normalize` | Normalise Audio | file | stable | Scale audio to a target peak or RMS level (in dBFS) without changing the length. |
+| `ogg-inspector` | Ogg Stream Inspector | file | stable | Inspect an Ogg container: capture pattern, header flags, granule position, serial, and every page. |
 | `audio-reverse` | Reverse Audio | file | stable | Reverse an audio clip sample-for-sample and save the result as WAV. |
 | `spectrogram` | Spectrogram | file | stable | Render an audio file as a spectrogram PNG: FFT, window, colour map and dB range are yours. |
 | `text-to-speech` | Text to Speech | text | stable | Read text aloud with your browser’s built-in voices — pick a voice, tune rate, pitch and volume. |
@@ -46,14 +50,16 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `audio-trim` | Trim / Clip Audio | file | stable | Cut an audio file to a range and apply click-free fade in/out edges. |
 | `tuner` | Tuner | text | beta | Tune an instrument from your microphone: see the note, the cents deviation and a needle. |
 | `voice-recorder` | Voice Recorder | file | stable | Record your microphone as WAV or WebM with a live level meter, pause/resume and a take you can play back. |
+| `wav-inspector` | WAV Audio Inspector | file | stable | Inspect a WAV audio file: RIFF chunk tree, PCM format, sample rate, channels, bit depth, and duration. |
 
-## color (7)
+## color (8)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `color-blend` | Color Blender | text | stable | Mix two colors in RGB or HSL space with a 0-100% blend ratio. |
 | `color-blindness` | Color Blindness Simulator | text | stable | Simulate protanopia, deuteranopia, tritanopia and achromatopsia on your colors. |
 | `color-contrast` | Color Contrast Checker | text | stable | Check WCAG 2.1 contrast ratios for foreground/background colour pairs. |
+| `delta-e` | Color Difference (ΔE) | text | stable | Measure how far apart two colors look with the perceptual CIEDE2000, CIE76 and CIE94 colour-difference formulae. |
 | `color-name` | Color Name Finder | text | stable | Find the nearest of the 148 CSS named colors, ranked by perceptual distance. |
 | `color-palette` | Color Palette Generator | text | stable | Generate tints, shades, complementary, triadic and analogous color palettes. |
 | `color-convert` | Colour Converter | text | stable | Convert a colour between HEX, RGB, HSL, HSV, CMYK and OKLCH. |
@@ -67,10 +73,11 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `subtitle-converter` | Subtitle Converter | text | stable | Convert subtitle files between SRT and WebVTT, and shift cue timings, entirely on-device. |
 | `torrent-file-inspector` | Torrent File Inspector | file | stable | Read a .torrent: info-hash, magnet link, file list, piece size and tracker, decoded on-device. |
 
-## crypto (10)
+## crypto (11)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
+| `asn1-inspector` | ASN.1 / DER Inspector | file | stable | Parse a DER (or PEM) ASN.1 structure into a readable tree: tag, class, length, type, offset and value. |
 | `crc-calculator` | CRC Calculator | file | stable | Compute any CRC preset — CRC-8, CRC-16, CRC-32, CRC-64 — or your own parameters, over files or text. |
 | `crc32` | CRC-32 / Adler-32 Checksum | text | stable | Compute CRC-32, CRC-32C or Adler-32 checksums of text, as hex or decimal. |
 | `keypair-generator` | Cryptographic Keypair Generator | text | stable | Generate RSA, ECDSA or Ed25519 key pairs in the browser and export them as PEM, with an optional sign-and-verify check. |
@@ -82,7 +89,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `hash` | Text Hash Generator | text | stable | Hash text with MD5, SHA-1, SHA-256, SHA-384 or SHA-512 and output hex, Base64 or base64url. |
 | `x509-certificate-inspector` | X.509 Certificate Inspector | text | stable | Parse an X.509 certificate: subject, issuer, validity, key details, SANs and fingerprints. |
 
-## data (44)
+## data (45)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -123,6 +130,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `plist-decoder` | Property List Decoder | file | stable | Read binary and XML property lists (.plist): tree, types, object table and warnings. |
 | `querystring` | Query String <-> JSON | text | stable | Parse a URL query string into JSON, or build a query string from a JSON object. Local only. |
 | `spreadsheet-viewer` | Spreadsheet Viewer | file | stable | Open XLSX, XLS, ODS or CSV on-device — switch sheets, scan the grid and convert to CSV, JSON or XLSX. |
+| `sqlite-structure-inspector` | SQLite Structure Inspector | file | stable | Audit the physical layout of a .db/.sqlite file: header fields, page types, b-tree usage, freelist and integrity. |
 | `toml-convert` | TOML ⇄ JSON Converter | text | stable | Parse TOML into JSON, or serialize JSON back to TOML. |
 | `xml-json-convert` | XML ⇄ JSON Converter | text | stable | Convert XML documents into JSON and JSON back into XML. |
 | `xml-format` | XML Formatter | text | stable | Pretty-print or minify XML with a pure-JS tokenizer — comments, CDATA and PIs kept intact. |
@@ -151,12 +159,13 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `workday-calculator` | Workday Calculator | text | stable | Add business days to a date or count the working days between two dates, skipping weekends and holidays. |
 | `world-clock` | World Clock | text | stable | Current time, date and UTC offset for any IANA time zones, instantly and on your device. |
 
-## developer (58)
+## developer (63)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `dockerignore-generator` | .dockerignore Generator | text | stable | Build a .dockerignore for a lean Docker build context — pick a stack preset and add custom lines. |
 | `ansi-sequences` | ANSI Escape Sequence Inspector | text | stable | Strip, visualize, or inspect ANSI terminal escape sequences in text and logs. |
+| `axml-inspector` | AXML Inspector | file | stable | Parse an Android binary XML (.axml) on-device: its chunk tree, string pool, elements, and attribute counts. |
 | `backslash-escape` | Backslash Escape / Unescape | text | stable | Turn control characters into readable \\n \\t \\xNN \\uNNNN sequences, or interpret those sequences back into characters. |
 | `chmod-calculator` | chmod Permission Calculator | text | stable | Convert Unix file permissions between octal (755) and symbolic (rwxr-xr-x), with a per-class breakdown. |
 | `code-beautify` | Code Beautifier | text | beta | Beautify JS, TS, CSS, SCSS, Less, HTML, Vue, JSON, Markdown and YAML with Prettier, in your browser. |
@@ -170,6 +179,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `csv-profiler` | CSV Profiler | text | stable | Profile a CSV file: per-column type inference, missing values, unique counts, and numeric stats. |
 | `curl-to-code` | cURL to Code | text | stable | Turn a curl command into ready-to-run code for 12 languages and frameworks. |
 | `curl-to-fetch` | curl to fetch | text | stable | Turn a curl command into ready-to-run JavaScript fetch, axios or Python requests code. |
+| `dex-inspector` | DEX File Inspector | file | stable | Parse an Android Dalvik .dex binary on-device: header, checksum and signature, and the string, type and class tables. |
 | `docker-compose` | docker-compose.yml Generator | text | stable | Build a docker-compose.yml for one service — image, ports, environment, volumes and restart policy. |
 | `dockerfile-generator` | Dockerfile Generator | text | stable | Build a Dockerfile from friendly fields — base image, workdir, env, ports, RUN steps and CMD — ready to paste. |
 | `elf-binary-inspector` | ELF Binary Inspector | file | stable | Parse an ELF/Linux binary on-device: class, type, machine, sections, symbols, deps and hardening. |
@@ -184,6 +194,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `html-to-pug` | HTML to Pug | text | stable | Convert HTML into Pug (formerly Jade) template syntax with shorthand selectors, attributes and indentation. |
 | `http-request-builder` | HTTP Request Builder | text | stable | Compose a raw HTTP/1.1 request — method, URL, headers and body — with Host and Content-Length filled in. |
 | `ieee754-inspector` | IEEE 754 Float Inspector | text | stable | Decode and encode 32/64-bit floats: sign, exponent, mantissa, hex and bytes. |
+| `class-inspector` | Java Class Inspector | file | stable | Inspect a Java class file: magic, version, constant pool, access flags, fields, and methods. |
 | `jsdoc-generator` | JSDoc Generator | text | stable | Generate a JSDoc comment block from a function signature, with @param and @returns lines. |
 | `json-to-csharp` | JSON to C# Class | text | stable | Generate C# classes and record types from a JSON sample for System.Text.Json deserialization. |
 | `json-to-java` | JSON to Java | text | stable | Generate Java POJO, Lombok or record classes from JSON with nested types and getters. |
@@ -192,6 +203,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `json-to-swift` | JSON to Swift Struct | text | stable | Generate Swift Codable structs from a JSON sample so API payloads decode cleanly in iOS apps. |
 | `json-to-zod` | JSON to Zod Schema | text | stable | Generate a Zod schema from a JSON sample so you can validate runtime data and infer clean types. |
 | `jsonpath` | JSONPath Extractor | text | stable | Query JSON with JSONPath: select values by path, wildcards, filters, slices. |
+| `mach-o-inspector` | Mach-O Binary Inspector | file | stable | Parse an Apple Mach-O binary on-device: 32/64-bit, CPU, file type, flags, load commands, segments and deps. |
 | `markdown-link-checker` | Markdown Link Checker | text | stable | Check Markdown links and anchors: broken fragments, missing references, empty URLs. |
 | `markdown-preview` | Markdown Preview | text | beta | Live split-pane Markdown editor with GFM, highlighted code, HTML export and print to PDF. |
 | `markdown-table` | Markdown Table Formatter | text | stable | Normalize Markdown pipe tables and optionally align their columns. |
@@ -213,6 +225,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `diff-text` | Text Diff | text | stable | Compare two blocks of text and see the differences as a unified diff or an inline word/character diff. |
 | `text-inspector` | Text Encoding & Character Inspector | text | stable | Inspect BOMs, line endings, control characters, and Unicode code points in text. |
 | `ua-parser` | User-Agent Parser | text | stable | Decode any User-Agent string into browser, version, engine, OS, OS version and device class — on your device. |
+| `wasm-inspector` | WASM Module Inspector | file | stable | Decode a WebAssembly .wasm binary: version, section tree with sizes, imports/exports, and structure checks. |
 
 ## device (5)
 
@@ -266,34 +279,48 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `uuid` | UUID Generator | text | stable | Generate RFC 4122 UUIDs (v4 random or v7 time-ordered) in bulk. |
 | `vcard` | vCard Generator | text | stable | Build vCard 3.0 contact files, or parse a pasted vCard back into fields. |
 
-## image (24)
+## image (38)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `image-add-text` | Add Text to Image | file | beta | Write captions and meme text on an image: fonts, outline, shadow, drag to place. |
 | `image-blur-redact` | Blur & Redact Image | file | beta | Blur, pixelate or black out parts of an image and export a clean copy with no metadata. |
+| `bmp-inspector` | BMP Image Inspector | file | stable | Inspect a Windows BMP: file header, DIB info, dimensions, bit depth, compression, and color table. |
 | `image-compress` | Compress Image | file | stable | Reduce image file size by re-encoding locally in your browser. |
 | `image-convert` | Convert Image Format | file | stable | Convert images between PNG, JPEG, WebP and AVIF in your browser. |
 | `image-crop` | Crop Image | file | stable | Crop an image to an aspect ratio or explicit pixel rectangle. |
 | `datauri-to-image` | Data URI to Image | file | beta | Decode an image data URI from a text file into an image file. |
+| `dds-inspector` | DDS Texture Inspector | file | stable | Inspect a DirectDraw Surface texture: header flags, dimensions, mipmap count, and pixel format. |
+| `dicom-inspector` | DICOM Inspector | file | stable | Parse a medical DICOM .dcm on-device: the preamble, DICM prefix, every tag and VR, and key patient and imaging fields. |
 | `image-palette` | Extract Colour Palette | file | stable | Extract the dominant colour palette from an image locally. |
 | `favicon-generator` | Favicon Generator | file | stable | Generate favicon, Apple touch, and Android icon assets from one image. |
+| `gif-inspector` | GIF Inspector | file | stable | Decode the structure of a GIF: logical screen, color tables, frames, graphic-control/comment/application blocks. |
 | `gif-maker` | GIF Maker | file | stable | Build an animated GIF from image frames: order, trim, set delays, pick size, loop and preview. |
 | `heic-to-jpg` | HEIC to JPG | file | beta | Convert HEIC photos from iPhone and Android to JPG, PNG or WebP — right in your browser. |
+| `icns-inspector` | ICNS Icon Inspector | file | stable | Inspect an Apple ICNS icon set: file magic and size, then every icon resource chunk and its type. |
+| `ico-inspector` | ICO Icon Inspector | file | stable | Inspect a Windows icon (.ico): header, directory entries, dimensions, bit depth, and embedded image format. |
 | `image-collage` | Image Collage Maker | file | stable | Arrange photos in a grid: layouts, spacing, background, corners, drag to reorder. |
 | `image-diff` | Image Difference | file | stable | Compare two images and visualize their pixel differences. |
 | `image-filters` | Image Filters | file | stable | Brightness, contrast, saturation, grayscale, sepia and sharpen with a live preview. |
 | `image-metadata` | Image Metadata & EXIF Viewer | file | stable | Inspect image dimensions, file details, and common JPEG EXIF tags. |
 | `image-ocr` | Image OCR | file | beta | Read text out of images with on-device OCR — nothing is uploaded, nothing leaves your browser. |
 | `image-to-datauri` | Image to Data URI | file | beta | Encode an image as a data URI for HTML, CSS, or source code. |
+| `jpeg-inspector` | JPEG Segment Inspector | file | stable | Walk a JPEG as a marker stream: every segment offset, type and length, plus frame, quantisation and Huffman details. |
+| `netpbm-inspector` | Netpbm Inspector | file | stable | Parse a Netpbm image (PBM, PGM, PPM) on-device: the P1-P6 magic, dimensions, maxval, and the raw or ASCII pixel data. |
+| `png-chunk-inspector` | PNG Chunk Inspector | file | stable | Parse a PNG into its chunk stream: offsets, lengths, CRCs, critical/ancillary status and decompressed pixel data. |
+| `psd-inspector` | PSD Inspector | file | stable | Parse a Photoshop .psd on-device: the header, color mode, resources, layers, and image data compression. |
+| `qoi-inspector` | QOI Inspector | file | stable | Parse a Quite OK Image (.qoi) on-device: the 14-byte header, channels and colorspace, and the pixel opcode stream. |
 | `background-remover` | Remove Background | file | beta | Cut a subject out of a photo with an on-device AI matting model (MODNet). |
 | `image-resize` | Resize Image | file | stable | Resize images by percentage or to exact dimensions, entirely in your browser. |
 | `image-rotate` | Rotate / Flip Image | file | stable | Rotate images by 90-degree steps or flip them horizontally and vertically. |
 | `image-spritesheet` | Sprite Sheet Builder | file | stable | Combine multiple images into one sprite sheet with a position map. |
 | `image-strip-metadata` | Strip Image Metadata | file | beta | Remove EXIF, GPS, XMP and IPTC metadata from JPEG, PNG and WebP images losslessly. |
 | `svg-to-png` | SVG to PNG | file | stable | Rasterize an SVG image to a downloadable PNG. |
+| `tga-inspector` | TGA Image Inspector | file | stable | Inspect a TGA/Targa image: header fields, image type, color map, dimensions, origin, and footer. |
+| `tiff-inspector` | TIFF Image Inspector | file | stable | Inspect a TIFF image: byte order, IFD entry tree, dimensions, compression, photometric, and tags. |
 | `image-upscale` | Upscale Image | file | stable | Enlarge photos 2× or 4× with sharp Lanczos resampling and edge-preserving sharpening, on-device. |
 | `image-watermark` | Watermark Image | file | beta | Stamp text or a logo onto one or many images — opacity, position or tiled. |
+| `webp-inspector` | WebP Image Inspector | file | stable | Inspect a WebP image: RIFF chunk tree, VP8X features, animation frames, alpha, and dimensions. |
 
 ## misc (13)
 
@@ -313,7 +340,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `sip-calculator` | SIP Calculator | text | beta | Project a monthly SIP with an annual step-up and a one-time lumpsum, plus a growth chart. |
 | `tip-calculator` | Tip Calculator | text | stable | Calculate a tip, bill total and per-person split. |
 
-## network (5)
+## network (7)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -322,6 +349,8 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `ipv4-to-int` | IPv4 ↔ Integer | text | stable | Convert between a dotted IPv4 address and its 32-bit integer form, either direction. |
 | `ipv6-expander` | IPv6 Address Expander | text | stable | Expand and validate IPv6 addresses (:: shorthand). |
 | `mac-address` | MAC Address Analyzer | text | stable | Validate, normalize and decode MAC addresses, incl. EUI-64. |
+| `pcap-inspector` | PCAP Capture Inspector | file | stable | Inspect a PCAP packet capture: global header, byte order, version, link type, and per-packet records. |
+| `pcapng-inspector` | PCAPNG Inspector | file | stable | Parse a PCAP Next Generation capture: block type, length and offset, plus section, interface, packet and stats blocks. |
 
 ## numbers (12)
 
@@ -391,7 +420,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `text-encrypt` | Text Encryption (AES-GCM) | text | stable | Encrypt or decrypt text with a passphrase using AES-256-GCM and PBKDF2, entirely on your device. |
 | `totp-authenticator` | TOTP Authenticator Code Generator | text | stable | Generate and verify RFC 6238 TOTP codes from a base32 secret. |
 
-## text (32)
+## text (33)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -399,6 +428,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `case-convert` | Case Converter | text | stable | Convert between UPPER, lower, Title, Sentence, camelCase, snake_case, kebab-case and more. |
 | `char-frequency` | Character Frequency | text | stable | Count how often each character occurs, with scope filters, optional case folding and count or character sorting. |
 | `duplicate-line-finder` | Duplicate Line Finder | text | stable | Find repeated lines in a list, with occurrence counts and first line numbers. |
+| `eml-inspector` | EML Message Inspector | file | stable | Parse a single .eml email on-device: the RFC 5322 headers, MIME tree and boundaries, and each decoded part. |
 | `fancy-text` | Fancy Text Generator | text | stable | Restyle text into bold, italic, script, fraktur, double-struck, circled, squared and more Unicode letter styles. |
 | `find-replace` | Find and Replace | text | stable | Replace text by plain string, whole word, or regular expression, with optional case folding. |
 | `indent-text` | Indent / Dedent Text | text | stable | Add or remove leading indentation on every line, using spaces or tabs, with an optional skip for blank lines. |
@@ -428,11 +458,13 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `word-frequency` | Word Frequency Counter | text | stable | Count how often each word appears, with case folding, a minimum length, stop-word removal and a top-N limit. |
 | `wrap-text` | Wrap / Unwrap Text | text | stable | Hard-wrap text to a fixed column width with greedy word wrap, or unwrap wrapped lines back into paragraphs. |
 
-## video (9)
+## video (11)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
+| `avi-inspector` | AVI Inspector | file | stable | Parse an AVI video file on-device: the RIFF chunk tree, dimensions, frame rate, streams and codec, and the index blocks. |
 | `video-extract-audio` | Extract Audio from Video | file | beta | Pull the sound track out of a video as WAV, MP3 or AAC — entirely on your device. |
+| `mp4-box-inspector` | MP4 Box Inspector | file | stable | Walk an MP4/MOV ISO-BMFF atom tree: every box offset, size, type, container nesting, header form and CRC. |
 | `screen-recorder` | Screen Recorder | file | beta | Record your screen with an optional microphone and save it as WebM — or MP4 where the browser can record it. |
 | `video-trim` | Trim Video | file | beta | Cut a video to a start and end time — stream copy when the container allows it, re-encode when it does not. |
 | `video-compress` | Video Compressor | file | beta | Shrink a video in your browser: aim at a target file size or at a quality level. Nothing is uploaded. |
@@ -442,10 +474,11 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `video-to-gif` | Video to GIF | file | beta | Turn a clip into an animated GIF: trim it, pick the frame rate, width and palette quality. |
 | `webcam-recorder` | Webcam Recorder | file | beta | Record your webcam in the browser and download the clip — the video never leaves your device. |
 
-## web (117)
+## web (119)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
+| `nth-child-evaluator` | :nth-child An+B Evaluator | file | stable | Parse CSS An+B (:nth-child, :nth-of-type) microsyntax, validate it, and list which child indices it matches. |
 | `editorconfig` | .editorconfig Generator | text | stable | Generate an .editorconfig with your indentation, line-ending and charset settings. |
 | `gitignore` | .gitignore Generator | text | stable | Generate a .gitignore for Node, Python, Rust, Go, Java, macOS, Windows and more. |
 | `accept-ch` | Accept-CH Builder & Analyzer | text | stable | Build or inspect HTTP client-hints opt-in values. |
@@ -491,6 +524,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `css-grid` | CSS Grid Generator | text | stable | Generate CSS Grid layout declarations for tracks, gaps, alignment, and named areas. |
 | `css-minifier` | CSS Minifier | text | stable | Minify CSS: strip comments, collapse whitespace, drop empty rules and extra semicolons. |
 | `css-to-js` | CSS to JS Object | text | stable | Convert CSS declarations or rule blocks into a JS object with camelCase style keys. |
+| `css-transform-inspector` | CSS Transform Inspector | file | stable | Parse a CSS transform, compose it into one matrix, and report the decomposition, determinant and invertibility. |
 | `css-units` | CSS Unit Converter | text | stable | Convert between px, rem, em, pt, pc, in, cm, mm and % for CSS lengths. |
 | `cubic-bezier` | Cubic Bezier Explorer | text | stable | Sample a cubic-bezier() easing curve and find the nearest CSS keyword. |
 | `data-uri` | Data URI Converter | file | stable | Encode text or an image as a data: URI, or decode a data: URI back to text or an image file. |

@@ -1,0 +1,66 @@
+import type { ToolMeta } from '../../lib/types';
+
+export const meta: ToolMeta = {
+  id: 'psd-inspector',
+  name: 'PSD Inspector',
+  category: 'image',
+  summary:
+    'Parse a Photoshop .psd on-device: the header, color mode, resources, layers, and image data compression.',
+  description:
+    'Drop in a Photoshop document (.psd or .psb) and inspect its layered image structure. The tool verifies the 8BPS signature and the file version (1 for PSD, 2 for the large PSB format), reports the channel count, image width and height, bit depth, and the color mode, translating the mode number into its common name (Bitmap, Grayscale, Indexed, RGB, CMYK, Multichannel, Duotone or Lab). It reads the sizes of the four sections that follow the header: the color mode data, the image resources, the layer and mask information, and the image data, and reports the compression method used to store the flattened pixels (Raw, RLE, Zip or Zip with prediction). It flags the classic problems: a bad or missing 8BPS signature, an unexpected version, a non-zero reserved field, an image section whose length overruns the end of the file, an unsupported color mode or depth, and image data that does not match the declared dimensions. Everything runs on-device.',
+  keywords: [
+    'psd',
+    'psb',
+    'photoshop',
+    'adobe',
+    'image',
+    'header',
+    'colormode',
+    '8bps',
+    'rgb',
+    'cmyk',
+    'lab',
+    'grayscale',
+    'indexed',
+    'duotone',
+    'channels',
+    'bit depth',
+    'image resources',
+    'layer',
+    'mask',
+    'rle',
+    'compression',
+    'parser',
+    'decoder',
+  ],
+  privacy: { processing: 'on-device', network: 'none', offline: true },
+  input: 'file',
+  acceptsText: false,
+  accept: '.psd,.psb,image/vnd.adobe.photoshop,image/x-photoshop,application/octet-stream',
+  options: [
+    {
+      key: 'view',
+      label: 'View',
+      type: 'select',
+      default: 'summary',
+      choices: [
+        { value: 'summary', label: 'Summary' },
+        { value: 'header', label: 'Header' },
+        { value: 'sections', label: 'Sections' },
+      ],
+    },
+  ],
+  examples: [
+    { title: 'Inspect a Photoshop PSD file', options: {} },
+    { title: 'Read the color mode and dimensions of a PSD' },
+    { title: 'Check the compression of a PSD image' },
+  ],
+  related: [
+    'image-metadata',
+    'tiff-inspector',
+    'bmp-inspector',
+    'png-chunk-inspector',
+    'jpeg-inspector',
+  ],
+  status: 'stable',
+};
