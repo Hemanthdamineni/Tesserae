@@ -1,4 +1,4 @@
-import type { FileToolModule, FileRunInput, FileRunResult } from '@/lib/types';
+import type { TextToolModule, TextRunInput, TextRunResult } from '@/lib/types';
 import { ToolError } from '@/lib/types';
 import { resolveOptions } from '@/lib/options';
 import { meta } from './delta-e.meta';
@@ -419,34 +419,22 @@ function findingsTable(m: Model): { headers: string[]; rows: string[][] } {
   if (rows.length === 0) rows.push(['info', 'ok', 'Both colors parsed.']);
   return { headers, rows };
 }
-const tool: FileToolModule = {
+const tool: TextToolModule = {
   meta,
-  async run(input: FileRunInput): Promise<FileRunResult> {
+  run(input: TextRunInput): TextRunResult {
     const options = resolveOptions(meta, input.options);
-    let body = input.text ?? '';
-    const file = (input.files ?? [])[0];
-    if (file !== undefined) {
-      if (file.size > MAX_TEXT) {
-        throw new ToolError(
-          'That file is too large.',
-          'Provide a small text file with two colors.',
-        );
-      }
-      body = await file.text();
-    }
+    const body = input.text;
     if (body.length > MAX_TEXT) {
       throw new ToolError('That input is too long.', 'Provide just two colors.');
     }
     const m = buildModel(body, String(options.color1 ?? ''), String(options.color2 ?? ''));
     const view = String(options.view ?? 'summary');
     const metric = String(options.metric ?? 'all');
-    let report: FileRunResult['report'];
-    if (view === 'colors') report = { output: JSON.stringify(colorsTable(m)), render: 'table' };
-    else if (view === 'findings')
-      report = { output: JSON.stringify(findingsTable(m)), render: 'table' };
-    else if (view === 'differences')
-      report = { output: JSON.stringify(metricTable(m, metric)), render: 'table' };
-    else report = { output: JSON.stringify(summaryTable(m)), render: 'table' };
+    let table: { headers: string[]; rows: string[][] };
+    if (view === 'colors') table = colorsTable(m);
+    else if (view === 'findings') table = findingsTable(m);
+    else if (view === 'differences') table = metricTable(m, metric);
+    else table = summaryTable(m);
     const notes: string[] = [];
     if (m.lab1 !== null && m.lab2 !== null) {
       const d2 = de2000(m.lab1, m.lab2);
@@ -455,7 +443,7 @@ const tool: FileToolModule = {
     notes.push(
       'A CIEDE2000 of about 2.3 is the usual just-noticeable difference; the verbal bands are guidelines, not hard thresholds.',
     );
-    return { outputs: [], report, notes, warnings: [] };
+    return { output: JSON.stringify(table), render: 'table', notes, warnings: [] };
   },
 };
 

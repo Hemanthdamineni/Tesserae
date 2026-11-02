@@ -4,8 +4,8 @@ import tool from './delta-e.tool';
 const META = tool.meta;
 
 async function runTable(text: string, view = 'summary', extra: Record<string, unknown> = {}) {
-  const r = await tool.run({ files: [], options: { view, ...extra }, text });
-  const parsed = JSON.parse(r.report?.output ?? '{"headers":[],"rows":[]}');
+  const r = await tool.run({ text, options: { view, ...extra } });
+  const parsed = JSON.parse(r.output);
   return (parsed.rows ?? []) as string[][];
 }
 
@@ -149,11 +149,10 @@ describe('delta-e', () => {
 
   it('falls back to the color options when the text is empty', async () => {
     const r = await tool.run({
-      files: [],
       options: { view: 'summary', color1: '#ff0000', color2: '#0000ff' },
       text: '',
     });
-    const rows = JSON.parse(r.report?.output ?? '{"rows":[]}').rows as string[][];
+    const rows = JSON.parse(r.output).rows as string[][];
     const m = new Map(rows.map((x) => [String(x[0]), String(x[1])]));
     expect(Number(m.get('CIEDE2000'))).toBeGreaterThan(50);
   });
