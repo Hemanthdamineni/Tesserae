@@ -89,7 +89,7 @@ const FIXTURE_BY_TOOL: Record<string, string> = {
   'jpeg-inspector': 'sample.jpg',
   'midi-inspector': 'sample.mid',
   'mp4-box-inspector': 'sample.mp4',
-  'mpegts-inspector': 'sample.ts',
+  'mpegts-inspector': 'sample.m2ts',
   'netpbm-inspector': 'tiny.pgm',
   'ogg-inspector': 'sample.ogg',
   'pcapng-inspector': 'tiny.pcapng',
