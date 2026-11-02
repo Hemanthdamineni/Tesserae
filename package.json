@@ -27,7 +27,8 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test --grep-invert deep-audit",
     "test:audit": "playwright test --grep deep-audit",
-    "verify": "npm run check && npm run lint && npm run format:check && npm run test && npm run build && npm run bundle:check && npm run test:e2e"
+    "verify": "npm run check && npm run lint && npm run format:check && npm run test && npm run build && npm run bundle:check && npm run test:e2e",
+    "test:e2e:webkit": "docker run --rm --ipc=host --shm-size=1g -v \"$PWD:/work\" -w /work -e BASE_PATH=/ mcr.microsoft.com/playwright:v1.64.1-noble bash -lc \"npx playwright test --project=mobile-safari\""
   },
   "dependencies": {
     "@breezystack/lamejs": "^1.2.7",

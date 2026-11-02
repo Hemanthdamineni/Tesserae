@@ -23,7 +23,7 @@ import { gzipSync } from 'node:zlib';
 // ---------------------------------------------------------------------------
 const EAGER_TOOL_ENTRY_GZIP_KB = 120; // eager JS for a single tool page, gzip
 const ANY_SINGLE_CHUNK_GZIP_KB = 1200; // safety cap on any one emitted chunk
-const TOTAL_ASTRO_GZIP_KB = 2048; // sum of all emitted JS, gzip
+const TOTAL_ASTRO_GZIP_KB_PER_TOOL = 24; // sum of all emitted JS, gzip, per tool page
 // A representative tool page whose <script type="module"> /
 // <link rel="modulepreload"> references define the eager set.
 const SAMPLE_TOOL_PAGE = 'tools/base64/index.html';
@@ -230,10 +230,14 @@ for (const c of chunks) {
 }
 
 // 3. Total emitted JS over budget (advisory — the sum of everything, including
-//    lazy per-tool modules that only download on demand).
-if (kb(totalGzip) > TOTAL_ASTRO_GZIP_KB) {
+//    lazy per-tool modules that only download on demand). The catalogue grows
+//    over time, so the budget is an allowance per tool page rather than a flat
+//    cap: it catches a jump in the per-page weight while letting the total grow
+//    with the number of tools.
+const totalBudgetKb = toolPages.length * TOTAL_ASTRO_GZIP_KB_PER_TOOL;
+if (kb(totalGzip) > totalBudgetKb) {
   warnings.push(
-    `Total emitted JS is ${fmtKb(totalGzip)} KB gzip (budget ${TOTAL_ASTRO_GZIP_KB} KB).`,
+    `Total emitted JS is ${fmtKb(totalGzip)} KB gzip (budget ${totalBudgetKb} KB for ${toolPages.length} tool pages at ${TOTAL_ASTRO_GZIP_KB_PER_TOOL} KB each).`,
   );
 }
 
@@ -268,7 +272,7 @@ if (failures.length) {
   console.log(
     '[check-bundle] Budget: ' +
       JSON.stringify(
-        { EAGER_TOOL_ENTRY_GZIP_KB, ANY_SINGLE_CHUNK_GZIP_KB, TOTAL_ASTRO_GZIP_KB },
+        { EAGER_TOOL_ENTRY_GZIP_KB, ANY_SINGLE_CHUNK_GZIP_KB, TOTAL_ASTRO_GZIP_KB_PER_TOOL },
         null,
         2,
       ),
@@ -278,5 +282,9 @@ if (failures.length) {
 console.log('[check-bundle] PASS');
 console.log(
   '[check-bundle] Budget: ' +
-    JSON.stringify({ EAGER_TOOL_ENTRY_GZIP_KB, ANY_SINGLE_CHUNK_GZIP_KB, TOTAL_ASTRO_GZIP_KB }),
+    JSON.stringify({
+      EAGER_TOOL_ENTRY_GZIP_KB,
+      ANY_SINGLE_CHUNK_GZIP_KB,
+      TOTAL_ASTRO_GZIP_KB_PER_TOOL,
+    }),
 );

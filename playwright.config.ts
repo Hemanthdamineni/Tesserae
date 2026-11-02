@@ -1,37 +1,61 @@
 import { defineConfig, devices } from '@playwright/test';
-import { readdirSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { existsSync, readdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 /**
- * Whether the Playwright **WebKit** build is installed.
+ * Whether the Playwright **WebKit** build is installed *and* can run here.
  *
  * The chromium project points at the system browser (`CHROMIUM_PATH`), so only
- * the `mobile-safari` project needs a downloaded binary. Rather than letting
- * every run die with "Executable doesn't exist", that project is skipped with a
- * clear message when WebKit is absent.
+ * the `mobile-safari` project needs a downloaded binary. A download alone is not
+ * enough on Linux: Playwright's WebKit build links against the Ubuntu libraries
+ * it was built for (ICU 74, libjxl 0.8, flite voices), which a distribution such
+ * as Arch does not provide. Probing the binary with `ldd` turns that into a
+ * clear skip instead of a wall of launch errors. Use the Playwright container
+ * (`npm run test:e2e:webkit`) when the host cannot run the bundled build.
  */
-function webkitInstalled(): boolean {
+function webkitState(): 'ok' | 'missing' | 'unusable' {
   const roots = [
     process.env.PLAYWRIGHT_BROWSERS_PATH,
     join(homedir(), '.cache', 'ms-playwright'),
     // `PLAYWRIGHT_BROWSERS_PATH=0` installs browsers beside the package.
     join(process.cwd(), 'node_modules', 'playwright-core', '.local-browsers'),
   ].filter((root): root is string => Boolean(root) && root !== '0');
-  return roots.some((root) => {
+  for (const root of roots) {
+    let entries: string[];
     try {
-      return readdirSync(root).some((entry) => entry.startsWith('webkit-'));
+      entries = readdirSync(root);
     } catch {
-      return false;
+      continue;
     }
-  });
+    const dir = entries.find((entry) => entry.startsWith('webkit-'));
+    if (!dir) continue;
+    if (process.platform !== 'linux') return 'ok';
+    const exe = [
+      join(root, dir, 'minibrowser-gtk', 'MiniBrowser'),
+      join(root, dir, 'minibrowser-gtk', 'bin', 'MiniBrowser'),
+      join(root, dir, 'minibrowser-wpe', 'bin', 'MiniBrowser'),
+      join(root, dir, 'pw_run.sh'),
+    ].find((candidate) => existsSync(candidate));
+    if (!exe) return 'unusable';
+    const probe = spawnSync('ldd', [exe], { encoding: 'utf8' });
+    // If ldd is unavailable the check is inconclusive; let Playwright decide.
+    if (probe.error || probe.status !== 0) return 'ok';
+    return probe.stdout.includes('not found') ? 'unusable' : 'ok';
+  }
+  return 'missing';
 }
 
-const hasWebkit = webkitInstalled();
-if (!hasWebkit) {
+const webkit = webkitState();
+if (webkit !== 'ok') {
   console.warn(
-    '[playwright] Skipping the "mobile-safari" project: the WebKit browser binary is not installed.\n' +
-      '            Run `npx playwright install webkit` to enable Safari (iOS) coverage.',
+    webkit === 'missing'
+      ? '[playwright] Skipping the "mobile-safari" project: the WebKit browser binary is not installed.\n' +
+          '            Run `npx playwright install webkit` to enable Safari (iOS) coverage.'
+      : '[playwright] Skipping the "mobile-safari" project: the WebKit binary is installed but its\n' +
+          '            system libraries are missing. Run `npm run test:e2e:webkit` to use the\n' +
+          '            Playwright container, which bundles them.',
   );
 }
 
@@ -39,6 +63,8 @@ if (!hasWebkit) {
  * E2E + privacy assertions. Builds the static site and serves the `dist/`
  * output, then runs smoke + "no network egress" checks against real tools.
  */
+const hasWebkit = webkit === 'ok';
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
