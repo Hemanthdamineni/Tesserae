@@ -26,7 +26,9 @@ test('pdf-sign signs a PDF with a typed signature', async ({ page, baseURL }) =>
   await expect(page.locator('h1')).toContainText('Sign PDF');
 
   // 1. Choose the PDF.
-  await page.locator('input[type="file"][accept="application/pdf"]').setInputFiles(fixture('one-page.pdf'));
+  await page
+    .locator('input[type="file"][accept="application/pdf"]')
+    .setInputFiles(fixture('one-page.pdf'));
   await expect(page.locator('[data-file-list] li')).toHaveCount(1);
 
   // 2. Type a signature - the keyboard-reachable alternative to drawing.

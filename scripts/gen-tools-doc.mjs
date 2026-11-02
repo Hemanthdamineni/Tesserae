@@ -17,8 +17,7 @@ function walk(dir) {
   return out;
 }
 
-const value = (src, key) =>
-  new RegExp(`${key}:\\s*'((?:[^'\\\\]|\\\\.)*)'`).exec(src)?.[1];
+const value = (src, key) => new RegExp(`${key}:\\s*'((?:[^'\\\\]|\\\\.)*)'`).exec(src)?.[1];
 
 const tools = [];
 for (const path of walk(join(root, 'src', 'tools'))) {

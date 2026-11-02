@@ -52,15 +52,15 @@ export default tool;
 `TextRunResult.render` picks how the shared workbench displays `output` (all
 variants are XSS-safe — `output` is never parsed as HTML):
 
-| `render`           | `output` shape                                            |
-| ------------------ | --------------------------------------------------------- |
-| `'text'` (default) | plain string                                              |
-| `'code'`           | plain string; set `language` for a label                  |
-| `'image'`          | a `data:` URL                                             |
+| `render`           | `output` shape                                                       |
+| ------------------ | -------------------------------------------------------------------- |
+| `'text'` (default) | plain string                                                         |
+| `'code'`           | plain string; set `language` for a label                             |
+| `'image'`          | a `data:` URL                                                        |
 | `'audio'`          | a `data:` or `blob:` audio URL; set `filename` for the download link |
-| `'colors'`         | `JSON.stringify(string[])` of CSS colours                 |
-| `'table'`          | `JSON.stringify({ headers: string[], rows: string[][] })` |
-| `'diff'`           | a unified-diff string                                     |
+| `'colors'`         | `JSON.stringify(string[])` of CSS colours                            |
+| `'table'`          | `JSON.stringify({ headers: string[], rows: string[][] })`            |
+| `'diff'`           | a unified-diff string                                                |
 
 ### File tool (`input: 'file'`)
 

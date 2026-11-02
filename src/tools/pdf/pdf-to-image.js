@@ -1,6 +1,7 @@
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 
-GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.7.570/pdf.worker.min.js';
+GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.7.570/pdf.worker.min.js';
 
 const pdfToImage = async (file) => {
   const arrayBuffer = await file.arrayBuffer();

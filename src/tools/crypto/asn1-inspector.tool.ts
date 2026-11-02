@@ -29,13 +29,6 @@ interface Finding {
   detail: string;
 }
 
-interface Model {
-  data: Uint8Array;
-  root: Node | null;
-  findings: Finding[];
-  consumed: number;
-}
-
 function asciiBytes(b: Uint8Array, off: number, len: number): string {
   let s = '';
   for (let i = 0; i < len; i += 1) s += String.fromCharCode(b[off + i] ?? 0);

@@ -88,28 +88,28 @@ cross-origin request is made by a tool that declares `network: 'none'`.
 
 ## Tool categories
 
-| Category        | Description                                  | Count |
-| --------------- | -------------------------------------------- | ----- |
-| encoding        | Encoding & Decoding                          | 10    |
-| crypto          | Hashing & Crypto                             | 4     |
-| security        | Security & Privacy                           | 4     |
-| text            | Text & Strings                               | 17    |
-| data            | Data Formats                                 | 13    |
-| developer       | Developer Utilities                          | 14    |
-| web             | Web & CSS                                    | 16    |
-| color           | Colour                                       | 7     |
-| datetime        | Date & Time                                  | 7     |
-| numbers         | Numbers & Maths                              | 2     |
-| converters      | Converters                                   | 0     |
-| generators      | Generators                                   | 11    |
-| network         | Network                                      | 0     |
-| image           | Image                                        | 0     |
-| pdf             | PDF                                          | 0     |
-| archive         | Archives & Files                             | 0     |
-| audio           | Audio                                        | 0     |
-| misc            | Everyday Tools                               | 0     |
+| Category   | Description         | Count |
+| ---------- | ------------------- | ----- |
+| encoding   | Encoding & Decoding | 10    |
+| crypto     | Hashing & Crypto    | 4     |
+| security   | Security & Privacy  | 4     |
+| text       | Text & Strings      | 17    |
+| data       | Data Formats        | 13    |
+| developer  | Developer Utilities | 14    |
+| web        | Web & CSS           | 16    |
+| color      | Colour              | 7     |
+| datetime   | Date & Time         | 7     |
+| numbers    | Numbers & Maths     | 2     |
+| converters | Converters          | 0     |
+| generators | Generators          | 11    |
+| network    | Network             | 0     |
+| image      | Image               | 0     |
+| pdf        | PDF                 | 0     |
+| archive    | Archives & Files    | 0     |
+| audio      | Audio               | 0     |
+| misc       | Everyday Tools      | 0     |
 
-*Note: Categories with 0 tools are reserved for future expansion (E4+).*
+_Note: Categories with 0 tools are reserved for future expansion (E4+)._
 
 ## Known follow-ups
 
@@ -129,7 +129,7 @@ is independently tree-shaken, so the copies are not byte-identical).
 
 The obvious fix — a Vite `build.rollupOptions.output.manualChunks` entry for
 `src/tools/**` + heavy vendor libs — **cannot** dedupe here: Vite compiles the
-worker graph as a *separate Rollup build* with its own chunk graph and hashed
+worker graph as a _separate Rollup build_ with its own chunk graph and hashed
 output. Chunk ids are never shared across the two builds, and no
 `manualChunks`/`shared-chunk` configuration can make the main graph reference a
 worker-build chunk (or vice versa) without a fragile custom emit/rewrite plugin
@@ -137,8 +137,7 @@ that would couple us to Vite internals and break across Astro/Vite upgrades.
 
 Accepting the duplication keeps the build boring and each graph independently
 tree-shaken (a text tool that never runs in the worker still only costs one
-small copy). Revisit only if the *duplicated* bytes grow an order of magnitude
+small copy). Revisit only if the _duplicated_ bytes grow an order of magnitude
 (e.g. after Batch C's canvas/pdf tools): trigger is total `_astro/` > 5 MB raw,
 at which point the right move is per-tool "prefer worker" routing instead of
 chunk surgery.
-

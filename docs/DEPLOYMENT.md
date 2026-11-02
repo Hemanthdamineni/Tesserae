@@ -8,10 +8,10 @@ SITE_URL=https://your-domain.example BASE_PATH=/ npm run build   # writes dist/
 
 Two environment variables drive the build:
 
-| Variable    | Default                                                  | Meaning                                              |
-| ----------- | -------------------------------------------------------- | ---------------------------------------------------- |
-| `SITE_URL`  | `https://hemanthdamineni.github.io/browser-tools-platform` | Canonical origin. Sets Astro's `site`.               |
-| `BASE_PATH` | `/browser-tools-platform`                                 | Path the site is served from. Sets Astro's `base`.   |
+| Variable    | Default                                                    | Meaning                                            |
+| ----------- | ---------------------------------------------------------- | -------------------------------------------------- |
+| `SITE_URL`  | `https://hemanthdamineni.github.io/browser-tools-platform` | Canonical origin. Sets Astro's `site`.             |
+| `BASE_PATH` | `/browser-tools-platform`                                  | Path the site is served from. Sets Astro's `base`. |
 
 `SITE_URL` must be the final public origin — it is baked into canonical URLs,
 the sitemap, `robots.txt`, JSON-LD and the OpenSearch descriptor. `BASE_PATH` is
@@ -26,7 +26,7 @@ At the domain root, always set `BASE_PATH=/` — e.g.
 ## GitHub Pages
 
 `.github/workflows/deploy.yml` builds and publishes on every push to `master`
-(and on manual *Run workflow*). It sets `SITE_URL` and `BASE_PATH` from the
+(and on manual _Run workflow_). It sets `SITE_URL` and `BASE_PATH` from the
 repository, so renaming the repo needs no edit:
 
 ```yaml
@@ -103,7 +103,7 @@ Static output — redeploy the previous build.
   or run the workflow manually from the good commit with **Run workflow**.
   Rolling back the commit and pushing is equivalent and keeps history clean.
 - **Other hosts**: redeploy the previous `dist/` (Netlify and Vercel both keep
-  an immutable deploy history with one-click *Publish deploy*).
+  an immutable deploy history with one-click _Publish deploy_).
 
 The service worker is network-first for navigations and versioned (`VERSION` in
 `public/sw.js`); bump it when the shell changes so clients drop stale caches.

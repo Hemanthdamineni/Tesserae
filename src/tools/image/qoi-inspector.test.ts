@@ -3,17 +3,6 @@ import tool from './qoi-inspector.tool';
 
 const QOI_B64 = 'cW9pZgAAAAIAAAACAwD//wAA//4A/wD+AAD//v///wAAAAAAAAAB' + '';
 
-const ORACLE = {
-  size: 39,
-  magic: 'qoif',
-  width: 2,
-  height: 2,
-  channels: 3,
-  colorspace: 0,
-  pixelCount: 4,
-  dataBytes: 17,
-};
-
 function b64(s: string): Uint8Array {
   const bin = atob(s);
   const out = new Uint8Array(bin.length);

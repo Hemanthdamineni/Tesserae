@@ -25,7 +25,9 @@ test('video-to-gif turns a clip into an animated GIF', async ({ page, baseURL })
   await page.goto(`${baseURL}/tools/video-to-gif/`);
   await expect(page.locator('h1')).toContainText('Video to GIF');
 
-  await page.locator('[data-file-workbench] input[type="file"]').setInputFiles(fixture('clip.webm'));
+  await page
+    .locator('[data-file-workbench] input[type="file"]')
+    .setInputFiles(fixture('clip.webm'));
   await expect(page.locator('[data-file-list] li')).toHaveCount(1);
 
   // A short, low frame-rate GIF keeps the test quick.

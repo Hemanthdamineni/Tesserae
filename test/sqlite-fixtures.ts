@@ -13,11 +13,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
-import type {
-  SqlJsDatabase,
-  SqlJsInitOptions,
-  SqlJsModule,
-} from 'sql.js/dist/sql-wasm-browser.js';
+import type { SqlJsDatabase, SqlJsInitOptions, SqlJsModule } from 'sql.js/dist/sql-wasm-browser.js';
 
 const require = createRequire(import.meta.url);
 

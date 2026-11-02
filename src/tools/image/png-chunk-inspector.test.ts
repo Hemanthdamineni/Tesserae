@@ -223,7 +223,6 @@ describe('png-chunk-inspector', () => {
     const png = b64(f.b64);
     const ihdr = f.chunks.find((c) => c[2] === 'IHDR')!;
     // Keep the 8-byte signature but drop IHDR, so the first chunk is IDAT.
-    const stripped = new Uint8Array(png.subarray(8, 8) as never).slice(0, 0);
     const kept = png.subarray(8 + 12 + ihdr[1]);
     const full = new Uint8Array(8 + kept.length);
     full.set(png.subarray(0, 8), 0);

@@ -97,7 +97,9 @@ function buildPdf() {
   // The page's /Parent must point at the page tree (object 3), not at the
   // catalog. pdf-lib walks /Parent to read inherited attributes such as
   // /MediaBox, and a catalog there makes every page-geometry call throw.
-  add('<< /Type /Page /Parent 3 0 R /MediaBox [0 0 200 200] /Contents 5 0 R /Resources << /Font << /F1 4 0 R >> >> >>');
+  add(
+    '<< /Type /Page /Parent 3 0 R /MediaBox [0 0 200 200] /Contents 5 0 R /Resources << /Font << /F1 4 0 R >> >> >>',
+  );
   const catalog = add('<< /Type /Catalog /Pages 3 0 R >>');
   add('<< /Type /Pages /Kids [1 0 R] /Count 1 >>');
   const font = add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');

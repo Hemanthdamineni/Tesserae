@@ -1,6 +1,6 @@
 # Complete Tool List
 
-Total: **494** tools across **20** categories.
+Total: **505** tools across **20** categories.
 
 Generated from `src/tools/**/*.meta.ts` (source of truth).
 
@@ -23,11 +23,12 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `file-split` | Split File into Chunks | file | stable | Split a large file into numbered part chunks plus a JSON manifest. |
 | `warc-archive-inspector` | WARC Archive Inspector | file | stable | Inspect WARC web archives: records, block digests, target URIs, lengths and damage. |
 
-## audio (24)
+## audio (25)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `audio-gain` | Adjust Audio Volume | file | stable | Raise or lower an audio file by a set amount in dB. |
+| `aiff-inspector` | AIFF Inspector | file | stable | Parse an Audio Interchange File Format (AIFF/AIFC) file on-device: the FORM header, COMM, SSND and metadata chunks. |
 | `audio-channels` | Audio Channel Tools | file | stable | Convert mono and stereo, swap channels, isolate left/right, or encode mid-side. |
 | `audio-info` | Audio File Info | file | stable | Inspect an audio file: duration, sample rate, channels, bitrate, peak and clipping. |
 | `bpm-detector` | BPM Detector | file | stable | Find the tempo of a song from a file or the mic, with a tap-tempo fallback. |
@@ -159,12 +160,13 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `workday-calculator` | Workday Calculator | text | stable | Add business days to a date or count the working days between two dates, skipping weekends and holidays. |
 | `world-clock` | World Clock | text | stable | Current time, date and UTC offset for any IANA time zones, instantly and on your device. |
 
-## developer (63)
+## developer (66)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `dockerignore-generator` | .dockerignore Generator | text | stable | Build a .dockerignore for a lean Docker build context — pick a stack preset and add custom lines. |
 | `ansi-sequences` | ANSI Escape Sequence Inspector | text | stable | Strip, visualize, or inspect ANSI terminal escape sequences in text and logs. |
+| `avro-inspector` | Avro Inspector | file | stable | Read an Apache Avro object-container file on-device: magic, schema, codec, sync markers and data blocks. |
 | `axml-inspector` | AXML Inspector | file | stable | Parse an Android binary XML (.axml) on-device: its chunk tree, string pool, elements, and attribute counts. |
 | `backslash-escape` | Backslash Escape / Unescape | text | stable | Turn control characters into readable \\n \\t \\xNN \\uNNNN sequences, or interpret those sequences back into characters. |
 | `chmod-calculator` | chmod Permission Calculator | text | stable | Convert Unix file permissions between octal (755) and symbolic (rwxr-xr-x), with a per-class breakdown. |
@@ -213,6 +215,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `objectid` | MongoDB ObjectId | text | stable | Decode a 24-character MongoDB ObjectId into its timestamp, random and counter bytes. |
 | `uuid-namespace` | Namespaced UUID (v3 / v5) | text | stable | Generate a deterministic name-based UUID (v5 SHA-1 or v3 MD5) from a namespace and name. |
 | `number-base` | Number Base Converter | text | stable | Convert an integer between any bases from 2 to 36 with arbitrary precision (BigInt). |
+| `pe-inspector` | PE Inspector | file | stable | Parse a Windows PE/COFF binary on-device: machine, subsystems, sections, imports and hardening flags. |
 | `regex-explainer` | Regex Explainer | text | stable | Break a regular expression into tokens with a plain-English explanation of each piece. |
 | `regex-tester` | Regex Tester | text | stable | Test a JavaScript regular expression against text — highlight, list matches, replace or split. |
 | `semver` | Semantic Version Tool | text | stable | Validate, compare, and sort Semantic Versioning 2.0.0 values. |
@@ -222,6 +225,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `string-escape` | String Escaper | text | stable | Escape or unescape text for JS, JSON, C, Java, Python, shell, SQL, CSV, HTML, XML, URL, backslash or Unicode. |
 | `svg-to-jsx` | SVG to JSX / React Component | text | stable | Convert SVG or XML markup into JSX — camelCased attributes, style objects, optional component. |
 | `systemd-unit-inspector` | systemd Unit Inspector | text | stable | Inspect and validate systemd unit files: directives, dependencies, ExecStart and hardening. |
+| `tar-inspector` | TAR Inspector | file | stable | Read a POSIX tar archive on-device: list every entry, its type, size, mode, owner and checksum validity. |
 | `diff-text` | Text Diff | text | stable | Compare two blocks of text and see the differences as a unified diff or an inline word/character diff. |
 | `text-inspector` | Text Encoding & Character Inspector | text | stable | Inspect BOMs, line endings, control characters, and Unicode code points in text. |
 | `ua-parser` | User-Agent Parser | text | stable | Decode any User-Agent string into browser, version, engine, OS, OS version and device class — on your device. |
@@ -237,7 +241,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `speaker-test` | Speaker Test | text | stable | Play a test tone or a log-spaced frequency sweep out of the left, right or both channels. |
 | `webcam-test` | Webcam Test | file | beta | Preview a camera, read its live resolution and frame rate, and save a PNG snapshot. |
 
-## encoding (14)
+## encoding (17)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -245,12 +249,15 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `base32` | Base32 Encode / Decode | text | stable | RFC 4648 Base32 and Crockford Base32 encoding and decoding of text. |
 | `base58` | Base58 Encode / Decode | text | stable | Convert text to and from Base58 using the Bitcoin and IPFS alphabet. |
 | `base64` | Base64 Encode / Decode | file | stable | Convert text or a file to and from Base64, with URL-safe and MIME line-wrap options. |
+| `bson-decoder` | BSON Decoder | file | stable | Decode a BSON (MongoDB) binary document on-device into readable JSON with a per-type breakdown. |
 | `cbor-decoder` | CBOR Decoder | file | stable | Decode CBOR into readable JSON, with a structure outline and tag interpretation. |
 | `hex` | Hex Encode / Decode | text | stable | Convert text to and from hexadecimal (UTF-8), with configurable separators. |
 | `html-entity` | HTML Entity Converter | text | stable | Encode text to HTML entities (safe for &<>) and decode &amp;, &eacute;, &#123; back to text. |
 | `html-entities` | HTML Entity Encode / Decode | text | stable | Escape text for safe insertion into HTML, or decode named and numeric entities. |
 | `jwt-decode` | JWT Decoder | text | stable | Decode a JSON Web Token and pretty-print its header and payload. Does not verify the signature. |
 | `jwt-sign` | JWT Signer | text | stable | Create and sign JSON Web Tokens with HMAC, or verify an existing token’s signature. |
+| `msgpack-decoder` | MessagePack Decoder | file | stable | Decode a MessagePack binary message on-device into readable JSON with a type breakdown of every value. |
+| `protobuf-decoder` | Protobuf Decoder | file | stable | Decode a Protocol Buffers binary message on-device into readable JSON with a per-field type breakdown. |
 | `quoted-printable` | Quoted-Printable Encode / Decode | text | stable | Encode or decode MIME quoted-printable (=XX escapes, soft line breaks). |
 | `text-to-binary` | Text to Binary | text | stable | Encode text as 8-bit binary (UTF-8 aware) or decode a string of 0s and 1s back to text. |
 | `unicode-escape` | Unicode Escape / Unescape | text | stable | Convert text to and from \\uXXXX, \\xXX, \\u{...}, HTML and CSS escape forms. |
@@ -279,7 +286,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `uuid` | UUID Generator | text | stable | Generate RFC 4122 UUIDs (v4 random or v7 time-ordered) in bulk. |
 | `vcard` | vCard Generator | text | stable | Build vCard 3.0 contact files, or parse a pasted vCard back into fields. |
 
-## image (38)
+## image (39)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -321,6 +328,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `image-upscale` | Upscale Image | file | stable | Enlarge photos 2× or 4× with sharp Lanczos resampling and edge-preserving sharpening, on-device. |
 | `image-watermark` | Watermark Image | file | beta | Stamp text or a logo onto one or many images — opacity, position or tiled. |
 | `webp-inspector` | WebP Image Inspector | file | stable | Inspect a WebP image: RIFF chunk tree, VP8X features, animation frames, alpha, and dimensions. |
+| `xcf-inspector` | XCF Inspector | file | stable | Read a GIMP XCF image file on-device: the header, dimensions, base type, and top-level property list. |
 
 ## misc (13)
 
@@ -420,7 +428,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `text-encrypt` | Text Encryption (AES-GCM) | text | stable | Encrypt or decrypt text with a passphrase using AES-256-GCM and PBKDF2, entirely on your device. |
 | `totp-authenticator` | TOTP Authenticator Code Generator | text | stable | Generate and verify RFC 6238 TOTP codes from a base32 secret. |
 
-## text (33)
+## text (34)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -454,17 +462,19 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `unicode-lookup` | Unicode Code Point Explorer | text | stable | Inspect every character code point, plane, and UTF-8/UTF-16 encodings in a table. |
 | `unicode-normalize` | Unicode Normalizer | text | stable | Normalize Unicode text, optionally remove accents and standardize line endings. |
 | `unicode-styles` | Unicode Style Converter | text | stable | Convert text between plain ASCII and full-width, circled, squared or bold math sans-serif Unicode styles. |
+| `vtt-inspector` | WebVTT Inspector | text | stable | Validate and analyze a WebVTT subtitle file: header, cues, timings, overlap and malformed lines. |
 | `whitespace-visualizer` | Whitespace Visualizer | text | stable | Reveal spaces, tabs, line endings, non-breaking spaces and zero-width formatting characters. |
 | `word-frequency` | Word Frequency Counter | text | stable | Count how often each word appears, with case folding, a minimum length, stop-word removal and a top-N limit. |
 | `wrap-text` | Wrap / Unwrap Text | text | stable | Hard-wrap text to a fixed column width with greedy word wrap, or unwrap wrapped lines back into paragraphs. |
 
-## video (11)
+## video (13)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `avi-inspector` | AVI Inspector | file | stable | Parse an AVI video file on-device: the RIFF chunk tree, dimensions, frame rate, streams and codec, and the index blocks. |
 | `video-extract-audio` | Extract Audio from Video | file | beta | Pull the sound track out of a video as WAV, MP3 or AAC — entirely on your device. |
 | `mp4-box-inspector` | MP4 Box Inspector | file | stable | Walk an MP4/MOV ISO-BMFF atom tree: every box offset, size, type, container nesting, header form and CRC. |
+| `mpegts-inspector` | MPEG-TS Inspector | file | stable | Parse an MPEG transport stream (.ts, .m2ts) on-device: 188-byte packets, PIDs, PAT and PMT tables, continuity. |
 | `screen-recorder` | Screen Recorder | file | beta | Record your screen with an optional microphone and save it as WebM — or MP4 where the browser can record it. |
 | `video-trim` | Trim Video | file | beta | Cut a video to a start and end time — stream copy when the container allows it, re-encode when it does not. |
 | `video-compress` | Video Compressor | file | beta | Shrink a video in your browser: aim at a target file size or at a quality level. Nothing is uploaded. |
@@ -473,6 +483,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `video-frames` | Video Frames | file | beta | Pull still frames out of a video every N seconds, or as N evenly spaced shots — each as a PNG, or as one contact sheet. |
 | `video-to-gif` | Video to GIF | file | beta | Turn a clip into an animated GIF: trim it, pick the frame rate, width and palette quality. |
 | `webcam-recorder` | Webcam Recorder | file | beta | Record your webcam in the browser and download the clip — the video never leaves your device. |
+| `webm-inspector` | WebM Inspector | file | stable | Parse a Matroska or WebM file on-device: the EBML element tree, DocType, and the top-level segment structure. |
 
 ## web (119)
 

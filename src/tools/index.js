@@ -3,7 +3,7 @@ import summarizeText from './text-summary/index.js';
 
 const tools = {
   pdfToImage,
-  summarizeText
+  summarizeText,
 };
 
 export default tools;

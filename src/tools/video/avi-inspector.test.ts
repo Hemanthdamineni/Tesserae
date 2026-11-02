@@ -9,19 +9,6 @@ const AVI_B64 =
   'EAAAAAAAAAAAAAAAAAAAAAAAAABpZHgxEAAAADAwZGMQAAAABAAAAAAAAAA=' +
   '';
 
-const ORACLE = {
-  size: 272,
-  form: 'AVI ',
-  width: 160,
-  height: 120,
-  fps: 25,
-  totalFrames: 1,
-  streamCount: 1,
-  streamType: 'Video',
-  codec: 'MJPG',
-  bitDepth: 24,
-};
-
 function b64(s: string): Uint8Array {
   const bin = atob(s);
   const out = new Uint8Array(bin.length);

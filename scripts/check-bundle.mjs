@@ -43,7 +43,9 @@ const fmtKb = (bytes) => kb(bytes).toFixed(1);
 
 if (!existsSync(dist)) {
   console.warn('[check-bundle] dist/ not found — nothing to check.');
-  console.warn('[check-bundle] Run `npm run build` first. Exiting 0 (never break an unbuilt tree).');
+  console.warn(
+    '[check-bundle] Run `npm run build` first. Exiting 0 (never break an unbuilt tree).',
+  );
   process.exit(0);
 }
 // --- Emitted JS chunks ------------------------------------------------------
@@ -137,7 +139,9 @@ for (const file of sampled) {
 
 // --- Report -----------------------------------------------------------------
 console.log('[check-bundle] Emitted JS (sorted by gzip size):');
-console.log('  #  ref(relative)                             raw(KB)  gzip(KB)  pdf   eagerly-loaded-by');
+console.log(
+  '  #  ref(relative)                             raw(KB)  gzip(KB)  pdf   eagerly-loaded-by',
+);
 for (const [i, c] of chunks.slice(0, TABLE_LIMIT).entries()) {
   const where = c.eagerOn.size
     ? c.eagerOn.size > 3
@@ -219,7 +223,9 @@ if (eagers.length) {
 //    one-off chunk, not what a page pays on entry).
 for (const c of chunks) {
   if (kb(c.gzip) > ANY_SINGLE_CHUNK_GZIP_KB) {
-    warnings.push(`Chunk ${c.ref} is ${fmtKb(c.gzip)} KB gzip (cap ${ANY_SINGLE_CHUNK_GZIP_KB} KB).`);
+    warnings.push(
+      `Chunk ${c.ref} is ${fmtKb(c.gzip)} KB gzip (cap ${ANY_SINGLE_CHUNK_GZIP_KB} KB).`,
+    );
   }
 }
 
@@ -245,9 +251,7 @@ if (pdfEagerNonPdf.length) {
   const more = pdfEagerNonPdf.length - shown.length;
   failures.push(
     `PDF engine (contains "${PDF_TOKEN}") is eagerly loaded by non-PDF tool page(s): ` +
-      shown
-        .map((p) => `${p.id} (${p.refs.map((r) => r.split('/').pop()).join(', ')})`)
-        .join('; ') +
+      shown.map((p) => `${p.id} (${p.refs.map((r) => r.split('/').pop()).join(', ')})`).join('; ') +
       (more > 0 ? `; … and ${more} more` : ''),
   );
 }
@@ -263,7 +267,11 @@ if (failures.length) {
   for (const f of failures) console.log(`  ✗ ${f}`);
   console.log(
     '[check-bundle] Budget: ' +
-      JSON.stringify({ EAGER_TOOL_ENTRY_GZIP_KB, ANY_SINGLE_CHUNK_GZIP_KB, TOTAL_ASTRO_GZIP_KB }, null, 2),
+      JSON.stringify(
+        { EAGER_TOOL_ENTRY_GZIP_KB, ANY_SINGLE_CHUNK_GZIP_KB, TOTAL_ASTRO_GZIP_KB },
+        null,
+        2,
+      ),
   );
   process.exit(1);
 }

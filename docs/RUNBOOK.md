@@ -20,10 +20,10 @@ A red run blocks a release. Nothing else in this document overrides that.
 
 Deploys are automated: push to `master` and `.github/workflows/deploy.yml` builds and publishes to GitHub Pages.
 
-| Variable | Value for GitHub Pages | Meaning |
-| --- | --- | --- |
-| `SITE_URL` | `https://<owner>.github.io/<repo>` | Canonical origin, including the base path |
-| `BASE_PATH` | `/<repo>` | The path the site is served from (`/` with a custom domain) |
+| Variable    | Value for GitHub Pages             | Meaning                                                     |
+| ----------- | ---------------------------------- | ----------------------------------------------------------- |
+| `SITE_URL`  | `https://<owner>.github.io/<repo>` | Canonical origin, including the base path                   |
+| `BASE_PATH` | `/<repo>`                          | The path the site is served from (`/` with a custom domain) |
 
 Before the first deploy: **Settings → Pages → Source: GitHub Actions**.
 

@@ -7,21 +7,6 @@ const DEX_B64 =
   'AACJAAAAjAAAAAAAAAAHTEhlbGxvOwABVgABSQA=' +
   '';
 
-const ORACLE = {
-  size: 143,
-  version: '035',
-  checksum: '0xd3b31159',
-  stringIds: 3,
-  typeIds: 1,
-  protoIds: 0,
-  fieldIds: 0,
-  methodIds: 0,
-  classDefs: 0,
-  endian: 'little',
-  strings: ['LHello;', 'V', 'I'],
-  types: ['LHello;'],
-};
-
 function b64(s: string): Uint8Array {
   const bin = atob(s);
   const out = new Uint8Array(bin.length);

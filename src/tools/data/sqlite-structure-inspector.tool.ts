@@ -123,10 +123,6 @@ function buildModel(data: Uint8Array): Model {
 
   // Inventory pages. Page 1 is preceded by the 100-byte file header.
   const pages: Page[] = [];
-  let leafTable = 0;
-  let interiorTable = 0;
-  let leafIndex = 0;
-  let interiorIndex = 0;
   let unused = 0;
   let invalid = 0;
   const n = dbSizePages;
@@ -139,11 +135,7 @@ function buildModel(data: Uint8Array): Model {
     }
     const t = data[off] ?? 0;
     const cls = classNameOf(t);
-    if (cls === 'leaf-table') leafTable += 1;
-    else if (cls === 'interior-table') interiorTable += 1;
-    else if (cls === 'leaf-index') leafIndex += 1;
-    else if (cls === 'interior-index') interiorIndex += 1;
-    else if (cls === 'unused') unused += 1;
+    if (cls === 'unused') unused += 1;
     else invalid += 1;
     pages.push({ num: pg, type: t, className: cls });
   }

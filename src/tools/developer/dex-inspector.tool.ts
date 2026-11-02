@@ -49,13 +49,9 @@ async function sha1Hex(b: Uint8Array, from: number): Promise<string> {
 function decodeMutf8(b: Uint8Array, o: number): { text: string; end: number } {
   // uleb128 utf16_size
   let p = o;
-  let shift = 0;
-  let size = 0;
   for (let k = 0; k < 5 && p < b.length; k += 1) {
     const byte = b[p] ?? 0;
-    size |= (byte & 0x7f) << shift;
     p += 1;
-    shift += 7;
     if ((byte & 0x80) === 0) break;
   }
   let out = '';

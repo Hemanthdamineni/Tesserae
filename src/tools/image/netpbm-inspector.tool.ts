@@ -178,7 +178,6 @@ function buildModel(data: Uint8Array): Model {
 function dataOffsetEnd(data: Uint8Array): number {
   // Re-walk to the third header token then skip its trailing whitespace.
   const magic = String.fromCharCode(data[0] ?? 0) + String.fromCharCode(data[1] ?? 0);
-  const tokens = headerTokens(data, 2);
   const want = (MAGIC_INFO[magic as Magic] ?? {}).hasMaxval ? 3 : 2;
   let i = 2;
   let seen = 0;

@@ -6,23 +6,6 @@ const PSD_B64 =
   'CwwNCwwNDgwNDg8NDg8QFBUWFxUWFxgWFxgZFxgZGg==' +
   '';
 
-const ORACLE = {
-  size: 88,
-  signature: '8BPS',
-  version: 1,
-  channels: 3,
-  height: 4,
-  width: 4,
-  depth: 8,
-  colorMode: 3,
-  colorModeName: 'RGB',
-  compression: 0,
-  compressionName: 'Raw',
-  colorModeLen: 0,
-  imgResourcesLen: 0,
-  layerMaskLen: 0,
-};
-
 function b64(s: string): Uint8Array {
   const bin = atob(s);
   const out = new Uint8Array(bin.length);

@@ -74,8 +74,7 @@ export default defineConfig({
     // preview` applies SPA fallback (returns the homepage for a missing tool
     // page), so the e2e server is the tiny static server in
     // scripts/serve-static.mjs: exact directory-per-page serving, no fallback.
-    command:
-      'BASE_PATH=/ npm run build && node scripts/serve-static.mjs',
+    command: 'BASE_PATH=/ npm run build && node scripts/serve-static.mjs',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     // A cold build of this catalogue takes minutes.

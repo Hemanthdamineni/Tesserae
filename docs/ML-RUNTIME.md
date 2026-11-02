@@ -33,62 +33,68 @@ time. The runtime chunk is fetched the first time a model is actually loaded.
 
 ## Module map
 
-| File           | Responsibility                                                        |
-| -------------- | --------------------------------------------------------------------- |
-| `types.ts`     | `LoadProgress`, `FileProgress`, abort helpers. No browser APIs.       |
-| `urls.ts`      | Hub URL ↔ cache-key derivation, host allow-list. Pure.                |
-| `licenses.ts`  | Model-licence allow-list and `assertAllowedModel`. Pure.              |
-| `backend.ts`   | WebGPU detection + `resolveBackend` / dtype defaults.                 |
-| `progress.ts`  | `ProgressTracker` (byte bookkeeping) + `throttleProgress`. Pure.      |
-| `cache.ts`     | `ModelCache`: Cache Storage with integrity checks + eviction.         |
-| `fetch.ts`     | `createModelFetch`: the single network chokepoint.                    |
-| `body.ts`      | `readBodyWithProgress`: stream → blob with progress + abort.          |
-| `loader.ts`    | `loadModel`, `estimateDownloadSize`, the runtime import seam.         |
+| File          | Responsibility                                                   |
+| ------------- | ---------------------------------------------------------------- |
+| `types.ts`    | `LoadProgress`, `FileProgress`, abort helpers. No browser APIs.  |
+| `urls.ts`     | Hub URL ↔ cache-key derivation, host allow-list. Pure.           |
+| `licenses.ts` | Model-licence allow-list and `assertAllowedModel`. Pure.         |
+| `backend.ts`  | WebGPU detection + `resolveBackend` / dtype defaults.            |
+| `progress.ts` | `ProgressTracker` (byte bookkeeping) + `throttleProgress`. Pure. |
+| `cache.ts`    | `ModelCache`: Cache Storage with integrity checks + eviction.    |
+| `fetch.ts`    | `createModelFetch`: the single network chokepoint.               |
+| `body.ts`     | `readBodyWithProgress`: stream → blob with progress + abort.     |
+| `loader.ts`   | `loadModel`, `estimateDownloadSize`, the runtime import seam.    |
 
 ## Public API
 
 ```ts
 // loader.ts
 function loadModel<P = unknown>(options: LoadModelOptions): Promise<LoadedModel<P>>;
-function estimateDownloadSize(urls: readonly string[], options?: EstimateOptions): Promise<DownloadEstimate>;
+function estimateDownloadSize(
+  urls: readonly string[],
+  options?: EstimateOptions,
+): Promise<DownloadEstimate>;
 function setMlRuntimeLoader(loader: MlRuntimeLoader | null): void; // tests only
 
 interface LoadModelOptions {
-  task: string;                       // transformers.js task, e.g. 'automatic-speech-recognition'
-  model: string;                      // HF repo id; must be allow-listed
-  revision?: string;                  // default 'main'
+  task: string; // transformers.js task, e.g. 'automatic-speech-recognition'
+  model: string; // HF repo id; must be allow-listed
+  revision?: string; // default 'main'
   backend?: 'auto' | 'webgpu' | 'wasm'; // default 'auto'
   dtype?: string | Record<string, string>; // default fp16 (WebGPU) / q8 (WASM)
-  signal?: AbortSignal;               // cancels the download and the load
+  signal?: AbortSignal; // cancels the download and the load
   onProgress?: (p: LoadProgress) => void;
-  refresh?: boolean;                  // ignore cache, re-download
-  offline?: boolean;                  // cache-only; fail if not cached
+  refresh?: boolean; // ignore cache, re-download
+  offline?: boolean; // cache-only; fail if not cached
   extraModels?: readonly ModelLicenseEntry[]; // call-specific allow-list entries
-  cache?: ModelCache | null;          // default: shared Cache Storage bucket
-  remoteHost?: string;                // default HF Hub
-  allowHosts?: readonly string[];     // default ['huggingface.co', 'hf.co']
-  progressThrottleMs?: number;        // default 100; 0 = every update
+  cache?: ModelCache | null; // default: shared Cache Storage bucket
+  remoteHost?: string; // default HF Hub
+  allowHosts?: readonly string[]; // default ['huggingface.co', 'hf.co']
+  progressThrottleMs?: number; // default 100; 0 = every update
   pipelineOptions?: Record<string, unknown>;
 }
 
 interface LoadedModel<P> {
-  task: string; model: string; revision: string;
-  backend: 'webgpu' | 'wasm';         // actually used
+  task: string;
+  model: string;
+  revision: string;
+  backend: 'webgpu' | 'wasm'; // actually used
   requestedBackend: 'auto' | 'webgpu' | 'wasm';
-  fellBack: boolean;                  // true if a WebGPU session was retried on WASM
+  fellBack: boolean; // true if a WebGPU session was retried on WASM
   dtype: string | Record<string, string>;
   pipeline: P;
-  fromCache: boolean;                 // every file came from Cache Storage
+  fromCache: boolean; // every file came from Cache Storage
   dispose(): Promise<void>;
 }
 
 interface LoadProgress {
   phase: 'resolving' | 'downloading' | 'initializing' | 'ready' | 'error';
-  fraction: number | null;            // aggregate, null while the total is unknown
-  loaded: number; total: number;      // bytes
-  files: FileProgress[];              // per-file detail (loaded/total/cached)
-  message: string;                    // ready to render
-  warnings: string[];                 // e.g. cache quota exceeded
+  fraction: number | null; // aggregate, null while the total is unknown
+  loaded: number;
+  total: number; // bytes
+  files: FileProgress[]; // per-file detail (loaded/total/cached)
+  message: string; // ready to render
+  warnings: string[]; // e.g. cache quota exceeded
 }
 ```
 
@@ -100,15 +106,15 @@ known ahead of time.
 
 `resolveBackend(preference, webgpuAvailable)` is pure and fully unit-tested:
 
-| preference | WebGPU available | result                   |
-| ---------- | ---------------- | ------------------------ |
-| `auto`     | yes / no         | `webgpu` / `wasm`        |
+| preference | WebGPU available | result                         |
+| ---------- | ---------------- | ------------------------------ |
+| `auto`     | yes / no         | `webgpu` / `wasm`              |
 | `webgpu`   | yes / no         | `webgpu` / `wasm` + `fellBack` |
-| `wasm`     | either           | `wasm`                   |
+| `wasm`     | either           | `wasm`                         |
 
 Availability probes `navigator.gpu` and actually requests an adapter — a present
 API with no adapter (or a blocked/insecure context) counts as unavailable. If a
-WebGPU session fails *at runtime* (lost device, unsupported operator), the loader
+WebGPU session fails _at runtime_ (lost device, unsupported operator), the loader
 retries once on WASM and sets `fellBack: true`.
 
 Default dtype follows the recommendation from the transformers.js docs: `fp16` on
@@ -157,18 +163,18 @@ verification date. Non-commercial weights (e.g. `briaai/RMBG-1.4`, licensed
 
 ## Edge cases
 
-| Case | Behaviour |
-| ---- | --------- |
-| WebGPU absent / no adapter | WASM used; `fellBack` only if `webgpu` was requested |
-| WebGPU session fails at runtime | one automatic retry on WASM, `fellBack: true` |
-| Offline, model cached | loads from cache, `fromCache: true`, no network |
-| Offline, model not cached | `ToolError` ("has not been downloaded yet") |
-| Cache entry corrupt | evicted + treated as a miss, then re-downloaded |
-| Storage quota exceeded | load succeeds uncached; `warnings` carries the message |
-| Aborted mid-download | `AbortError`; the network request is cancelled |
-| Unknown / non-commercial model | `ToolError` before the runtime is imported |
-| Non-200 file response | returned untouched (transformers.js treats 404s as absent) |
-| Non-allow-listed host | `ToolError` before any request is made |
+| Case                            | Behaviour                                                  |
+| ------------------------------- | ---------------------------------------------------------- |
+| WebGPU absent / no adapter      | WASM used; `fellBack` only if `webgpu` was requested       |
+| WebGPU session fails at runtime | one automatic retry on WASM, `fellBack: true`              |
+| Offline, model cached           | loads from cache, `fromCache: true`, no network            |
+| Offline, model not cached       | `ToolError` ("has not been downloaded yet")                |
+| Cache entry corrupt             | evicted + treated as a miss, then re-downloaded            |
+| Storage quota exceeded          | load succeeds uncached; `warnings` carries the message     |
+| Aborted mid-download            | `AbortError`; the network request is cancelled             |
+| Unknown / non-commercial model  | `ToolError` before the runtime is imported                 |
+| Non-200 file response           | returned untouched (transformers.js treats 404s as absent) |
+| Non-allow-listed host           | `ToolError` before any request is made                     |
 
 ## Tests
 

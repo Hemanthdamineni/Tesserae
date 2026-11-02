@@ -7,16 +7,16 @@ Everything in the "Already in the repository" section ships with the code — no
 
 ## Already in the repository
 
-| Artifact | Route | What it does |
-| --- | --- | --- |
-| Sitemap | `/sitemap.xml` | Every visible tool, category, guide, and the static pages. Emits `<lastmod>` only when a tool carries a real `updated` date. Hidden aliases are excluded. |
-| Crawler policy | `/robots.txt` | Allows everything, names the AI crawlers explicitly (`GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `ClaudeBot`, `Claude-User`, `PerplexityBot`, `Perplexity-User`, `Google-Extended`, `CCBot`, `Bytespider`), and points at the sitemap. |
-| LLM catalogue | `/llms.txt` | [llmstxt.org](https://llmstxt.org)-shaped index: site summary, categories, and one line per tool with its absolute URL. |
-| LLM full text | `/llms-full.txt` | Same catalogue plus each tool's description, options, examples, and FAQ answers, so an assistant can answer questions without crawling 400 pages. |
-| Machine catalogue | `/tools-index.json` | Per-tool JSON: id, name, category, input/render kinds, options, examples, FAQ, privacy, absolute URL. |
-| Structured data | every page | `WebSite` + `SearchAction` and `Organization` on the home page, `ItemList` on the tools and category listings, `SoftwareApplication` + `FAQPage` + `BreadcrumbList` per tool page, `HowTo` where a tool carries article steps. |
-| Social cards | `/og/<id>.png` | One 1200×630 card per tool, generated at build time by `npm run bundle:check`'s sibling script `scripts/gen-og.mjs`. |
-| Canonical URLs | every page | Self-canonical absolute URLs built from `SITE_URL`; alias pages are `noindex,nofollow` and canonicalise to their replacement. |
+| Artifact          | Route               | What it does                                                                                                                                                                                                                          |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sitemap           | `/sitemap.xml`      | Every visible tool, category, guide, and the static pages. Emits `<lastmod>` only when a tool carries a real `updated` date. Hidden aliases are excluded.                                                                             |
+| Crawler policy    | `/robots.txt`       | Allows everything, names the AI crawlers explicitly (`GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `ClaudeBot`, `Claude-User`, `PerplexityBot`, `Perplexity-User`, `Google-Extended`, `CCBot`, `Bytespider`), and points at the sitemap. |
+| LLM catalogue     | `/llms.txt`         | [llmstxt.org](https://llmstxt.org)-shaped index: site summary, categories, and one line per tool with its absolute URL.                                                                                                               |
+| LLM full text     | `/llms-full.txt`    | Same catalogue plus each tool's description, options, examples, and FAQ answers, so an assistant can answer questions without crawling 400 pages.                                                                                     |
+| Machine catalogue | `/tools-index.json` | Per-tool JSON: id, name, category, input/render kinds, options, examples, FAQ, privacy, absolute URL.                                                                                                                                 |
+| Structured data   | every page          | `WebSite` + `SearchAction` and `Organization` on the home page, `ItemList` on the tools and category listings, `SoftwareApplication` + `FAQPage` + `BreadcrumbList` per tool page, `HowTo` where a tool carries article steps.        |
+| Social cards      | `/og/<id>.png`      | One 1200×630 card per tool, generated at build time by `npm run bundle:check`'s sibling script `scripts/gen-og.mjs`.                                                                                                                  |
+| Canonical URLs    | every page          | Self-canonical absolute URLs built from `SITE_URL`; alias pages are `noindex,nofollow` and canonicalise to their replacement.                                                                                                         |
 
 Each tool page also carries unique editorial content (`article`, ≥3 examples, ≥3 FAQ) — this is what stops the
 catalogue reading as thin, duplicate utility pages. Two tests enforce it:
@@ -27,10 +27,10 @@ catalogue reading as thin, duplicate utility pages. Two tests enforce it:
 The workflow `.github/workflows/deploy.yml` builds and publishes on every push to `master`, and on manual
 dispatch. Two variables define the canonical origin:
 
-| Variable | Meaning | Value for GitHub Pages |
-| --- | --- | --- |
-| `SITE_URL` | Absolute canonical origin, **including** the base path | `https://<owner>.github.io/<repo>` |
-| `BASE_PATH` | The path the site is served from | `/<repo>` (or `/` for a custom domain) |
+| Variable    | Meaning                                                | Value for GitHub Pages                 |
+| ----------- | ------------------------------------------------------ | -------------------------------------- |
+| `SITE_URL`  | Absolute canonical origin, **including** the base path | `https://<owner>.github.io/<repo>`     |
+| `BASE_PATH` | The path the site is served from                       | `/<repo>` (or `/` for a custom domain) |
 
 One-time setup, by the repository owner:
 
@@ -105,7 +105,7 @@ Then the browser checks that cannot be curled:
 
 ## Rollback
 
-Re-run the previous successful workflow run (Actions → the run → *Re-run all jobs*). The build is fully static,
+Re-run the previous successful workflow run (Actions → the run → _Re-run all jobs_). The build is fully static,
 so a rollback is just publishing the older artifact. If a bad service worker is cached in visitors' browsers,
 bump the cache `VERSION` in `public/sw.js` and redeploy — the update flow prompts the visitor to reload.
 
