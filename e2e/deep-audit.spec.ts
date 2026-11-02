@@ -75,6 +75,33 @@ const NAV_BUDGET_MS = 15_000;
 
 const fixturePath = (name: string) => fileURLToPath(new URL(`./fixtures/${name}`, import.meta.url));
 
+/** Per-tool fixtures for strict format inspectors, whose accept list is a wildcard. */
+const FIXTURE_BY_TOOL: Record<string, string> = {
+  'aiff-inspector': 'sample.aiff',
+  'avi-inspector': 'tiny.avi',
+  'bmp-inspector': 'sample.bmp',
+  'css-transform-inspector': 'sample.css',
+  'dds-inspector': 'sample.dds',
+  'flac-inspector': 'sample.flac',
+  'gif-inspector': 'sample.gif',
+  'icns-inspector': 'sample.icns',
+  'ico-inspector': 'sample.ico',
+  'jpeg-inspector': 'sample.jpg',
+  'midi-inspector': 'sample.mid',
+  'mp4-box-inspector': 'sample.mp4',
+  'mpegts-inspector': 'sample.ts',
+  'netpbm-inspector': 'tiny.pgm',
+  'ogg-inspector': 'sample.ogg',
+  'pcapng-inspector': 'tiny.pcapng',
+  'psd-inspector': 'tiny.psd',
+  'qoi-inspector': 'sample.qoi',
+  'tar-inspector': 'sample.tar',
+  'tga-inspector': 'sample.tga',
+  'tiff-inspector': 'sample.tiff',
+  'webp-inspector': 'sample.webp',
+  'xcf-inspector': 'sample.xcf',
+};
+
 /** Pick a fixture whose extension/MIME the `accept` attribute covers, or null. */
 function fixtureForAccept(accept: string | null): string | null {
   const a = (accept ?? '').toLowerCase();
@@ -208,13 +235,13 @@ async function auditExamples(page: Page): Promise<AuditOutcome> {
   return { out: 'pass', detail: `${n} example(s)` };
 }
 
-async function auditFile(page: Page): Promise<AuditOutcome> {
+async function auditFile(page: Page, tool: ToolEntry): Promise<AuditOutcome> {
   const drop = page.locator('[data-drop]').first();
   if ((await drop.count()) === 0) return { out: 'skip', detail: 'no file drop zone' };
   const fileInput = drop.locator('input[type="file"]').first();
   if ((await fileInput.count()) === 0) return { out: 'skip', detail: 'no file input' };
   const accept = (await fileInput.getAttribute('accept').catch(() => null)) ?? '';
-  const fixtureName = fixtureForAccept(accept);
+  const fixtureName = FIXTURE_BY_TOOL[tool.id] ?? fixtureForAccept(accept);
   if (!fixtureName) return { out: 'skip', detail: `no fixture for accept "${accept}"` };
   if ((await page.locator('[data-run]').count()) === 0)
     return { out: 'skip', detail: 'no run button' };
@@ -328,7 +355,8 @@ test.describe('deep-audit', () => {
           return null;
         }
 
-        const outcome = tool.input === 'file' ? await auditFile(page) : await auditExamples(page);
+        const outcome =
+          tool.input === 'file' ? await auditFile(page, tool) : await auditExamples(page);
 
         if (outcome.out === 'pass') {
           commit('pass', undefined, outcome.detail);

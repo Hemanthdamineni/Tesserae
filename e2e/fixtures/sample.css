@@ -1,0 +1,2 @@
+body { color: red; }
+@media (min-width: 600px) { body { color: blue; } }
