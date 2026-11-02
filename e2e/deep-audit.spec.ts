@@ -81,6 +81,12 @@ function fixtureForAccept(accept: string | null): string | null {
   if (/pdf/.test(a)) return 'one-page.pdf';
   if (/heic|heif/.test(a)) return 'sample.heic';
   if (/docx|wordprocessingml|msword/.test(a)) return 'sample.docx';
+  // Format-specific fixtures come before the generic video/image checks, since
+  // their accept lists also mention video/* or image/*.
+  if (a.includes('.pcap')) return 'tiny.pcapng';
+  if (/\.pnm|\.pbm|\.pgm|\.ppm|portable/.test(a)) return 'tiny.pgm';
+  if (a.includes('.avi') || a.includes('x-msvideo')) return 'tiny.avi';
+  if (a.includes('.psd') || a.includes('.psb') || a.includes('photoshop')) return 'tiny.psd';
   if (/video|webm/.test(a)) return 'clip.webm';
   if (/audio|wav|mpeg|aac/.test(a)) return 'tone.wav';
   if (/image|png|jpeg|jpg|webp|svg|gif|avif|bmp/.test(a)) return 'tiny.png';
