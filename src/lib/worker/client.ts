@@ -52,6 +52,15 @@ function runInWorker<T>(
   opts: RunOptions,
 ): Promise<T> {
   return new Promise<T>((resolve, reject) => {
+    // A run can be cancelled while its tool module is still downloading, before
+    // this function attaches the abort listener. Adding a listener to a signal
+    // that has already fired does nothing, so check up front and refuse to
+    // start work that was already cancelled.
+    if (opts.signal?.aborted) {
+      reject(new DOMException('The operation was cancelled.', 'AbortError'));
+      return;
+    }
+
     const w = getWorker();
     const id = uid();
 
@@ -105,6 +114,7 @@ export async function runTool<T>(
   }
 
   const mod = await tool.load();
+  if (opts.signal?.aborted) throw new DOMException('The operation was cancelled.', 'AbortError');
   return (await mod.default.run({
     ...payload,
     signal: opts.signal,
@@ -124,6 +134,7 @@ export async function runToolById<T>(
     return runInWorker<T>(id, payload, opts);
   }
 
+  if (opts.signal?.aborted) throw new DOMException('The operation was cancelled.', 'AbortError');
   return (await mod.run({
     ...payload,
     signal: opts.signal,
