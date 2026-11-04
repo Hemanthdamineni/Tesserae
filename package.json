@@ -51,7 +51,7 @@
     "compromise": "^14.17.0",
     "cronstrue": "^3.24.0",
     "csso": "^5.0.5",
-    "diff": "^5.2.2",
+    "diff": "^9.0.0",
     "fflate": "^0.8.2",
     "gifenc": "^1.0.3",
     "html-minifier-terser": "^7.2.0",
