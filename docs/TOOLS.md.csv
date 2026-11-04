@@ -240,6 +240,7 @@ id,name,category,input,status,summary
 "gif-inspector","GIF Inspector","image","file","stable","Decode the structure of a GIF: logical screen, color tables, frames, graphic-control/comment/application blocks."
 "gif-maker","GIF Maker","image","file","stable","Build an animated GIF from image frames: order, trim, set delays, pick size, loop and preview."
 "heic-to-jpg","HEIC to JPG","image","file","beta","Convert HEIC photos from iPhone and Android to JPG, PNG or WebP — right in your browser."
+"icc-inspector","ICC Profile Inspector","image","file","stable","Read an ICC color profile on-device: header, class, color spaces, rendering intent, tags and illuminant."
 "icns-inspector","ICNS Icon Inspector","image","file","stable","Inspect an Apple ICNS icon set: file magic and size, then every icon resource chunk and its type."
 "ico-inspector","ICO Icon Inspector","image","file","stable","Inspect a Windows icon (.ico): header, directory entries, dimensions, bit depth, and embedded image format."
 "image-collage","Image Collage Maker","image","file","stable","Arrange photos in a grid: layouts, spacing, background, corners, drag to reorder."

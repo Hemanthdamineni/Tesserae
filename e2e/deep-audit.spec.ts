@@ -84,6 +84,7 @@ const FIXTURE_BY_TOOL: Record<string, string> = {
   'dds-inspector': 'sample.dds',
   'flac-inspector': 'sample.flac',
   'gif-inspector': 'sample.gif',
+  'icc-inspector': 'sample.icc',
   'icns-inspector': 'sample.icns',
   'ico-inspector': 'sample.ico',
   'jpeg-inspector': 'sample.jpg',
@@ -116,7 +117,7 @@ function fixtureForAccept(accept: string | null): string | null {
   if (a.includes('.psd') || a.includes('.psb') || a.includes('photoshop')) return 'tiny.psd';
   if (/video|webm/.test(a)) return 'clip.webm';
   if (/audio|wav|mpeg|aac/.test(a)) return 'tone.wav';
-  if (/image|png|jpeg|jpg|webp|svg|gif|avif|bmp/.test(a)) return 'tiny.png';
+  if (/\.icc|\.icm|iccprofile/.test(a)) return 'sample.icc';
   return null;
 }
 

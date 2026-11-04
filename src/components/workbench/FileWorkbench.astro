@@ -360,6 +360,7 @@ const p = meta.id;
       controller?.abort();
       const generation = ++runGeneration;
       controller = new AbortController();
+      const signal = controller.signal;
       clearError(errorBox);
       skeleton?.removeAttribute('hidden');
       runBtn.disabled = true;
@@ -379,9 +380,12 @@ const p = meta.id;
         };
         if (acceptsText) payload.text = pastedText();
         const result = await runToolById<FileRunResult>(toolId, payload, {
-          signal: controller.signal,
+          signal,
           onProgress: (fraction, message) => {
-            if (generation !== runGeneration) return;
+            // A cancelled run must not paint progress over the "Cancelled"
+            // message: engines such as Tesseract keep reporting through their
+            // logger while they shut down.
+            if (signal.aborted || generation !== runGeneration) return;
             const pct = Math.round(Math.min(1, Math.max(0, fraction)) * 100);
             progressBar.style.width = `${pct}%`;
             // The progress message region is aria-live="polite"; always include
@@ -389,7 +393,7 @@ const p = meta.id;
             progressMsg.textContent = message ? `${message} — ${pct}%` : `${pct}%`;
           },
         });
-        if (generation !== runGeneration) return;
+        if (signal.aborted || generation !== runGeneration) return;
         progressBar.style.width = '100%';
         progressMsg.textContent = 'Done';
         skeleton?.setAttribute('hidden', '');

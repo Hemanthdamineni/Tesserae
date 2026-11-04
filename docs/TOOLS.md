@@ -1,6 +1,6 @@
 # Complete Tool List
 
-Total: **505** tools across **20** categories.
+Total: **506** tools across **20** categories.
 
 Generated from `src/tools/**/*.meta.ts` (source of truth).
 
@@ -286,7 +286,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `uuid` | UUID Generator | text | stable | Generate RFC 4122 UUIDs (v4 random or v7 time-ordered) in bulk. |
 | `vcard` | vCard Generator | text | stable | Build vCard 3.0 contact files, or parse a pasted vCard back into fields. |
 
-## image (39)
+## image (40)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -304,6 +304,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `gif-inspector` | GIF Inspector | file | stable | Decode the structure of a GIF: logical screen, color tables, frames, graphic-control/comment/application blocks. |
 | `gif-maker` | GIF Maker | file | stable | Build an animated GIF from image frames: order, trim, set delays, pick size, loop and preview. |
 | `heic-to-jpg` | HEIC to JPG | file | beta | Convert HEIC photos from iPhone and Android to JPG, PNG or WebP — right in your browser. |
+| `icc-inspector` | ICC Profile Inspector | file | stable | Read an ICC color profile on-device: header, class, color spaces, rendering intent, tags and illuminant. |
 | `icns-inspector` | ICNS Icon Inspector | file | stable | Inspect an Apple ICNS icon set: file magic and size, then every icon resource chunk and its type. |
 | `ico-inspector` | ICO Icon Inspector | file | stable | Inspect a Windows icon (.ico): header, directory entries, dimensions, bit depth, and embedded image format. |
 | `image-collage` | Image Collage Maker | file | stable | Arrange photos in a grid: layouts, spacing, background, corners, drag to reorder. |

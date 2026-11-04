@@ -237,6 +237,7 @@ async function run(input: FileRunInput): Promise<FileRunResult> {
   let currentIndex = 0;
 
   const logger = (event: { status?: string; progress?: number }) => {
+    if (signal?.aborted) return;
     const status = String(event?.status ?? '');
     const progress = Math.min(1, Math.max(0, Number(event?.progress ?? 0)));
     if (status === 'recognizing text') {
