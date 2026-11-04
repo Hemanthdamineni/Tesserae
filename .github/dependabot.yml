@@ -14,21 +14,10 @@ updates:
         dependency-type: development
         update-types: ['minor', 'patch']
     ignore:
-      # Major toolchain bumps change test/config semantics (see docs/HANDOFF.md);
-      # they are done deliberately rather than by an automated PR.
-      - dependency-name: 'vitest'
-        update-types: ['version-update:semver-major']
-      - dependency-name: '@vitest/coverage-v8'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'eslint'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'astro'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'typescript'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'prettier-plugin-astro'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'diff'
+      # Majors change test/config semantics (Vitest 5, ESLint 10, Astro 7 …);
+      # do them deliberately rather than by an automated PR. Minor and patch
+      # updates are still raised, grouped, and run through CI.
+      - dependency-name: '*'
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
