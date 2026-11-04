@@ -19,7 +19,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Pin the exact engine version: the runner's bundled cache can lag a
+          # patch behind, and Astro refuses to build on an older Node.
+          node-version: 22.23.4
           cache: npm
       - run: npm ci
       - name: Install reference tools for the golden tests
@@ -53,7 +55,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.23.4
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
@@ -77,7 +79,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.23.4
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium

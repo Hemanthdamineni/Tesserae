@@ -29,26 +29,26 @@ npm run verify        # the full gate CI runs, locally
 
 `npm run build` writes `dist/`. Two build-time variables control URLs:
 
-| Variable    | Default                                              | Purpose                          |
-| ----------- | ---------------------------------------------------- | -------------------------------- |
+| Variable    | Default                                                    | Purpose                          |
+| ----------- | ---------------------------------------------------------- | -------------------------------- |
 | `SITE_URL`  | `https://hemanthdamineni.github.io/browser-tools-platform` | Canonical origin, sitemap, OG    |
-| `BASE_PATH` | `/browser-tools-platform`                            | Sub-path the site is served from |
+| `BASE_PATH` | `/browser-tools-platform`                                  | Sub-path the site is served from |
 
 ## Repository map
 
-| Path                     | What lives there                                                       |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `src/tools/<category>/`  | One folder per tool: `.meta.ts`, `.tool.ts`, `.test.ts`, `.content.ts` |
-| `src/lib/registry.ts`    | Discovers tools with `import.meta.glob`; no manual wiring             |
-| `src/lib/content.ts`     | Loads optional article/FAQ prose at build time                        |
-| `src/components/workbench/` | Text/File/Media workbenches and their shared controls              |
-| `src/components/panels/` | Tool-specific UI panels (audio, image, OCR, PDF, …)                   |
-| `src/lib/worker/`        | Generic worker client, cancellation and progress plumbing              |
-| `src/pages/`             | Routes: home, `/tools`, `/categories`, guides, sitemap, `llms.txt`     |
-| `scripts/`               | Docs generation, bundle budget, asset vendoring, static server         |
-| `e2e/`                   | Playwright smoke, privacy, deep-audit and fixture specs                |
-| `docs/`                  | Maintainer documentation (start with `ARCHITECTURE.md`)                |
-| `docs/history/`          | Completed plans, audit reports and round logs — historical only        |
+| Path                        | What lives there                                                       |
+| --------------------------- | ---------------------------------------------------------------------- |
+| `src/tools/<category>/`     | One folder per tool: `.meta.ts`, `.tool.ts`, `.test.ts`, `.content.ts` |
+| `src/lib/registry.ts`       | Discovers tools with `import.meta.glob`; no manual wiring              |
+| `src/lib/content.ts`        | Loads optional article/FAQ prose at build time                         |
+| `src/components/workbench/` | Text/File/Media workbenches and their shared controls                  |
+| `src/components/panels/`    | Tool-specific UI panels (audio, image, OCR, PDF, …)                    |
+| `src/lib/worker/`           | Generic worker client, cancellation and progress plumbing              |
+| `src/pages/`                | Routes: home, `/tools`, `/categories`, guides, sitemap, `llms.txt`     |
+| `scripts/`                  | Docs generation, bundle budget, asset vendoring, static server         |
+| `e2e/`                      | Playwright smoke, privacy, deep-audit and fixture specs                |
+| `docs/`                     | Maintainer documentation (start with `ARCHITECTURE.md`)                |
+| `docs/history/`             | Completed plans, audit reports and round logs — historical only        |
 
 ## Gates
 
@@ -64,13 +64,13 @@ npm run verify        # the full gate CI runs, locally
 
 Extras used by CI or before a release:
 
-| Command                | What it does                                                     |
-| ---------------------- | ---------------------------------------------------------------- |
-| `npm run docs:check`   | Regenerates `docs/TOOLS.md` and fails if the result differs      |
-| `npm run test:audit`   | Deep audit: runs every tool with a real fixture (4 shards in CI) |
-| `npm run test:coverage`| Unit tests with V8 coverage                                      |
-| `npm run test:e2e:webkit` | Safari smoke inside the Playwright Docker image               |
-| `npm audit`            | Must stay at zero; the tree is pinned through `overrides`        |
+| Command                   | What it does                                                     |
+| ------------------------- | ---------------------------------------------------------------- |
+| `npm run docs:check`      | Regenerates `docs/TOOLS.md` and fails if the result differs      |
+| `npm run test:audit`      | Deep audit: runs every tool with a real fixture (4 shards in CI) |
+| `npm run test:coverage`   | Unit tests with V8 coverage                                      |
+| `npm run test:e2e:webkit` | Safari smoke inside the Playwright Docker image                  |
+| `npm audit`               | Must stay at zero; the tree is pinned through `overrides`        |
 
 When you change a tool's metadata, run `npm run docs:tools` and commit the
 regenerated `docs/TOOLS.md`/`.csv`. When you add a tool, also add its FAQ and
@@ -100,7 +100,9 @@ enough to catch anything before a push.
 - **No backend** — anything requiring a server belongs in a different project;
   WASM bundles are vendored under `public/vendor/` and checked in `build`.
 - **Node** — the pinned engine is intentional (Vitest 5 and Astro 7 both need
-  modern Node). Update `engines`, CI and this guide together.
+  modern Node). Update `engines`, CI and this guide together. CI pins the exact
+  version (`22.23.4`) rather than `22` because the runner's bundled tool cache
+  can lag a patch behind, and Astro refuses to build on an older Node.
 - **Dependency upgrades** — Vitest 5 requires every `expect(...).rejects`
   assertion to be awaited; ESLint 10 needs `minimatch` ≥ 11 via `overrides`.
   `npm audit` must stay at zero.
