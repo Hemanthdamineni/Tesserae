@@ -178,20 +178,20 @@ describe('pdf-protect run()', () => {
   it('refuses a whitespace-only password', async () => {
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: '   ' }),
-    ).rejects.toThrowError(/only spaces/);
+    ).rejects.toThrow(/only spaces/);
   });
 
   it('refuses a password longer than the PDF standard can read', async () => {
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: 'a'.repeat(128) }),
-    ).rejects.toThrowError(/too long/);
+    ).rejects.toThrow(/too long/);
     expect(mockedLoad).not.toHaveBeenCalled();
   });
 
   it('refuses a file that is not a PDF', async () => {
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: 'pw' }, [makeInvalidPdf()]),
-    ).rejects.toThrowError(/not a PDF/);
+    ).rejects.toThrow(/not a PDF/);
     expect(mockedLoad).not.toHaveBeenCalled();
   });
 
@@ -199,14 +199,14 @@ describe('pdf-protect run()', () => {
     const empty = new File([], 'empty.pdf', { type: 'application/pdf' });
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: 'pw' }, [empty]),
-    ).rejects.toThrowError(/empty/);
+    ).rejects.toThrow(/empty/);
   });
 
   it('refuses an already-encrypted PDF instead of re-encrypting it', async () => {
     const encrypted = new File([minimalEncryptedPdf()], 'locked.pdf', { type: 'application/pdf' });
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: 'pw' }, [encrypted]),
-    ).rejects.toThrowError(/already password-protected/);
+    ).rejects.toThrow(/already password-protected/);
     expect(mockedLoad).not.toHaveBeenCalled();
   });
 
@@ -219,31 +219,31 @@ describe('pdf-protect run()', () => {
     } as unknown as File;
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: 'pw' }, [huge]),
-    ).rejects.toThrowError(/too large/);
+    ).rejects.toThrow(/too large/);
   });
 
   it('asks for a file when none was chosen', async () => {
     await expect(
       runWith(spyEngine(minimalEncryptedPdf()), { userPassword: 'pw' }, []),
-    ).rejects.toThrowError(/Choose a PDF file/);
+    ).rejects.toThrow(/Choose a PDF file/);
   });
 
   it('surfaces what the engine refused with', async () => {
     const engine = refusingEngine(
       new ToolError('This PDF is damaged and cannot be encrypted.', 'xref missing'),
     );
-    await expect(runWith(engine)).rejects.toThrowError(/damaged/);
+    await expect(runWith(engine)).rejects.toThrow(/damaged/);
   });
 
   it('surfaces a failure to load the engine', async () => {
-    await expect(runWith(new Error('failed to fetch qpdf.wasm'))).rejects.toThrowError(
+    await expect(runWith(new Error('failed to fetch qpdf.wasm'))).rejects.toThrow(
       /failed to fetch/,
     );
   });
 
   it('does not report success when the result is not encrypted', async () => {
     const plain = new Uint8Array(await (await makePdf(1)).arrayBuffer());
-    await expect(runWith(spyEngine(plain))).rejects.toThrowError(/is not encrypted/);
+    await expect(runWith(spyEngine(plain))).rejects.toThrow(/is not encrypted/);
   });
 
   it('honours an abort signal before the engine is loaded', async () => {

@@ -23,11 +23,19 @@ if (typeof window !== 'undefined') {
   // console error into a failed run. The panels only paint thumbnails, so a
   // minimal no-op 2D context is enough here.
   if (typeof HTMLCanvasElement !== 'undefined') {
+    const pixels = (width: number, height: number) => ({
+      data: new Uint8ClampedArray(Math.max(1, width * height * 4)),
+      width,
+      height,
+    });
     const noopContext = {
       fillStyle: '#000',
       clearRect: () => {},
       fillRect: () => {},
       drawImage: () => {},
+      getImageData: (_x: number, _y: number, width = 1, height = 1) => pixels(width, height),
+      createImageData: (width = 1, height = 1) => pixels(width, height),
+      putImageData: () => {},
     };
     HTMLCanvasElement.prototype.getContext = function getContext() {
       return noopContext as unknown as CanvasRenderingContext2D;

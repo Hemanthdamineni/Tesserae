@@ -35,7 +35,7 @@ describe('abort helpers', () => {
 
     const controller = new AbortController();
     controller.abort();
-    expect(() => throwIfAborted(controller.signal)).toThrowError(
+    expect(() => throwIfAborted(controller.signal)).toThrow(
       expect.objectContaining({ name: 'AbortError' }),
     );
   });

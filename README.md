@@ -18,22 +18,26 @@ loads.
 ## Develop
 
 ```bash
-npm install
+npm ci
 npm run dev            # http://localhost:4321
 ```
 
-| Script                            | What                                                 |
-| --------------------------------- | ---------------------------------------------------- |
-| `npm run dev`                     | Dev server                                           |
-| `npm run build`                   | Static build to `dist/` (see env vars below)         |
-| `npm run preview`                 | Serve the build                                      |
-| `npm run check`                   | `astro check` (types)                                |
-| `npm run lint` / `npm run format` | ESLint / Prettier                                    |
-| `npm test`                        | Vitest unit tests                                    |
-| `npm run test:e2e`                | Playwright smoke + "no network egress" privacy check |
-| `npm run verify`                  | check + lint + test + build (the CI gate)            |
+| Script                 | What                                                  |
+| ---------------------- | ----------------------------------------------------- |
+| `npm run dev`          | Dev server                                            |
+| `npm run build`        | Static build to `dist/` (see env vars below)          |
+| `npm run preview`      | Serve the build                                       |
+| `npm run check`        | `astro check` (types)                                 |
+| `npm run lint`         | ESLint                                                |
+| `npm run format`       | Prettier (write) / `format:check` to verify           |
+| `npm test`             | Vitest unit tests                                     |
+| `npm run test:e2e`     | Playwright smoke + privacy (no network egress) checks |
+| `npm run test:audit`   | Deep audit: every tool against a real fixture         |
+| `npm run docs:tools`   | Regenerate `docs/TOOLS.md` / `.csv` from the registry |
+| `npm run bundle:check` | Entry-chunk and total-JS budgets                      |
+| `npm run verify`       | check + lint + format + test + build + bundle + e2e   |
 
-Requires Node 20+.
+Requires **Node 22.23.4+**.
 
 Build-time environment variables:
 
@@ -49,6 +53,17 @@ SITE_URL=https://your-domain.example BASE_PATH=/ npm run build
 ## Add a tool
 
 Three small files, no wiring — see **[docs/ADDING-A-TOOL.md](docs/ADDING-A-TOOL.md)**.
+
+## Documentation
+
+| Doc                                                | What it covers                               |
+| -------------------------------------------------- | -------------------------------------------- |
+| **[docs/HANDOFF.md](docs/HANDOFF.md)**             | Run, verify, deploy and maintain the project |
+| **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**   | Stack, directory map and runtime flow        |
+| **[docs/ADDING-A-TOOL.md](docs/ADDING-A-TOOL.md)** | Tool metadata, content contract, fixtures    |
+| **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**       | GitHub Pages, Netlify, Vercel, Cloudflare    |
+| **[docs/TOOLS.md](docs/TOOLS.md)**                 | Generated catalogue of every tool            |
+| **[docs/history/](docs/history/)**                 | Completed plans, audits and round logs       |
 
 ## How it's built
 

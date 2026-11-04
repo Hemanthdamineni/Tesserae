@@ -595,8 +595,8 @@ describe('startRecording', () => {
 
   it('throws a friendly error when no container is supported', () => {
     const { factory } = makeFactory({ supported: [] });
-    expect(() => startRecording(fakeStream, factory)).toThrowError(ToolError);
-    expect(() => startRecording(fakeStream, factory)).toThrowError(/cannot record the camera/i);
+    expect(() => startRecording(fakeStream, factory)).toThrow(ToolError);
+    expect(() => startRecording(fakeStream, factory)).toThrow(/cannot record the camera/i);
   });
 
   it('throws a friendly error when the recorder cannot be built', () => {
@@ -604,26 +604,26 @@ describe('startRecording', () => {
       supported: ['video/mp4'],
       failConstruct: 'NotSupportedError',
     });
-    expect(() => startRecording(fakeStream, factory)).toThrowError(/supported format/i);
+    expect(() => startRecording(fakeStream, factory)).toThrow(/supported format/i);
   });
 
   it('throws a friendly error when the recorder refuses to start', () => {
     const { factory } = makeFactory({ supported: ['video/webm'], failStart: 'InvalidStateError' });
-    expect(() => startRecording(fakeStream, factory)).toThrowError(/wrong state/i);
+    expect(() => startRecording(fakeStream, factory)).toThrow(/wrong state/i);
   });
 
   it('rejects with a friendly error when the recorder fails mid-way', async () => {
     const { factory, created } = makeFactory({ supported: ['video/webm'] });
     const session = startRecording(fakeStream, factory);
     created[0]!.fail(Object.assign(new Error('raw'), { name: 'NotReadableError' }));
-    await expect(session.result()).rejects.toThrowError(/stopped delivering frames/i);
+    await expect(session.result()).rejects.toThrow(/stopped delivering frames/i);
   });
 
   it('rejects with a friendly error when the user stops before any data', async () => {
     const { factory } = makeFactory({ supported: ['video/webm'] });
     const session = startRecording(fakeStream, factory);
     session.stop();
-    await expect(session.result()).rejects.toThrowError(/empty/i);
+    await expect(session.result()).rejects.toThrow(/empty/i);
   });
 
   it('ignores empty chunks', async () => {
@@ -723,17 +723,17 @@ describe('the webcam recorder tool', () => {
   });
 
   it('refuses to run without a recording', async () => {
-    await expect(run({ files: [] })).rejects.toThrowError(ToolError);
-    await expect(run({ files: [] })).rejects.toThrowError(/record a clip first/i);
+    await expect(run({ files: [] })).rejects.toThrow(ToolError);
+    await expect(run({ files: [] })).rejects.toThrow(/record a clip first/i);
   });
 
   it('refuses an empty recording', async () => {
     const empty = new File([], 'recording.webm', { type: 'video/webm' });
-    await expect(run({ files: [empty] })).rejects.toThrowError(/empty/i);
+    await expect(run({ files: [empty] })).rejects.toThrow(/empty/i);
   });
 
   it('refuses more than one recording', async () => {
-    await expect(run({ files: [recorded(), recorded()] })).rejects.toThrowError(
+    await expect(run({ files: [recorded(), recorded()] })).rejects.toThrow(
       /one recording at a time/i,
     );
   });

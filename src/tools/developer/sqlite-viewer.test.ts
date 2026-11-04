@@ -69,27 +69,27 @@ describe('sqlite-viewer request planning', () => {
   });
 
   it('refuses a write before the engine is loaded', () => {
-    expect(() => planRequest({ query: "INSERT INTO users (name) VALUES ('x');" })).toThrowError(
+    expect(() => planRequest({ query: "INSERT INTO users (name) VALUES ('x');" })).toThrow(
       /"INSERT" cannot run here/,
     );
-    expect(() => planRequest({ query: 'DROP TABLE users;' })).toThrowError(/cannot run here/);
-    expect(() => planRequest({ query: 'SELECT 1; DELETE FROM users;' })).toThrowError(
+    expect(() => planRequest({ query: 'DROP TABLE users;' })).toThrow(/cannot run here/);
+    expect(() => planRequest({ query: 'SELECT 1; DELETE FROM users;' })).toThrow(
       /one statement at a time/,
     );
-    expect(() => planRequest({ query: 'PRAGMA journal_mode = WAL;' })).toThrowError(/assigns/);
-    expect(() => planRequest({ query: '.dump' })).toThrowError(/not something the viewer can run/);
+    expect(() => planRequest({ query: 'PRAGMA journal_mode = WAL;' })).toThrow(/assigns/);
+    expect(() => planRequest({ query: '.dump' })).toThrow(/not something the viewer can run/);
   });
 });
 
 describe('sqlite-viewer input validation', () => {
   it('asks for a file', async () => {
-    await expect(tool.run({ files: [], options: {} })).rejects.toThrowError(
+    await expect(tool.run({ files: [], options: {} })).rejects.toThrow(
       /Choose a SQLite database file/,
     );
   });
 
   it('rejects an empty file', async () => {
-    await expect(tool.run({ files: [new File([], 'empty.db')], options: {} })).rejects.toThrowError(
+    await expect(tool.run({ files: [new File([], 'empty.db')], options: {} })).rejects.toThrow(
       /That file is empty/,
     );
   });
@@ -97,15 +97,13 @@ describe('sqlite-viewer input validation', () => {
   it('rejects a file past the size guard', async () => {
     const huge = new File(['x'], 'huge.db');
     Object.defineProperty(huge, 'size', { value: MAX_DB_BYTES + 1 });
-    await expect(tool.run({ files: [huge], options: {} })).rejects.toThrowError(/too large/);
+    await expect(tool.run({ files: [huge], options: {} })).rejects.toThrow(/too large/);
   });
 
   it('rejects a write without opening the database', async () => {
     const file = new File(['not read at all'], 'small.db');
     const options = { action: 'query', query: 'UPDATE users SET name = 1;' };
-    await expect(tool.run({ files: [file], options })).rejects.toThrowError(
-      /"UPDATE" cannot run here/,
-    );
+    await expect(tool.run({ files: [file], options })).rejects.toThrow(/"UPDATE" cannot run here/);
   });
 });
 
@@ -221,7 +219,7 @@ describe('sqlite-viewer against a real database', () => {
         files: [databaseFile(bytes)],
         options: { action: 'query', query: 'DELETE FROM users;' },
       }),
-    ).toThrowError(/"DELETE" cannot run here/);
+    ).toThrow(/"DELETE" cannot run here/);
     db.close();
   });
 
@@ -232,7 +230,7 @@ describe('sqlite-viewer against a real database', () => {
         files: [databaseFile(bytes)],
         options: { action: 'query', query: 'SELECT * FROM missing_table;' },
       }),
-    ).toThrowError(/no such table: missing_table/);
+    ).toThrow(/no such table: missing_table/);
     db.close();
   });
 });

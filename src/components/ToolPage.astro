@@ -25,7 +25,12 @@ const related = relatedTools(meta);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<article class="mx-auto max-w-4xl">
+<article
+  class="mx-auto max-w-4xl"
+  data-tool-id={meta.id}
+  data-tool-name={meta.name}
+  data-tool-href={`${base}/tools/${meta.id}`}
+>
   <nav
     class="flex flex-wrap items-center gap-1.5 text-sm text-[rgb(var(--text-muted))]"
     aria-label="Breadcrumb"
@@ -171,3 +176,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     )
   }
 </article>
+
+<script>
+  import { recordRecentTool } from '@/lib/recent-tools';
+
+  const article = document.querySelector<HTMLElement>('article[data-tool-id]');
+  const { toolId, toolName, toolHref } = article?.dataset ?? {};
+  if (toolId && toolName && toolHref) {
+    recordRecentTool(window.localStorage, { id: toolId, name: toolName, href: toolHref });
+  }
+</script>

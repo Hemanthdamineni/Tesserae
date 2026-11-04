@@ -336,7 +336,7 @@ describe('against a real sql.js database', () => {
         },
         { fileName: 'sample.db', fileSize: bytes.length },
       ),
-    ).toThrowError(/"DELETE" cannot run here/);
+    ).toThrow(/"DELETE" cannot run here/);
     // The rows are still there: the statement never reached the engine.
     const [count] = db.exec('SELECT count(*) FROM users;');
     expect(count?.values[0]?.[0]).toBe(3);

@@ -70,6 +70,22 @@ const pillars = [
     </div>
   </section>
 
+  <section
+    id="recent-tools"
+    class="border-b pb-8 pt-6"
+    aria-labelledby="recent-tools-heading"
+    data-recent-base={base}
+    hidden
+  >
+    <h2
+      id="recent-tools-heading"
+      class="font-mono text-[11px] uppercase tracking-[0.14em] text-[rgb(var(--text-muted))]"
+    >
+      Recently used
+    </h2>
+    <ul data-recent-list class="mt-4 flex flex-wrap gap-2"></ul>
+  </section>
+
   <section class="grid gap-px overflow-hidden border-b sm:grid-cols-3" aria-label="Why Toolbench">
     {
       pillars.map((p) => (
@@ -145,6 +161,29 @@ const pillars = [
 </Layout>
 
 <script>
+  import { readRecentTools } from '@/lib/recent-tools';
+
+  const section = document.querySelector<HTMLElement>('#recent-tools');
+  const list = section?.querySelector<HTMLElement>('[data-recent-list]');
+  const base = section?.dataset.recentBase ?? '';
+  const tools = readRecentTools(window.localStorage);
+
+  if (section && list && tools.length > 0) {
+    for (const tool of tools) {
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      // The stored href honours the deploy base it was recorded under; rebuild
+      // it when the site has since moved to a different base path.
+      link.href = tool.href.startsWith(`${base}/tools/`) ? tool.href : `${base}/tools/${tool.id}`;
+      link.className =
+        'inline-flex rounded-full border px-3 py-1.5 text-sm text-[rgb(var(--text-muted))] transition-colors hover:border-[rgb(var(--accent))] hover:text-[rgb(var(--accent))]';
+      link.textContent = tool.name;
+      li.append(link);
+      list.append(li);
+    }
+    section.hidden = false;
+  }
+
   document
     .querySelector('[data-open-search]')
     ?.addEventListener('click', () => window.dispatchEvent(new CustomEvent('toolbench:search')));

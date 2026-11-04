@@ -120,12 +120,12 @@ describe('planProtection', () => {
 
   it('refuses an empty password', () => {
     expect(() => planProtection({ userPassword: '' })).toThrow(ToolError);
-    expect(() => planProtection({})).toThrowError(/Enter the password/);
+    expect(() => planProtection({})).toThrow(/Enter the password/);
   });
 
   it('refuses a password that is only whitespace', () => {
-    expect(() => planProtection({ userPassword: '   ' })).toThrowError(/only spaces/);
-    expect(() => planProtection({ userPassword: '\t\n' })).toThrowError(/only spaces/);
+    expect(() => planProtection({ userPassword: '   ' })).toThrow(/only spaces/);
+    expect(() => planProtection({ userPassword: '\t\n' })).toThrow(/only spaces/);
   });
 
   it('accepts a password of exactly 127 bytes', () => {
@@ -134,17 +134,17 @@ describe('planProtection', () => {
   });
 
   it('refuses a password longer than 127 bytes, counting UTF-8 bytes', () => {
-    expect(() => planProtection({ userPassword: 'a'.repeat(MAX_PASSWORD_BYTES + 1) })).toThrowError(
+    expect(() => planProtection({ userPassword: 'a'.repeat(MAX_PASSWORD_BYTES + 1) })).toThrow(
       /too long \(128 bytes\)/,
     );
     // 64 emoji are 256 bytes even though they are only 128 characters.
-    expect(() => planProtection({ userPassword: '😀'.repeat(64) })).toThrowError(/too long/);
+    expect(() => planProtection({ userPassword: '😀'.repeat(64) })).toThrow(/too long/);
   });
 
   it('applies the same limit to the owner password', () => {
-    expect(() =>
-      planProtection({ userPassword: 'ok', ownerPassword: 'ß'.repeat(64) }),
-    ).toThrowError(/owner password is too long/);
+    expect(() => planProtection({ userPassword: 'ok', ownerPassword: 'ß'.repeat(64) })).toThrow(
+      /owner password is too long/,
+    );
   });
 });
 
@@ -291,9 +291,7 @@ describe('createQpdfEngine', () => {
       stderr: ['this.program: /input.pdf: invalid password'],
     });
     const engine = createQpdfEngine(module, log);
-    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrowError(
-      /already password-protected/,
-    );
+    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrow(/already password-protected/);
   });
 
   it('keeps the passwords out of the message it reports', () => {
@@ -314,17 +312,17 @@ describe('createQpdfEngine', () => {
 
   it('fails loudly when the engine writes nothing', () => {
     const engine = createQpdfEngine(fakeModule({ output: null }), log);
-    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrowError(/produced no output/);
+    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrow(/produced no output/);
   });
 
   it('fails loudly when the engine writes an empty file', () => {
     const engine = createQpdfEngine(fakeModule({ output: new Uint8Array(0) }), log);
-    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrowError(/empty file/);
+    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrow(/empty file/);
   });
 
   it('turns an engine abort into a ToolError', () => {
     const engine = createQpdfEngine(fakeModule({ throwOnCall: new Error('Aborted(OOM)') }), log);
-    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrowError(
+    expect(() => engine.protect(new Uint8Array([1]), plan())).toThrow(
       /engine stopped unexpectedly/,
     );
   });
@@ -364,7 +362,7 @@ describe('withStderrCapture', () => {
         console.warn('aborted while downloading');
         throw new Error('qpdf.wasm missing');
       }),
-    ).rejects.toThrowError(/qpdf\.wasm missing/);
+    ).rejects.toThrow(/qpdf\.wasm missing/);
     expect(console.warn).toBe(realWarn);
     expect(buffer.stderr).toEqual(['aborted while downloading']);
   });
@@ -382,16 +380,16 @@ describe('assertPdfHeader', () => {
   });
 
   it('refuses an empty file', () => {
-    expect(() => assertPdfHeader(new Uint8Array(0))).toThrowError(/empty/);
+    expect(() => assertPdfHeader(new Uint8Array(0))).toThrow(/empty/);
   });
 
   it('refuses a file with no PDF header', () => {
-    expect(() => assertPdfHeader(asciiBytes('not a pdf'))).toThrowError(/not a PDF/);
+    expect(() => assertPdfHeader(asciiBytes('not a pdf'))).toThrow(/not a PDF/);
   });
 
   it('refuses a file whose header sits past 1024 bytes', () => {
     const bytes = asciiBytes('x'.repeat(2048) + '%PDF-1.7');
-    expect(() => assertPdfHeader(bytes)).toThrowError(/not a PDF/);
+    expect(() => assertPdfHeader(bytes)).toThrow(/not a PDF/);
   });
 });
 
@@ -401,7 +399,7 @@ describe('assertWithinLimit', () => {
   });
 
   it('refuses anything larger, naming the size', () => {
-    expect(() => assertWithinLimit(11, 10)).toThrowError(/11 B/);
+    expect(() => assertWithinLimit(11, 10)).toThrow(/11 B/);
   });
 });
 

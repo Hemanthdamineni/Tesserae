@@ -148,8 +148,8 @@ describe('page order', () => {
   });
 
   it('refuses a page outside the document', () => {
-    expect(() => pageOrder('9-12', 3)).toThrowError(/outside this PDF/);
-    expect(() => pageOrder('nonsense', 3)).toThrowError(/list or ranges/);
+    expect(() => pageOrder('9-12', 3)).toThrow(/outside this PDF/);
+    expect(() => pageOrder('nonsense', 3)).toThrow(/list or ranges/);
   });
 });
 
@@ -168,7 +168,7 @@ describe('the plan', () => {
   });
 
   it('refuses a language with no vendored model', () => {
-    expect(() => buildOcrPlan({ language: 'jpn' }, 1)).toThrowError(/not a language/);
+    expect(() => buildOcrPlan({ language: 'jpn' }, 1)).toThrow(/not a language/);
   });
 
   it('summarises itself for the live region', () => {
