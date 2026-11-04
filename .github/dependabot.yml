@@ -24,6 +24,12 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: 'astro'
         update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'prettier-plugin-astro'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'diff'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
     directory: '/'
@@ -31,3 +37,7 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 3
+    ignore:
+      # A breaking action major can break deploy on a day nobody is looking.
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
