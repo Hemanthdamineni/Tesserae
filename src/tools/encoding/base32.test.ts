@@ -29,6 +29,6 @@ describe('base32', async () => {
     expect((await run(enc, { mode: 'decode', variant: 'crockford' })).output).toBe('test');
   });
   it('throws on an invalid character', async () => {
-    expect(run('MZXW6YTB01', { mode: 'decode' })).rejects.toThrow(/not valid Base32/i);
+    await expect(run('MZXW6YTB01', { mode: 'decode' })).rejects.toThrow(/not valid Base32/i);
   });
 });

@@ -69,7 +69,7 @@ describe('cron-parser', async () => {
   });
 
   it('withSeconds: errors when only 5 fields are given', async () => {
-    expect(run('0 12 * * *', { withSeconds: true })).rejects.toThrow(ToolError);
+    await expect(run('0 12 * * *', { withSeconds: true })).rejects.toThrow(ToolError);
   });
 
   it('verbose: produces a wordier sentence', async () => {
@@ -118,11 +118,11 @@ describe('cron-parser', async () => {
   });
 
   it('throws ToolError on the wrong field count', async () => {
-    expect(run('* * * *')).rejects.toThrow(ToolError);
-    expect(run('not a real cron expression here')).rejects.toThrow(ToolError);
+    await expect(run('* * * *')).rejects.toThrow(ToolError);
+    await expect(run('not a real cron expression here')).rejects.toThrow(ToolError);
   });
 
   it('throws ToolError on an out-of-range value', async () => {
-    expect(run('60 * * * *')).rejects.toThrow(ToolError);
+    await expect(run('60 * * * *')).rejects.toThrow(ToolError);
   });
 });

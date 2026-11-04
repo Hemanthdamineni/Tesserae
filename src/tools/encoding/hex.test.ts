@@ -29,7 +29,7 @@ describe('hex', async () => {
     expect((await run('0x680x65', { mode: 'decode' })).output).toBe('he');
   });
   it('throws on odd-length hex', async () => {
-    expect(run('abc', { mode: 'decode' })).rejects.toThrow(/odd number/i);
+    await expect(run('abc', { mode: 'decode' })).rejects.toThrow(/odd number/i);
   });
   it('empty input → empty output', async () => {
     expect((await run('')).output).toBe('');

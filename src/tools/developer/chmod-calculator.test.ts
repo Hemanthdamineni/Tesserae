@@ -55,18 +55,18 @@ describe('chmod-calculator', async () => {
 
   it('respects the to-symbolic direction option', async () => {
     expect((await run('700', { mode: 'to-symbolic' })).stats!.symbolic).toBe('rwx------');
-    expect(run('rwx------', { mode: 'to-symbolic' })).rejects.toThrow(/expects an octal/i);
+    await expect(run('rwx------', { mode: 'to-symbolic' })).rejects.toThrow(/expects an octal/i);
   });
 
   it('respects the to-octal direction option', async () => {
     expect((await run('rwx------', { mode: 'to-octal' })).stats!.octal).toBe('0700');
-    expect(run('700', { mode: 'to-octal' })).rejects.toThrow(/expects a symbolic/i);
+    await expect(run('700', { mode: 'to-octal' })).rejects.toThrow(/expects a symbolic/i);
   });
 
   it('throws ToolError on invalid input', async () => {
-    expect(run('999')).rejects.toThrow(/not a valid permission mode/i);
-    expect(run('rwxr-xr')).rejects.toThrow(/not a valid permission mode/i);
-    expect(run('hello world')).rejects.toThrow(/not a valid permission mode/i);
+    await expect(run('999')).rejects.toThrow(/not a valid permission mode/i);
+    await expect(run('rwxr-xr')).rejects.toThrow(/not a valid permission mode/i);
+    await expect(run('hello world')).rejects.toThrow(/not a valid permission mode/i);
   });
 
   it('empty input gives empty output', async () => {

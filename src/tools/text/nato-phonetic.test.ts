@@ -36,7 +36,9 @@ describe('nato-phonetic', async () => {
   });
 
   it('throws ToolError when reverse input has no phonetic words', async () => {
-    expect(run('hello world', { mode: 'phonetic-to-text' })).rejects.toThrow(/no nato phonetic/i);
+    await expect(run('hello world', { mode: 'phonetic-to-text' })).rejects.toThrow(
+      /no nato phonetic/i,
+    );
   });
 
   it('empty input → empty output in both modes', async () => {

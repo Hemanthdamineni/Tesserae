@@ -33,12 +33,12 @@ describe('objectid', async () => {
   });
 
   it('throws on the wrong length', async () => {
-    expect(run('xyz')).rejects.toThrow(ToolError);
-    expect(run('507f1f77bcf86cd79943901')).rejects.toThrow(/24 hex/i);
+    await expect(run('xyz')).rejects.toThrow(ToolError);
+    await expect(run('507f1f77bcf86cd79943901')).rejects.toThrow(/24 hex/i);
   });
 
   it('throws on non-hex characters', async () => {
-    expect(run('507f1f77bcf86cd79943901g')).rejects.toThrow(/0-9 and a-f/i);
+    await expect(run('507f1f77bcf86cd79943901g')).rejects.toThrow(/0-9 and a-f/i);
   });
 
   it('empty input in decode mode → empty output', async () => {

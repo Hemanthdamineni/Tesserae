@@ -27,12 +27,12 @@ describe('gradient-css', async () => {
   });
 
   it('throws ToolError on a bad colour token', async () => {
-    expect(run('', { stops: '#4f46e5\nnotacolor 50%' })).rejects.toThrow(ToolError);
-    expect(run('', { stops: '#4f46e5\nnotacolor 50%' })).rejects.toThrow(/is not a colour/);
+    await expect(run('', { stops: '#4f46e5\nnotacolor 50%' })).rejects.toThrow(ToolError);
+    await expect(run('', { stops: '#4f46e5\nnotacolor 50%' })).rejects.toThrow(/is not a colour/);
   });
 
   it('throws ToolError with fewer than two valid stops', async () => {
-    expect(run('', { stops: '#4f46e5' })).rejects.toThrow(ToolError);
-    expect(run('', { stops: '#4f46e5' })).rejects.toThrow(/at least two colour stops/);
+    await expect(run('', { stops: '#4f46e5' })).rejects.toThrow(ToolError);
+    await expect(run('', { stops: '#4f46e5' })).rejects.toThrow(/at least two colour stops/);
   });
 });

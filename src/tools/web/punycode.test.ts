@@ -33,8 +33,10 @@ describe('punycode', async () => {
   });
 
   it('throws ToolError on an invalid xn-- label', async () => {
-    expect(run('xn--!!!.de', { mode: 'to-unicode' })).rejects.toThrow(ToolError);
-    expect(run('xn--!!!.de', { mode: 'to-unicode' })).rejects.toThrow(/Invalid Punycode label/);
+    await expect(run('xn--!!!.de', { mode: 'to-unicode' })).rejects.toThrow(ToolError);
+    await expect(run('xn--!!!.de', { mode: 'to-unicode' })).rejects.toThrow(
+      /Invalid Punycode label/,
+    );
   });
 
   it('empty input gives empty output', async () => {

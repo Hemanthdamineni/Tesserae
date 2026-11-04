@@ -39,8 +39,8 @@ describe('morse-code', async () => {
   });
 
   it('throws ToolError on an invalid Morse group', async () => {
-    expect(run('........', { mode: 'morse-to-text' })).rejects.toThrow(/not a valid Morse/i);
-    expect(run('hello', { mode: 'morse-to-text' })).rejects.toThrow(/not a valid Morse/i);
+    await expect(run('........', { mode: 'morse-to-text' })).rejects.toThrow(/not a valid Morse/i);
+    await expect(run('hello', { mode: 'morse-to-text' })).rejects.toThrow(/not a valid Morse/i);
   });
 
   it('empty input → empty output in both modes', async () => {

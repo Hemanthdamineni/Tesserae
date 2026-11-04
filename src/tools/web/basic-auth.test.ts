@@ -35,8 +35,8 @@ describe('basic-auth', async () => {
   });
 
   it('throws ToolError on non-base64 decode input', async () => {
-    expect(run('!!!not base64!!!', { mode: 'decode' })).rejects.toThrow(ToolError);
-    expect(run('!!!not base64!!!', { mode: 'decode' })).rejects.toThrow(/valid base64/);
+    await expect(run('!!!not base64!!!', { mode: 'decode' })).rejects.toThrow(ToolError);
+    await expect(run('!!!not base64!!!', { mode: 'decode' })).rejects.toThrow(/valid base64/);
   });
 
   it('empty decode input gives empty output', async () => {

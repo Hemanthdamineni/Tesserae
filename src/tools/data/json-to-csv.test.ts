@@ -62,8 +62,8 @@ describe('json-to-csv', async () => {
   });
 
   it('throws ToolError on invalid JSON, a non-array, or a non-object row', async () => {
-    expect(run('[{ bad json }]')).rejects.toThrow(ToolError);
-    expect(run('{ "a": 1 }')).rejects.toThrow(ToolError);
-    expect(run('[1, 2, 3]')).rejects.toThrow(ToolError);
+    await expect(run('[{ bad json }]')).rejects.toThrow(ToolError);
+    await expect(run('{ "a": 1 }')).rejects.toThrow(ToolError);
+    await expect(run('[1, 2, 3]')).rejects.toThrow(ToolError);
   });
 });

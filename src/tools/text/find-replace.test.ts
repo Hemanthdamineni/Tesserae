@@ -60,15 +60,17 @@ describe('find-replace', async () => {
   });
 
   it('empty find throws ToolError', async () => {
-    expect(run('hello', { find: '' })).rejects.toThrow(ToolError);
+    await expect(run('hello', { find: '' })).rejects.toThrow(ToolError);
   });
 
   it('invalid regex pattern throws ToolError', async () => {
-    expect(run('hello', { find: '(', mode: 'regex' })).rejects.toThrow(ToolError);
+    await expect(run('hello', { find: '(', mode: 'regex' })).rejects.toThrow(ToolError);
   });
 
   it('invalid regex flags throw ToolError', async () => {
-    expect(run('hello', { find: 'h', mode: 'regex', flags: 'zz' })).rejects.toThrow(ToolError);
+    await expect(run('hello', { find: 'h', mode: 'regex', flags: 'zz' })).rejects.toThrow(
+      ToolError,
+    );
   });
 
   it('empty input returns empty output', async () => {

@@ -68,11 +68,13 @@ describe('dotenv', async () => {
   });
 
   it('throws ToolError on a non-comment line without =', async () => {
-    expect(run('DB_HOST=localhost\nJUST_A_LINE', { mode: 'parse' })).rejects.toThrow(ToolError);
+    await expect(run('DB_HOST=localhost\nJUST_A_LINE', { mode: 'parse' })).rejects.toThrow(
+      ToolError,
+    );
   });
 
   it('throws ToolError when building from a non-object or invalid JSON', async () => {
-    expect(run('[1, 2]', { mode: 'build' })).rejects.toThrow(ToolError);
-    expect(run('nope', { mode: 'build' })).rejects.toThrow(ToolError);
+    await expect(run('[1, 2]', { mode: 'build' })).rejects.toThrow(ToolError);
+    await expect(run('nope', { mode: 'build' })).rejects.toThrow(ToolError);
   });
 });

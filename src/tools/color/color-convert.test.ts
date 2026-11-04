@@ -43,7 +43,7 @@ describe('color-convert', async () => {
   });
 
   it('throws on gibberish', async () => {
-    expect(run('not-a-color')).rejects.toThrow(ToolError);
+    await expect(run('not-a-color')).rejects.toThrow(ToolError);
   });
 
   it('empty input yields empty output', async () => {

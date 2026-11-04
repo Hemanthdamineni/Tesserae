@@ -63,11 +63,11 @@ describe('querystring', async () => {
   });
 
   it('throws ToolError on malformed percent-encoding when parsing', async () => {
-    expect(run('q=%ZZ', { mode: 'parse' })).rejects.toThrow(ToolError);
+    await expect(run('q=%ZZ', { mode: 'parse' })).rejects.toThrow(ToolError);
   });
 
   it('throws ToolError when building from a non-object or invalid JSON', async () => {
-    expect(run('[1, 2, 3]', { mode: 'build' })).rejects.toThrow(ToolError);
-    expect(run('not json', { mode: 'build' })).rejects.toThrow(ToolError);
+    await expect(run('[1, 2, 3]', { mode: 'build' })).rejects.toThrow(ToolError);
+    await expect(run('not json', { mode: 'build' })).rejects.toThrow(ToolError);
   });
 });

@@ -19,6 +19,21 @@ globalThis.Blob = NodeBlob as unknown as typeof Blob;
 if (NodeFile) globalThis.File = NodeFile as unknown as typeof File;
 
 if (typeof window !== 'undefined') {
+  // jsdom has no canvas backend, and Vitest 5 turns jsdom's "not implemented"
+  // console error into a failed run. The panels only paint thumbnails, so a
+  // minimal no-op 2D context is enough here.
+  if (typeof HTMLCanvasElement !== 'undefined') {
+    const noopContext = {
+      fillStyle: '#000',
+      clearRect: () => {},
+      fillRect: () => {},
+      drawImage: () => {},
+    };
+    HTMLCanvasElement.prototype.getContext = function getContext() {
+      return noopContext as unknown as CanvasRenderingContext2D;
+    } as unknown as typeof HTMLCanvasElement.prototype.getContext;
+  }
+
   window.matchMedia ||= ((query: string) => ({
     matches: false,
     media: query,

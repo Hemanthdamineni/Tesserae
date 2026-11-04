@@ -34,7 +34,9 @@ describe('base58', async () => {
   });
 
   it('throws on an invalid character when decoding', async () => {
-    expect(run('0OIl', { mode: 'decode' })).rejects.toThrow(ToolError);
-    expect(run('abc def', { mode: 'decode' })).rejects.toThrow(/not a valid Base58 character/i);
+    await expect(run('0OIl', { mode: 'decode' })).rejects.toThrow(ToolError);
+    await expect(run('abc def', { mode: 'decode' })).rejects.toThrow(
+      /not a valid Base58 character/i,
+    );
   });
 });

@@ -73,16 +73,16 @@ describe('jwt-decode', async () => {
   });
 
   it('throws when the token does not have three parts', async () => {
-    await expect(run('abc.def')).rejects.toThrow(ToolError);
-    await expect(run('abc.def')).rejects.toThrow(/three dot-separated parts/i);
+    await await expect(run('abc.def')).rejects.toThrow(ToolError);
+    await await expect(run('abc.def')).rejects.toThrow(/three dot-separated parts/i);
   });
 
   it('throws on a segment that is not valid base64url', async () => {
-    expect(run('@@@@.@@@@.sig')).rejects.toThrow(ToolError);
+    await await expect(run('@@@@.@@@@.sig')).rejects.toThrow(ToolError);
   });
 
   it('throws when a segment is valid base64 but not JSON', async () => {
     // "hello" base64url-encoded is not a JSON value
-    expect(run('aGVsbG8.aGVsbG8.sig')).rejects.toThrow(/not valid JSON/i);
+    await expect(run('aGVsbG8.aGVsbG8.sig')).rejects.toThrow(/not valid JSON/i);
   });
 });

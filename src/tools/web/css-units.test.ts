@@ -46,8 +46,8 @@ describe('css-units', async () => {
   });
 
   it('throws ToolError on non-numeric input', async () => {
-    expect(run('big')).rejects.toThrow(ToolError);
-    expect(run('big')).rejects.toThrow(/number, optionally with a unit/);
+    await expect(run('big')).rejects.toThrow(ToolError);
+    await expect(run('big')).rejects.toThrow(/number, optionally with a unit/);
   });
 
   it('empty input gives empty output', async () => {

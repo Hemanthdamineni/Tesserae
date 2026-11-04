@@ -54,32 +54,40 @@ describe('ascii85', async () => {
   });
 
   it('throws when Z85 input is not a multiple of 4 bytes on encode', async () => {
-    expect(run('abc', { mode: 'encode', variant: 'z85' })).rejects.toThrow(ToolError);
-    expect(run('abc', { mode: 'encode', variant: 'z85' })).rejects.toThrow(/multiple of 4/i);
+    await await expect(run('abc', { mode: 'encode', variant: 'z85' })).rejects.toThrow(ToolError);
+    await await expect(run('abc', { mode: 'encode', variant: 'z85' })).rejects.toThrow(
+      /multiple of 4/i,
+    );
   });
 
   it('throws when Z85 input is not a multiple of 5 chars on decode', async () => {
-    expect(run('abcd', { mode: 'decode', variant: 'z85' })).rejects.toThrow(/multiple of 5/i);
+    await await expect(run('abcd', { mode: 'decode', variant: 'z85' })).rejects.toThrow(
+      /multiple of 5/i,
+    );
   });
 
   it('throws on a dangling character when decoding Adobe', async () => {
-    expect(run('<~a~>', { mode: 'decode', variant: 'adobe' })).rejects.toThrow(/dangling/i);
+    await await expect(run('<~a~>', { mode: 'decode', variant: 'adobe' })).rejects.toThrow(
+      /dangling/i,
+    );
   });
 
   it('throws on an out-of-range character when decoding', async () => {
-    expect(run('ab~cd', { mode: 'decode', variant: 'btoa' })).rejects.toThrow(
+    await await expect(run('ab~cd', { mode: 'decode', variant: 'btoa' })).rejects.toThrow(
       /not a valid Ascii85 character/i,
     );
   });
 
   it('throws when an Ascii85 group overflows 32 bits', async () => {
     // "uuuuu" is 84*(85^4+85^3+85^2+85+1) = 4437053124 > 2^32-1
-    expect(run('<~uuuuu~>', { mode: 'decode', variant: 'adobe' })).rejects.toThrow(ToolError);
-    expect(run('<~uuuuu~>', { mode: 'decode', variant: 'adobe' })).rejects.toThrow(/out of range/i);
+    await expect(run('<~uuuuu~>', { mode: 'decode', variant: 'adobe' })).rejects.toThrow(ToolError);
+    await await expect(run('<~uuuuu~>', { mode: 'decode', variant: 'adobe' })).rejects.toThrow(
+      /out of range/i,
+    );
   });
 
   it('throws when a Z85 group overflows 32 bits', async () => {
     // "#####" maps to 84,84,84,84,84 -> same overflow value
-    expect(run('#####', { mode: 'decode', variant: 'z85' })).rejects.toThrow(/out of range/i);
+    await expect(run('#####', { mode: 'decode', variant: 'z85' })).rejects.toThrow(/out of range/i);
   });
 });

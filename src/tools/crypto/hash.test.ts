@@ -70,6 +70,6 @@ describe('hash', async () => {
   });
 
   it('throws ToolError on an unsupported algorithm', async () => {
-    expect(run('abc', { algorithm: 'sha3-256' })).rejects.toBeInstanceOf(ToolError);
+    await expect(run('abc', { algorithm: 'sha3-256' })).rejects.toBeInstanceOf(ToolError);
   });
 });

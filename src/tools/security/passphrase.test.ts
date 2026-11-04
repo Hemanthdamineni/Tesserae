@@ -64,7 +64,7 @@ describe('passphrase', async () => {
   });
 
   it('throws ToolError when the word count is not a number', async () => {
-    expect(run({ words: 'abc' })).rejects.toThrow(ToolError);
+    await expect(run({ words: 'abc' })).rejects.toThrow(ToolError);
   });
 
   it('still generates for empty text input (it is a generator)', async () => {

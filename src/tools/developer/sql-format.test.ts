@@ -49,7 +49,7 @@ describe('sql-format', async () => {
   });
 
   it('throws on an unterminated string literal', async () => {
-    expect(run("SELECT 'oops FROM t")).rejects.toThrow(/[Uu]nterminated/);
+    await expect(run("SELECT 'oops FROM t")).rejects.toThrow(/[Uu]nterminated/);
   });
 
   it('empty input returns empty output', async () => {

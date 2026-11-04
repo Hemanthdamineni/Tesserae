@@ -35,8 +35,8 @@ describe('random-string', async () => {
   });
 
   it('empty custom set throws ToolError', async () => {
-    expect(run({ charset: 'custom', custom: '' })).rejects.toThrow(ToolError);
-    expect(run({ charset: 'custom', custom: '' })).rejects.toThrow(
+    await expect(run({ charset: 'custom', custom: '' })).rejects.toThrow(ToolError);
+    await expect(run({ charset: 'custom', custom: '' })).rejects.toThrow(
       /custom character set is empty/i,
     );
   });
@@ -60,8 +60,8 @@ describe('random-string', async () => {
   });
 
   it('throws ToolError when count or length is not a number', async () => {
-    expect(run({ count: 'abc' })).rejects.toThrow(ToolError);
-    expect(run({ length: 'abc' })).rejects.toThrow(ToolError);
+    await expect(run({ count: 'abc' })).rejects.toThrow(ToolError);
+    await expect(run({ length: 'abc' })).rejects.toThrow(ToolError);
   });
 
   it('still generates for empty text input (it is a generator)', async () => {

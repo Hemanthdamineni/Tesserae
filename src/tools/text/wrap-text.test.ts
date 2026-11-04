@@ -54,7 +54,7 @@ describe('wrap-text', async () => {
   });
 
   it('throws ToolError on a non-positive width', async () => {
-    expect(run('hello there', { mode: 'wrap', width: 0 })).rejects.toThrow(/width/i);
+    await expect(run('hello there', { mode: 'wrap', width: 0 })).rejects.toThrow(/width/i);
   });
 
   it('reports line count in stats', async () => {

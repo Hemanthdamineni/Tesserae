@@ -82,7 +82,7 @@ describe('color-palette', async () => {
   });
 
   it('throws ToolError on a bad colour', async () => {
-    expect(run('#nope')).rejects.toThrow(ToolError);
+    await expect(run('#nope')).rejects.toThrow(ToolError);
   });
 
   it('empty input gives empty output', async () => {

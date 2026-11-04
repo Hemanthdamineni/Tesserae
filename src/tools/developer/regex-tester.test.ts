@@ -72,14 +72,14 @@ describe('regex-tester', async () => {
   });
 
   it('throws ToolError when the pattern is missing', async () => {
-    expect(run('abc', {})).rejects.toThrow(ToolError);
+    await expect(run('abc', {})).rejects.toThrow(ToolError);
   });
 
   it('throws ToolError on invalid flags', async () => {
-    expect(run('abc', { pattern: '.', flags: 'gz' })).rejects.toThrow(ToolError);
+    await expect(run('abc', { pattern: '.', flags: 'gz' })).rejects.toThrow(ToolError);
   });
 
   it('throws ToolError on an invalid regex, surfacing the JS message', async () => {
-    expect(run('abc', { pattern: '(', flags: 'g' })).rejects.toThrow(ToolError);
+    await expect(run('abc', { pattern: '(', flags: 'g' })).rejects.toThrow(ToolError);
   });
 });

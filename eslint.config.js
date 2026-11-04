@@ -57,6 +57,11 @@ export default [
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // ESLint 10 promoted this rule into `js.configs.recommended`. It flags
+      // defensive initialisers that are always overwritten (61 hits across the
+      // tool modules); TypeScript's definite-assignment analysis already covers
+      // the cases that matter, so keep it off rather than rewrite working code.
+      'no-useless-assignment': 'off',
     },
   },
   ...astro.configs.recommended,

@@ -69,6 +69,6 @@ describe('csv-to-json', async () => {
   });
 
   it('throws ToolError on an unterminated quoted field', async () => {
-    expect(run('name\n"Ada')).rejects.toThrow(ToolError);
+    await expect(run('name\n"Ada')).rejects.toThrow(ToolError);
   });
 });

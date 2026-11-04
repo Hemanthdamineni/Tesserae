@@ -43,8 +43,8 @@ describe('rot13', async () => {
   });
 
   it('throws ToolError on an out-of-range Caesar shift', async () => {
-    expect(run('abc', { variant: 'caesar', shift: 30 })).rejects.toThrow(/1 to 25/i);
-    expect(run('abc', { variant: 'caesar', shift: 0 })).rejects.toThrow(/1 to 25/i);
+    await expect(run('abc', { variant: 'caesar', shift: 30 })).rejects.toThrow(/1 to 25/i);
+    await expect(run('abc', { variant: 'caesar', shift: 0 })).rejects.toThrow(/1 to 25/i);
   });
 
   it('empty input → empty output', async () => {

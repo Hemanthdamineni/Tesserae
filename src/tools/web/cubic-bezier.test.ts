@@ -49,13 +49,13 @@ describe('cubic-bezier', async () => {
   });
 
   it('throws ToolError when x values leave [0,1]', async () => {
-    expect(run('-0.1, 0, 0.5, 1')).rejects.toThrow(ToolError);
-    expect(run('0.5, 0, 1.5, 1')).rejects.toThrow(/between 0 and 1/);
+    await expect(run('-0.1, 0, 0.5, 1')).rejects.toThrow(ToolError);
+    await expect(run('0.5, 0, 1.5, 1')).rejects.toThrow(/between 0 and 1/);
   });
 
   it('throws ToolError when not four numbers', async () => {
-    expect(run('1, 2, 3')).rejects.toThrow(ToolError);
-    expect(run('a, b, c, d')).rejects.toThrow(/four numbers/);
+    await expect(run('1, 2, 3')).rejects.toThrow(ToolError);
+    await expect(run('a, b, c, d')).rejects.toThrow(/four numbers/);
   });
 
   it('empty input gives empty output', async () => {

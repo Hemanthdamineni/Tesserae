@@ -72,11 +72,11 @@ describe('xml-format', async () => {
   });
 
   it('throws ToolError on a stray "<" inside a tag', async () => {
-    expect(run('<a<')).rejects.toThrow(ToolError);
+    await expect(run('<a<')).rejects.toThrow(ToolError);
   });
 
   it('throws ToolError on an unterminated comment', async () => {
-    expect(run('<a><!-- oops</a>')).rejects.toThrow(ToolError);
+    await expect(run('<a><!-- oops</a>')).rejects.toThrow(ToolError);
   });
 
   it('empty input returns empty output', async () => {

@@ -28,7 +28,7 @@ describe('url-encode', async () => {
     expect((await run('a+b', { mode: 'decode', plusSpace: false })).output).toBe('a+b');
   });
   it('throws on malformed input', async () => {
-    expect(run('%', { mode: 'decode' })).rejects.toThrow(/percent-encoding/i);
+    await expect(run('%', { mode: 'decode' })).rejects.toThrow(/percent-encoding/i);
   });
   it('empty input', async () => {
     expect((await run('')).output).toBe('');

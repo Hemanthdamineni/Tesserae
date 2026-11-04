@@ -75,7 +75,7 @@ describe('json-diff', async () => {
   });
 
   it('throws ToolError on invalid JSON in either side', async () => {
-    expect(run('not json', { second: '{}' })).rejects.toThrow(ToolError);
-    expect(run('{ "a": 1 }', { second: '{ bad' })).rejects.toThrow(ToolError);
+    await expect(run('not json', { second: '{}' })).rejects.toThrow(ToolError);
+    await expect(run('{ "a": 1 }', { second: '{ bad' })).rejects.toThrow(ToolError);
   });
 });

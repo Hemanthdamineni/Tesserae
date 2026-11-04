@@ -37,8 +37,8 @@ describe('url-parse', async () => {
   });
 
   it('throws ToolError on invalid input', async () => {
-    expect(run('not a url')).rejects.toThrow(ToolError);
-    expect(run('not a url')).rejects.toThrow(/valid URL/);
+    await expect(run('not a url')).rejects.toThrow(ToolError);
+    await expect(run('not a url')).rejects.toThrow(/valid URL/);
   });
 
   it('empty input gives empty output', async () => {

@@ -52,6 +52,6 @@ describe('yaml-to-json', async () => {
   });
 
   it('throws ToolError on invalid YAML', async () => {
-    expect(run('key: {a: 1')).rejects.toThrow(ToolError);
+    await expect(run('key: {a: 1')).rejects.toThrow(ToolError);
   });
 });

@@ -48,6 +48,6 @@ describe('crc32', async () => {
   });
 
   it('throws ToolError on an unknown variant', async () => {
-    expect(run('abc', { variant: 'crc64' })).rejects.toThrow(ToolError);
+    await expect(run('abc', { variant: 'crc64' })).rejects.toThrow(ToolError);
   });
 });

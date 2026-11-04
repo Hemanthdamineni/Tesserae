@@ -46,6 +46,6 @@ describe('indent-text', async () => {
   });
 
   it('throws ToolError on an out-of-range count', async () => {
-    expect(run('a', { mode: 'indent', count: 0 })).rejects.toThrow(/between 1 and 16/i);
+    await expect(run('a', { mode: 'indent', count: 0 })).rejects.toThrow(/between 1 and 16/i);
   });
 });

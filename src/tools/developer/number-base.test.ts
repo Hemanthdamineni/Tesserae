@@ -63,8 +63,8 @@ describe('number-base', async () => {
   });
 
   it('throws ToolError on a digit invalid for the base', async () => {
-    expect(run('2', { fromBase: 2, toBase: 10 })).rejects.toThrow(/not a valid digit/i);
-    expect(run('g', { fromBase: 16, toBase: 10 })).rejects.toThrow(/not a valid digit/i);
+    await expect(run('2', { fromBase: 2, toBase: 10 })).rejects.toThrow(/not a valid digit/i);
+    await expect(run('g', { fromBase: 16, toBase: 10 })).rejects.toThrow(/not a valid digit/i);
   });
 
   it('empty input gives empty output', async () => {

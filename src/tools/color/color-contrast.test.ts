@@ -34,9 +34,9 @@ describe('color-contrast', async () => {
   });
 
   it('throws ToolError on a bad colour', async () => {
-    expect(run('#zzzzzz')).rejects.toThrow(ToolError);
-    expect(run('#zzzzzz')).rejects.toThrow(/is not a colour/);
-    expect(run('#000000', { second: 'nope' })).rejects.toThrow(ToolError);
+    await expect(run('#zzzzzz')).rejects.toThrow(ToolError);
+    await expect(run('#zzzzzz')).rejects.toThrow(/is not a colour/);
+    await expect(run('#000000', { second: 'nope' })).rejects.toThrow(ToolError);
   });
 
   it('empty input gives empty output', async () => {

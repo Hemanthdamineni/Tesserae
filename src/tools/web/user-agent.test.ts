@@ -72,7 +72,7 @@ describe('user-agent', async () => {
   });
 
   it('throws ToolError on empty input', async () => {
-    expect(run('')).rejects.toThrow(ToolError);
-    expect(run(' ')).rejects.toThrow(/Paste a User-Agent string/);
+    await expect(run('')).rejects.toThrow(ToolError);
+    await expect(run(' ')).rejects.toThrow(/Paste a User-Agent string/);
   });
 });

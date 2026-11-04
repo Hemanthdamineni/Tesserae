@@ -43,8 +43,8 @@ describe('port-lookup', async () => {
   });
 
   it('rejects out-of-range port numbers with a ToolError', async () => {
-    expect(run('99999')).rejects.toThrow(ToolError);
-    expect(run('99999')).rejects.toThrow(/0 to 65535/);
+    await expect(run('99999')).rejects.toThrow(ToolError);
+    await expect(run('99999')).rejects.toThrow(/0 to 65535/);
   });
 
   it('TCP/UDP dual registration appears for DNS', async () => {

@@ -45,11 +45,11 @@ describe('hmac', async () => {
   });
 
   it('throws ToolError when the key is empty', async () => {
-    expect(run(FOX, {})).rejects.toBeInstanceOf(ToolError);
-    expect(run(FOX, { key: '' })).rejects.toThrow(/key is required/i);
+    await expect(run(FOX, {})).rejects.toBeInstanceOf(ToolError);
+    await expect(run(FOX, { key: '' })).rejects.toThrow(/key is required/i);
   });
 
   it('throws ToolError on an unsupported algorithm', async () => {
-    expect(run(FOX, { key: 'key', algorithm: 'md5' })).rejects.toBeInstanceOf(ToolError);
+    await expect(run(FOX, { key: 'key', algorithm: 'md5' })).rejects.toBeInstanceOf(ToolError);
   });
 });
