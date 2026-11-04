@@ -62,7 +62,7 @@
     "mermaid": "^12.2.0",
     "openpgp": "^6.3.2",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^4.10.38",
+    "pdfjs-dist": "^6.4.299",
     "prettier": "^3.9.6",
     "qrcode-generator": "^2.0.4",
     "shiki": "^4.5.0",
