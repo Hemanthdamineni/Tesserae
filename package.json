@@ -89,7 +89,7 @@
     "eslint-plugin-astro": "^3.2.1",
     "globals": "^17.14.0",
     "jsdom": "^25.0.1",
-    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro": "^1.1.2",
     "typescript": "^5.9.3",
     "vitest": "^5.1.0"
   },
