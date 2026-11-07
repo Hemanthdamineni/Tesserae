@@ -35,7 +35,7 @@ function getWorker(): Worker {
   if (!worker) {
     worker = new Worker(new URL('./tool.worker.ts', import.meta.url), {
       type: 'module',
-      name: 'toolbench-tool',
+      name: 'tesserae-tool',
     });
   }
   return worker;

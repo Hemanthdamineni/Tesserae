@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { site } from '@/lib/site';
 
-/** Base path the site is served from (`import.meta.env.BASE_URL`), e.g. `/browser-tools-platform` or `/`. */
+/** Base path the site is served from (`import.meta.env.BASE_URL`), e.g. `/Tesserae` or `/`. */
 const BASE = import.meta.env.BASE_URL;
 
 /** Join a route to the base path without doubling slashes. */

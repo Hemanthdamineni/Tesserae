@@ -710,7 +710,7 @@ function textBody(request: Request): string {
   return request.body.kind === 'text' ? request.body.content : '';
 }
 
-const MULTIPART_BOUNDARY = '----ToolbenchBoundary7d31a4f2c9e0';
+const MULTIPART_BOUNDARY = '----TesseraeBoundary7d31a4f2c9e0';
 
 /** Build a multipart body string; file parts carry a placeholder payload. */
 function buildMultipart(boundary: string, fields: FormField[]): string {

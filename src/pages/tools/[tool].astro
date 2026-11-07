@@ -16,7 +16,7 @@ export const getStaticPaths = (() => {
 
 const { meta } = Astro.props;
 const content = getContent(meta.id);
-// Link paths must honour the deploy base (e.g. /browser-tools-platform on GitHub Pages).
+// Link paths must honour the deploy base (e.g. /Tesserae on GitHub Pages).
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Alias ids (merged/renamed tools) stay routable but redirect to their

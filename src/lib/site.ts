@@ -3,10 +3,10 @@
  * Rename the product by editing `name` / `domain` here — nothing else hard-codes them.
  */
 
-const DEFAULT_URL = 'https://toolbench.app';
+const DEFAULT_URL = 'https://hemanthdamineni.github.io/Tesserae';
 
 /**
- * Deploy base path (e.g. `/browser-tools-platform` on GitHub Pages), without a
+ * Deploy base path (e.g. `/Tesserae` on GitHub Pages), without a
  * trailing slash. Internal navigation must go through `link()` so the site
  * works at any base — Astro does not rewrite hardcoded absolute hrefs.
  */
@@ -24,13 +24,13 @@ export const absoluteUrl = (path: string): string =>
   new URL(link(path), import.meta.env.SITE_URL ?? DEFAULT_URL).toString();
 
 /** The canonical repository for this project. */
-const REPOSITORY = 'https://github.com/Hemanthdamineni/browser-tools-platform';
+const REPOSITORY = 'https://github.com/Hemanthdamineni/Tesserae';
 
 export const site = {
-  name: 'Toolbench',
+  name: 'Tesserae',
   /** Shown in the header next to the logo. */
-  shortName: 'Toolbench',
-  tagline: 'Fast, private tools that run in your browser',
+  shortName: 'Tesserae',
+  tagline: 'An opus tessellatum of private tools',
   description:
     'A large collection of file and text utilities that run entirely on your device. ' +
     'No uploads, no accounts, no tracking. Works offline once loaded.',
@@ -62,6 +62,7 @@ export const site = {
       { label: 'Privacy model', href: link('/privacy') },
       { label: 'How it works', href: link('/about#how') },
       { label: 'Open source', href: REPOSITORY },
+      { label: 'Contribute', href: REPOSITORY },
     ],
   },
 } as const;

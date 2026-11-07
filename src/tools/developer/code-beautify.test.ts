@@ -85,8 +85,8 @@ describe('code-beautify — one happy path per language', () => {
   });
 
   it('YAML', async () => {
-    const res = await run('name: toolbench\nitems:\n - one\n - two', { language: 'yaml' });
-    expect(res.output).toBe('name: toolbench\nitems:\n  - one\n  - two\n');
+    const res = await run('name: tesserae\nitems:\n - one\n - two', { language: 'yaml' });
+    expect(res.output).toBe('name: tesserae\nitems:\n  - one\n  - two\n');
     expect(res.language).toBe('yaml');
   });
 });

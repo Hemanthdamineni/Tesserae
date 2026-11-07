@@ -56,7 +56,7 @@ export const meta: ToolMeta = {
       key: 'salt',
       label: 'Salt',
       type: 'text',
-      default: 'toolbench-salt',
+      default: 'tesserae-salt',
       placeholder: 'random per-user salt',
     },
     {

@@ -50,7 +50,7 @@ export const meta: ToolMeta = {
   examples: [
     { title: 'Encode "hello"', input: 'hello', options: { mode: 'encode' } },
     { title: 'Decode', input: 'aGVsbG8gd29ybGQ=', options: { mode: 'decode' } },
-    { title: 'Emoji round-trips', input: 'I ❤ Toolbench', options: { mode: 'encode' } },
+    { title: 'Emoji round-trips', input: 'I ❤ Tesserae', options: { mode: 'encode' } },
   ],
   related: ['base32', 'url-encode', 'hex', 'jwt-decode'],
   status: 'stable',

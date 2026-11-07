@@ -2,8 +2,9 @@
  * Generate PNG app icons with zero dependencies (Node's zlib only).
  * Run: `node scripts/gen-icons.mjs`
  *
- * Draws the Toolbench mark — a rounded square with a bold "T" — at the sizes a
- * PWA + Apple/Android need. Deterministic output; commit the results.
+ * Draws the Tesserae mark — a 3x3 grid of small rounded tiles (tesserae), one in
+ * the accent color, the rest in bone — at the sizes a PWA + Apple/Android need.
+ * Deterministic output; commit the results.
  */
 import { deflateSync } from 'node:zlib';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -13,9 +14,10 @@ import { dirname, join } from 'node:path';
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'icons');
 mkdirSync(OUT, { recursive: true });
 
-// palette
-const BG = [4, 120, 87, 255]; // brand-600
-const FG = [255, 255, 255, 255];
+// palette: ink bg, bone tiles, terracotta accent
+const BG = [29, 29, 27, 255]; // #1d1d1b
+const TILE = [250, 249, 247, 255]; // #faf9f7
+const ACCENT = [179, 66, 42, 255]; // #b3422a
 const TRANSPARENT = [0, 0, 0, 0];
 
 const CRC_TABLE = (() => {
@@ -71,6 +73,39 @@ function encodePng(width, height, rgba) {
   ]);
 }
 
+function inRoundedRect(x, y, ox, oy, size, r) {
+  const lx = x - ox;
+  const ly = y - oy;
+  if (lx < 0 || ly < 0 || lx >= size || ly >= size) return false;
+  if (r <= 0) return true;
+  const cx = Math.min(Math.max(lx, r), size - r);
+  const cy = Math.min(Math.max(ly, r), size - r);
+  return Math.hypot(lx - cx, ly - cy) <= r;
+}
+
+/**
+ * Tesserae tile-grid geometry shared by the icon and the og badge.
+ * 3×3 rounded tiles; the centre tile is the accent tessera.
+ */
+function tileAt(x, y, ox, oy, box) {
+  const tile = box * 0.24;
+  const gap = box * 0.07;
+  const offset = box * 0.07;
+  const step = tile + gap;
+  const tileRadius = tile * 0.22;
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      const tx = ox + offset + col * step;
+      const ty = oy + offset + row * step;
+      if (x >= tx && x < tx + tile && y >= ty && y < ty + tile) {
+        if (!inRoundedRect(x, y, tx, ty, tile, tileRadius)) return null;
+        return row === 1 && col === 1 ? ACCENT : TILE;
+      }
+    }
+  }
+  return null;
+}
+
 function draw(size, { padding = 0, radiusRatio = 0.22 } = {}) {
   const buf = Buffer.alloc(size * size * 4);
   const set = (x, y, [r, g, b, a]) => {
@@ -85,33 +120,13 @@ function draw(size, { padding = 0, radiusRatio = 0.22 } = {}) {
   const box = size - inset * 2;
   const radius = box * radiusRatio;
 
-  const inRoundedRect = (x, y) => {
-    const lx = x - inset;
-    const ly = y - inset;
-    if (lx < 0 || ly < 0 || lx >= box || ly >= box) return false;
-    const cx = Math.min(Math.max(lx, radius), box - radius);
-    const cy = Math.min(Math.max(ly, radius), box - radius);
-    return Math.hypot(lx - cx, ly - cy) <= radius;
-  };
-
-  // "T" geometry, relative to the box
-  const barTop = inset + box * 0.26;
-  const barBottom = inset + box * 0.4;
-  const barLeft = inset + box * 0.2;
-  const barRight = inset + box * 0.8;
-  const stemLeft = inset + box * 0.43;
-  const stemRight = inset + box * 0.57;
-  const stemBottom = inset + box * 0.78;
-
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
-      if (!inRoundedRect(x, y)) {
+      if (!inRoundedRect(x, y, inset, inset, box, radius)) {
         set(x, y, TRANSPARENT);
         continue;
       }
-      const inBar = x >= barLeft && x <= barRight && y >= barTop && y <= barBottom;
-      const inStem = x >= stemLeft && x <= stemRight && y >= barTop && y <= stemBottom;
-      set(x, y, inBar || inStem ? FG : BG);
+      set(x, y, tileAt(x, y, inset, inset, box) ?? BG);
     }
   }
   return encodePng(size, size, buf);
@@ -152,7 +167,7 @@ const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 writeFileSync(join(PUBLIC, 'favicon.ico'), ico(fav48, 48));
 console.log('wrote favicon.ico 48x48');
 
-// og.png — 1200×630 social card: brand field, big rounded-square "T", accent bar.
+// og.png — 1200×630 social card: ink field, tile-grid badge, accent bar.
 function drawOg() {
   const W = 1200;
   const H = 630;
@@ -164,36 +179,17 @@ function drawOg() {
     buf[i + 2] = b;
     buf[i + 3] = a;
   };
-  const DARK = [4, 120, 87, 255]; // brand-700
   const badge = 300;
   const bx = 120;
   const by = (H - badge) / 2;
   const rad = badge * 0.22;
 
-  const inBadge = (x, y) => {
-    const lx = x - bx;
-    const ly = y - by;
-    if (lx < 0 || ly < 0 || lx >= badge || ly >= badge) return false;
-    const cx = Math.min(Math.max(lx, rad), badge - rad);
-    const cy = Math.min(Math.max(ly, rad), badge - rad);
-    return Math.hypot(lx - cx, ly - cy) <= rad;
-  };
-  const barTop = by + badge * 0.26;
-  const barBottom = by + badge * 0.4;
-  const barL = bx + badge * 0.2;
-  const barR = bx + badge * 0.8;
-  const stemL = bx + badge * 0.43;
-  const stemR = bx + badge * 0.57;
-  const stemB = by + badge * 0.78;
-
   for (let y = 0; y < H; y++) {
     for (let x = 0; x < W; x++) {
       let c = BG;
-      if (y > H - 12) c = DARK;
-      if (inBadge(x, y)) {
-        const inBar = x >= barL && x <= barR && y >= barTop && y <= barBottom;
-        const inStem = x >= stemL && x <= stemR && y >= barTop && y <= stemB;
-        c = inBar || inStem ? FG : DARK;
+      if (y > H - 12) c = ACCENT;
+      if (inRoundedRect(x, y, bx, by, badge, rad)) {
+        c = tileAt(x, y, bx, by, badge) ?? BG;
       }
       put(x, y, c);
     }

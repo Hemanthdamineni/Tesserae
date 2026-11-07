@@ -55,7 +55,7 @@ src/
   tools/<category>/<id>.{meta,tool,test}.ts
 public/
   sw.js  favicon.*  icons/*  _headers  og.png
-scripts/gen-icons.mjs   Deterministic PNG/ICO generation (Node zlib only)
+  vendor/onnxruntime/  same-origin ONNX WASM assets for ML tools
 ```
 
 ## Request/response flow for a tool run

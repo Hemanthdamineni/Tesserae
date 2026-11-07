@@ -1,16 +1,16 @@
 {
-  "name": "toolbench",
+  "name": "tesserae",
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "description": "Toolbench - a fast, privacy-first collection of browser utilities. Every tool runs entirely on your device; nothing is uploaded.",
+  "description": "Tesserae - a fast, privacy-first collection of browser utilities. Every tool runs entirely on your device; nothing is uploaded.",
   "license": "MIT",
   "engines": {
     "node": ">=22.23.4"
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/vendor-heif-wasm.mjs --check && node scripts/vendor-tesseract.mjs --check && astro build",
+    "build": "node scripts/vendor-heif-wasm.mjs --check && node scripts/vendor-tesseract.mjs --check && node scripts/vendor-onnx-runtime.mjs --check && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint .",
@@ -22,6 +22,7 @@
     "bundle:check": "node scripts/check-bundle.mjs",
     "vendor:heif": "node scripts/vendor-heif-wasm.mjs",
     "vendor:tesseract": "node scripts/vendor-tesseract.mjs",
+    "vendor:onnx": "node scripts/vendor-onnx-runtime.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

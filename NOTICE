@@ -1,4 +1,4 @@
-Toolbench bundles the following third-party open-source libraries. Each is
+Tesserae bundles the following third-party open-source libraries. Each is
 loaded only by the specific tools that need it, and runs entirely in the
 visitor's browser.
 
@@ -43,7 +43,9 @@ it, and never before.
 
 Model weights are downloaded at runtime from the Hugging Face Hub only for
 models on the reviewed, permissively-licensed allow-list in
-`src/lib/ml/licenses.ts`; they are not redistributed with the site.
+`src/lib/ml/licenses.ts`; they are not redistributed with the site. The ONNX
+runtime WebAssembly assets are vendored under `public/vendor/onnxruntime/` and
+served by this static site.
 
 libheif-js (LGPL-3.0) is used by the HEIC tool only. It is loaded as a
 separate chunk on demand, and the WebAssembly binary it needs is served from

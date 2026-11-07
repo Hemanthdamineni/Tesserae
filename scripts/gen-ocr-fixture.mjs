@@ -21,7 +21,7 @@ const FONT = '600 44px "Liberation Sans", "DejaVu Sans", Arial, sans-serif';
 const FIXTURES = [
   {
     name: 'ocr-sample.png',
-    lines: ['TOOLBENCH', 'Invoice 4711', 'Total 42.50 EUR'],
+    lines: ['TESSERAE', 'Invoice 4711', 'Total 42.50 EUR'],
   },
   {
     name: 'ocr-sample-de.png',

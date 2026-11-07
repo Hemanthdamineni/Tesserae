@@ -6,13 +6,13 @@ import tailwindcss from '@tailwindcss/vite';
  * Public site URL. Override at build time with SITE_URL for your deployment,
  * e.g. `SITE_URL=https://your-domain npm run build`.
  */
-const SITE_URL = process.env.SITE_URL || 'https://hemanthdamineni.github.io/browser-tools-platform';
+const SITE_URL = process.env.SITE_URL || 'https://hemanthdamineni.github.io/Tesserae';
 
 /**
  * Path the site is served from. Override at build time with BASE_PATH for a
  * subpath deployment (a GitHub Pages project site), e.g. `BASE_PATH=/my-repo`.
  */
-const BASE_PATH = process.env.BASE_PATH || '/browser-tools-platform';
+const BASE_PATH = process.env.BASE_PATH || '/Tesserae';
 
 /**
  * Normalise a base path to a leading slash and no trailing slash, so Astro's

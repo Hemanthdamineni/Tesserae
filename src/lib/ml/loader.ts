@@ -39,9 +39,28 @@ export interface MlRuntimeEnv {
   useBrowserCache: boolean;
   useCustomCache: boolean;
   customCache: unknown;
+  useWasmCache?: boolean;
+  backends?: {
+    onnx?: {
+      wasm?: { wasmPaths?: { mjs: string; wasm: string }; proxy?: boolean };
+    };
+  };
   remoteHost: string;
   remotePathTemplate: string;
   fetch: ModelFetch;
+}
+
+/** Same-origin ONNX WASM assets, resolved against the deployed site base path. */
+const LOCAL_ONNX_WASM_BASE = `${import.meta.env.BASE_URL}vendor/onnxruntime/`;
+
+function configureOnnxWasm(runtime: MlRuntime): void {
+  const onnx = runtime.env.backends?.onnx;
+  if (!onnx?.wasm) return;
+  onnx.wasm.wasmPaths = {
+    mjs: `${LOCAL_ONNX_WASM_BASE}ort-wasm-simd-threaded.asyncify.mjs`,
+    wasm: `${LOCAL_ONNX_WASM_BASE}ort-wasm-simd-threaded.asyncify.wasm`,
+  };
+  runtime.env.useWasmCache = true;
 }
 
 /** The subset of the transformers.js module the loader uses. */
@@ -127,18 +146,16 @@ export interface LoadedModel<P = unknown> {
 function configureEnv(runtime: MlRuntime, fetch: ModelFetch, remoteHost: string): void {
   const env = runtime.env;
   env.allowLocalModels = false;
-  // Always allow remote *requests*; our `fetch` is the chokepoint and is what
-  // enforces `offline`, so a cold offline load fails with a friendly message
-  // instead of the runtime's generic "file not found".
+  // Always allow remote requests; our fetch is the model-network chokepoint.
   env.allowRemoteModels = true;
-  // We own caching through `fetch` + `ModelCache`; disable the runtime's own
-  // caches so nothing is stored twice and every read is integrity-checked.
+  // We own model caching through fetch + ModelCache.
   env.useBrowserCache = false;
   env.useCustomCache = false;
   env.customCache = null;
   env.remoteHost = remoteHost;
   env.remotePathTemplate = HF_PATH_TEMPLATE;
   env.fetch = fetch;
+  configureOnnxWasm(runtime);
 }
 
 /** Turn an arbitrary runtime failure into a friendly, user-facing error. */
@@ -197,6 +214,9 @@ export async function loadModel<P = unknown>(options: LoadModelOptions): Promise
     signal,
     tracker,
     allowHosts: options.allowHosts ?? DEFAULT_ALLOWED_HOSTS,
+    sameOriginPrefixes: [
+      new URL(LOCAL_ONNX_WASM_BASE, globalThis.location?.href ?? 'http://localhost').pathname,
+    ],
     remoteHost,
     offline,
     refresh,
@@ -318,7 +338,7 @@ export async function estimateDownloadSize(
     const cached = await cache.match(key);
     if (cached) {
       const recorded =
-        cached.headers.get('x-toolbench-bytes') ?? cached.headers.get('content-length');
+        cached.headers.get('x-tesserae-bytes') ?? cached.headers.get('content-length');
       files.push({ url, size: recorded ? Number(recorded) || null : null, cached: true });
       continue;
     }

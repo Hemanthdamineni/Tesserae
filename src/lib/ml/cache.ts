@@ -30,10 +30,10 @@ export interface CacheStorageLike {
   keys(): Promise<string[]>;
 }
 
-export const BYTES_HEADER = 'x-toolbench-bytes';
-export const SHA256_HEADER = 'x-toolbench-sha256';
-export const URL_HEADER = 'x-toolbench-url';
-export const STORED_HEADER = 'x-toolbench-stored-at';
+export const BYTES_HEADER = 'x-tesserae-bytes';
+export const SHA256_HEADER = 'x-tesserae-sha256';
+export const URL_HEADER = 'x-tesserae-url';
+export const STORED_HEADER = 'x-tesserae-stored-at';
 
 /** Default cap for digest verification of a single cached entry. */
 export const DEFAULT_DIGEST_LIMIT = 64 * 1024 * 1024; // 64 MiB
@@ -111,7 +111,7 @@ function defaultStorage(): CacheStorageLike | null {
 
 export class ModelCache {
   /** Versioned bucket name — bump the suffix to invalidate every cached model. */
-  static readonly defaultName = 'toolbench-ml-v1';
+  static readonly defaultName = 'tesserae-ml-v1';
 
   private readonly cacheName: string;
   private readonly storage: CacheStorageLike | null;

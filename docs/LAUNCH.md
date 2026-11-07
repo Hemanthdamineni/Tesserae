@@ -1,6 +1,6 @@
 # Launch: getting indexed by search engines and AI assistants
 
-This is the operator checklist for making Toolbench discoverable. It covers what is already automated in the
+This is the operator checklist for making Tesserae discoverable. It covers what is already automated in the
 repository, what only a human with account access can do, and how to verify each step.
 
 Everything in the "Already in the repository" section ships with the code — nothing there needs an account.

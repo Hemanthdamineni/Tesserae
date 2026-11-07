@@ -1,6 +1,6 @@
 # Runbook
 
-Operational procedures for Toolbench. Day-to-day contributing lives in `CONTRIBUTING.md`; the tool contract
+Operational procedures for Tesserae. Day-to-day contributing lives in `CONTRIBUTING.md`; the tool contract
 lives in `docs/ADDING-A-TOOL.md`. This file is for operators: deploy, roll back, respond to an incident.
 
 ## 0. The one command that matters

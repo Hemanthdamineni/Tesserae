@@ -30,7 +30,7 @@ export const meta: ToolMeta = {
         { value: 'hotp', label: 'HOTP (counter-based)' },
       ],
     },
-    { key: 'issuer', label: 'Issuer', type: 'text', default: 'Toolbench' },
+    { key: 'issuer', label: 'Issuer', type: 'text', default: 'Tesserae' },
     { key: 'account', label: 'Account', type: 'text', default: 'user@example.com' },
     {
       key: 'secretInput',
@@ -86,7 +86,7 @@ export const meta: ToolMeta = {
   examples: [
     {
       title: 'TOTP with a fresh secret',
-      options: { type: 'totp', issuer: 'Toolbench', account: 'you@example.com' },
+      options: { type: 'totp', issuer: 'Tesserae', account: 'you@example.com' },
     },
     {
       title: 'Known secret',

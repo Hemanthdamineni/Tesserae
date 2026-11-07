@@ -5,8 +5,10 @@ Shared, reusable loader for [transformers.js](https://github.com/huggingface/tra
 ML tools build on (background remover, speech-to-text, image upscale, …): tools
 never talk to the runtime or the Hub directly, they call `loadModel()`.
 
-Everything runs in the visitor's tab. The only network traffic is model files
-fetched from the permitted host — the Hugging Face Hub by default.
+Everything runs in the visitor's tab. The only external network traffic is model
+files fetched from the permitted host — the Hugging Face Hub by default. The ONNX
+WebAssembly runtime assets are served from this site's static `/vendor/onnxruntime/`
+directory. User inputs never leave the device.
 
 ## Quick start
 
@@ -122,7 +124,7 @@ WebGPU, `q8` on WASM. Override it when a model ships a different quantisation.
 
 ## Caching
 
-Model files are cached in Cache Storage under `toolbench-ml-v1` (bump
+Model files are cached in Cache Storage under `tesserae-ml-v1` (bump
 `ModelCache.defaultName` to invalidate). Each entry records its byte length, URL,
 timestamp, content type and, when the Hub provides one (LFS `ETag`), its SHA-256.
 
@@ -140,13 +142,14 @@ Cache Storage uses the browser's shared quota. If a write hits
 
 All traffic flows through `createModelFetch`, which:
 
-- refuses any URL whose host is not on `allowHosts` (defence in depth — a bad
-  model id can't probe an unexpected server),
-- passes the caller's `AbortSignal` to the real `fetch`,
-- only ever requests model files; user inputs never leave the device.
+- refuses model URLs whose host is not on `allowHosts`,
+- permits only the site's `/vendor/onnxruntime/` assets in addition to model hosts,
+- passes the caller's `AbortSignal` to downloads,
+- only ever requests public model/runtime files; user inputs never leave the device.
 
-`meta.privacy.network` for an ML tool should list the Hub, e.g.
-`network: ['huggingface.co']`.
+`meta.privacy.network` for an ML tool lists only external hosts, for example
+`network: ['huggingface.co']`; same-origin runtime assets are part of the static
+site and are not a third-party contact.
 
 ## Licences
 

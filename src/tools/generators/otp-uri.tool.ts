@@ -25,7 +25,7 @@ export function base32Encode(bytes: Uint8Array): string {
 function run(input: TextRunInput): TextRunResult {
   const o = resolveOptions(meta, input.options);
   const type = String(o.type ?? 'totp');
-  const issuer = String(o.issuer ?? 'Toolbench').trim();
+  const issuer = String(o.issuer ?? 'Tesserae').trim();
   const account = String(o.account ?? 'user@example.com').trim();
   const digits = String(o.digits ?? '6');
   const algorithm = String(o.algorithm ?? 'SHA1');

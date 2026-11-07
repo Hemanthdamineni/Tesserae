@@ -7,7 +7,7 @@ const run = (text: string, options: Record<string, string | number | boolean> = 
 describe('otp-uri', () => {
   it('defaults produce a totp URI with the expected shape', () => {
     const out = run('');
-    expect(out.startsWith('otpauth://totp/Toolbench:user%40example.com?secret=')).toBe(true);
+    expect(out.startsWith('otpauth://totp/Tesserae:user%40example.com?secret=')).toBe(true);
     expect(out).toContain('digits=6');
     expect(out).toContain('period=30');
     expect(out).toContain('algorithm=SHA1');

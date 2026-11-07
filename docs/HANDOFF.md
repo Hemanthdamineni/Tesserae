@@ -1,10 +1,10 @@
 # Hand-off guide
 
-Everything a new maintainer needs to run, change, verify and ship Toolbench.
+Everything a new maintainer needs to run, change, verify and ship Tesserae.
 
 ## What this is
 
-Toolbench is a static catalogue of **506 browser-side utilities** — encoders,
+Tesserae is a static catalogue of **506 browser-side utilities** — encoders,
 hashers, formatters, converters, inspectors, generators, image/PDF/audio tools.
 There is no backend and no upload path: every tool runs in the visitor's tab,
 often inside a Web Worker. The site is an Astro build deployed as static files.
@@ -31,8 +31,8 @@ npm run verify        # the full gate CI runs, locally
 
 | Variable    | Default                                                    | Purpose                          |
 | ----------- | ---------------------------------------------------------- | -------------------------------- |
-| `SITE_URL`  | `https://hemanthdamineni.github.io/browser-tools-platform` | Canonical origin, sitemap, OG    |
-| `BASE_PATH` | `/browser-tools-platform`                                  | Sub-path the site is served from |
+| `SITE_URL`  | `https://hemanthdamineni.github.io/Tesserae` | Canonical origin, sitemap, OG    |
+| `BASE_PATH` | `/Tesserae`                                  | Sub-path the site is served from |
 
 ## Repository map
 

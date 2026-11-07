@@ -21,7 +21,7 @@ export const SHORTCUTS: Shortcut[] = [
 ];
 
 /** `window` event a workbench listens on to run its tool (Ctrl/⌘+Enter). */
-export const RUN_EVENT = 'toolbench:run';
+export const RUN_EVENT = 'tesserae:run';
 
 /**
  * True for a text-entry surface. Bare character chords (`/`, `?`) must be left

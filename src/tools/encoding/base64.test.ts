@@ -27,7 +27,7 @@ describe('base64 — text path', () => {
   });
 
   it('round-trips UTF-8 / emoji', async () => {
-    const s = 'I ❤ Toolbench — çà et là';
+    const s = 'I ❤ Tesserae — çà et là';
     const encoded = (await enc(s)).report as { output: string };
     const decoded = (await dec(encoded.output)).report as { output: string };
     expect(decoded.output).toBe(s);
@@ -164,7 +164,7 @@ describe('base64 — merged behaviour', () => {
   });
 
   it('round-trips Unicode through a file', async () => {
-    const s = 'I ❤ Toolbench — çà et là';
+    const s = 'I ❤ Tesserae — çà et là';
     const encoded = await encFile(new File([s], 'text.txt'));
     const decoded = await decFile(new File([encoded.report!.output], 'encoded.txt'));
     expect(await decoded.outputs[0]!.blob.text()).toBe(s);

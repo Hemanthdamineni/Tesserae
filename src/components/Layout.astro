@@ -78,7 +78,7 @@ const { narrow = false, ...head } = Astro.props;
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          // The SW lives at the deploy base (e.g. /browser-tools-platform) or the site root.
+          // The SW lives at the deploy base (e.g. /Tesserae) or the site root.
           const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           navigator.serviceWorker.register(`${base}/sw.js`).catch(() => {
             /* offline support is a progressive enhancement */

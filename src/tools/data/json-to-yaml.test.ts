@@ -7,8 +7,8 @@ const run = async (text: string, options: Record<string, string | number | boole
 
 describe('json-to-yaml', async () => {
   it('converts an object to YAML with a 2-space indent by default', async () => {
-    expect((await run('{ "name": "Toolbench", "tags": ["a", "b"] }')).output).toBe(
-      'name: Toolbench\ntags:\n  - a\n  - b\n',
+    expect((await run('{ "name": "Tesserae", "tags": ["a", "b"] }')).output).toBe(
+      'name: Tesserae\ntags:\n  - a\n  - b\n',
     );
   });
 

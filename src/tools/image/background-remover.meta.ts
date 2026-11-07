@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   category: 'image',
   summary: 'Cut a subject out of a photo with an on-device AI matting model (MODNet).',
   description:
-    'Isolate the subject of a portrait or photo with MODNet, an on-device portrait-matting model. On the first run two files are fetched and cached in your browser: the model weights from the Hugging Face Hub and the ONNX runtime binary from jsDelivr. Your images never leave your device.',
+    'Isolate the subject of a portrait or photo with MODNet, an on-device portrait-matting model. On the first run the model weights are fetched from the Hugging Face Hub and cached in your browser. The runtime assets are served by this site. Your images never leave your device.',
   keywords: [
     'remove background',
     'background remover',
@@ -16,16 +16,12 @@ export const meta: ToolMeta = {
     'subject extraction',
     'ai background removal',
   ],
-  // Every host this tool contacts. huggingface.co serves the MODNet weights
-  // (its LFS files land via the Hub's own CDN, us.aws.cdn.hf.co);
-  // cdn.jsdelivr.net serves the ONNX runtime WebAssembly binary, because
-  // transformers.js defaults `env.backends.onnx.wasm.wasmPaths` to the jsDelivr
-  // CDN and onnxruntime-web fetches that binary itself, outside the ML
-  // runtime's model fetch. Self-hosting it is a foundation follow-up; until
-  // then it must be disclosed here.
+  // The Hub serves the reviewed model weights. ONNX runtime assets are served
+  // from this static site, so GitHub Pages remains the only app origin.
+  // No user image is sent to either source.
   privacy: {
     processing: 'on-device',
-    network: ['huggingface.co', 'cdn.jsdelivr.net'],
+    network: ['huggingface.co'],
     offline: false,
   },
   input: 'file',

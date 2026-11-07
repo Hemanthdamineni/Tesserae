@@ -34,7 +34,7 @@ describe('zip-create external golden output', () => {
     const output = result.outputs[0];
     expect(output).toBeDefined();
 
-    const dir = mkdtempSync(join(tmpdir(), 'toolbench-zip-golden-'));
+    const dir = mkdtempSync(join(tmpdir(), 'tesserae-zip-golden-'));
     tempDirs.push(dir);
     const archive = join(dir, output!.filename);
     writeFileSync(archive, Buffer.from(await output!.blob.arrayBuffer()));

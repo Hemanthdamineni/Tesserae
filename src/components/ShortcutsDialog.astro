@@ -53,7 +53,7 @@ import { SHORTCUTS } from './keyboard';
     dialog.showModal();
   }
 
-  window.addEventListener('toolbench:shortcuts', open);
+  window.addEventListener('tesserae:shortcuts', open);
   trigger?.addEventListener('click', open);
   dialog?.addEventListener('close', () => {
     if (lastTrigger instanceof HTMLElement) lastTrigger.focus();

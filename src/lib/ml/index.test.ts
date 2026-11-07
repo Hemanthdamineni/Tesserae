@@ -11,6 +11,6 @@ describe('ml barrel', () => {
     expect(typeof ml.ProgressTracker).toBe('function');
     expect(typeof ml.ModelCache).toBe('function');
     expect(typeof ml.createModelFetch).toBe('function');
-    expect(ml.ModelCache.defaultName).toBe('toolbench-ml-v1');
+    expect(ml.ModelCache.defaultName).toBe('tesserae-ml-v1');
   });
 });

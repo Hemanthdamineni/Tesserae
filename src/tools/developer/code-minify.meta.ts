@@ -79,7 +79,7 @@ export const meta: ToolMeta = {
     {
       title: 'JSON',
       input:
-        '{\n  "name": "toolbench",\n  "tags": ["browser", "offline", "private"],\n  "stars": 42\n}',
+        '{\n  "name": "tesserae",\n  "tags": ["browser", "offline", "private"],\n  "stars": 42\n}',
       options: { language: 'json' },
     },
   ],

@@ -1,12 +1,10 @@
 /**
  * Remove Background — on-device portrait matting with MODNet.
  *
- * The heavy work happens in the model: `Xenova/modnet` (Apache-2.0) predicts a
- * single-channel alpha matte for the subject, and this tool composites it. Two
- * files reach the network on the first run — the model weights from the Hugging
- * Face Hub, and the ONNX runtime WebAssembly binary from the jsDelivr CDN (the
- * transformers.js default `wasmPaths`, fetched by onnxruntime-web itself); both
- * are cached by `@/lib/ml`, and the images never leave the tab.
+ * single-channel alpha matte for the subject, and this tool composites it. On
+ * the first run, the model weights are fetched from the Hugging Face Hub and
+ * cached in the browser. The ONNX runtime assets are served by this static site,
+ * and the images never leave the tab.
  *
  * The matte maths below is pure — unit-tested without a browser or a model.
  * Only `run()` (plus the preview encoder) touches canvas and model APIs.
@@ -441,7 +439,7 @@ async function run(input: FileRunInput): Promise<FileRunResult> {
       }
     }
     notes.push(
-      'The only requests are the model weights (huggingface.co) and the ONNX runtime binary (cdn.jsdelivr.net) — your images never leave this device.',
+      'Only the model weights are downloaded from huggingface.co on first use — your images never leave this device.',
     );
 
     const averageCoverage = outputs.length ? coverage / outputs.length : 0;

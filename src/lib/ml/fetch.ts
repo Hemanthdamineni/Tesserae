@@ -40,6 +40,8 @@ export interface ModelFetchOptions {
   tracker?: ProgressTracker | null;
   /** Hosts allowed to serve model files. Defaults to the HF Hub hosts. */
   allowHosts?: readonly string[];
+  /** Same-origin prefixes allowed for runtime assets such as local WASM files. */
+  sameOriginPrefixes?: readonly string[];
   /** Host used to recognise `<model>/resolve/<revision>/<file>` URLs. */
   remoteHost?: string;
   /** Serve from cache only; never touch the network. */
@@ -63,7 +65,7 @@ function labelFor(url: string, remoteHost: string): string {
 }
 
 async function cachedByteSize(response: Response): Promise<number> {
-  const recorded = response.headers.get('x-toolbench-bytes');
+  const recorded = response.headers.get('x-tesserae-bytes');
   if (recorded && Number.isFinite(Number(recorded))) return Number(recorded);
   const declared = contentLength(response);
   if (declared) return declared;
@@ -80,6 +82,7 @@ export function createModelFetch(options: ModelFetchOptions = {}): ModelFetch {
   const tracker = options.tracker ?? null;
   const signal = options.signal ?? null;
   const allowHosts = options.allowHosts ?? DEFAULT_ALLOWED_HOSTS;
+  const sameOriginPrefixes = options.sameOriginPrefixes ?? [];
   const remoteHost = options.remoteHost ?? DEFAULT_REMOTE_HOST;
   const offline = options.offline ?? false;
   const refresh = options.refresh ?? false;
@@ -87,8 +90,22 @@ export function createModelFetch(options: ModelFetchOptions = {}): ModelFetch {
 
   return async (input, init) => {
     const url = typeof input === 'string' ? input : input.toString();
+    const localAsset =
+      sameOriginPrefixes.length > 0 &&
+      (() => {
+        try {
+          const parsed = new URL(url, globalThis.location?.href ?? 'http://localhost/');
+          const origin = globalThis.location?.origin;
+          return (
+            (!origin || parsed.origin === origin) &&
+            sameOriginPrefixes.some((prefix) => parsed.pathname.startsWith(prefix))
+          );
+        } catch {
+          return false;
+        }
+      })();
 
-    if (!isAllowedHost(url, allowHosts)) {
+    if (!localAsset && !isAllowedHost(url, allowHosts)) {
       let host = url;
       try {
         host = new URL(url).host || url;
@@ -97,11 +114,15 @@ export function createModelFetch(options: ModelFetchOptions = {}): ModelFetch {
       }
       throw new ToolError(
         `Blocked a request to "${host}".`,
-        `Only ${allowHosts.join(', ')} may serve model files.`,
+        `Only ${allowHosts.join(', ')} or approved same-origin assets may be used.`,
       );
     }
 
     throwIfAborted(signal);
+    if (localAsset) {
+      return fetchImpl(url, { ...init, signal: signal ?? init?.signal ?? undefined });
+    }
+
     const file = labelFor(url, remoteHost);
     const key = cacheKeyForUrl(url);
 

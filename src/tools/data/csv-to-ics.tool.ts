@@ -4,7 +4,7 @@ import { resolveOptions } from '@/lib/options';
 import { meta } from './csv-to-ics.meta';
 
 const MAX_LEN = 1_000_000;
-const PRODID = '-//Toolbench//csv-to-ics//EN';
+const PRODID = '-//Tesserae/csv-to-ics//EN';
 
 type Parsed = {
   year: number;
@@ -268,7 +268,7 @@ async function run(input: TextRunInput): Promise<TextRunResult> {
     const allDay = withTime ? false : allDayMode === 'auto';
 
     lines.push('BEGIN:VEVENT');
-    lines.push('UID:ev-' + (idx + 1) + '@toolbench.local');
+    lines.push('UID:ev-' + (idx + 1) + '@tesserae.local');
     lines.push('DTSTAMP:' + stamp);
     if (allDay) {
       lines.push('DTSTART;VALUE=DATE:' + dateToken(start, false, false));

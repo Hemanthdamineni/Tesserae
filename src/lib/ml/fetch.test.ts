@@ -24,6 +24,19 @@ describe('createModelFetch', () => {
     expect(impl).not.toHaveBeenCalled();
   });
 
+  it('allows approved same-origin runtime assets without treating them as model files', async () => {
+    const impl = vi.fn(async () => new Response('wasm', { status: 200 }));
+    const { cache, tracker } = setup(impl as unknown as typeof fetch);
+    const fetchFn = createModelFetch({
+      cache,
+      tracker,
+      sameOriginPrefixes: ['/vendor/onnxruntime/'],
+      fetchImpl: impl as unknown as typeof fetch,
+    });
+    await fetchFn('/vendor/onnxruntime/runtime.wasm', { headers: { 'x-test': '1' } });
+    expect(impl).toHaveBeenCalledOnce();
+  });
+
   it('serves a cache hit without touching the network and reports it as cached', async () => {
     const { storage, cache, tracker } = setup();
     const bucket = await storage.open(ModelCache.defaultName);

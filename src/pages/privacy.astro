@@ -5,7 +5,7 @@ import { site } from '@/lib/site';
 
 const withNetwork = VISIBLE_TOOLS.filter((t) => t.meta.privacy.network !== 'none');
 const total = VISIBLE_TOOLS.length;
-// Link paths must honour the deploy base (e.g. /browser-tools-platform on GitHub Pages).
+// Link paths must honour the deploy base (e.g. /Tesserae on GitHub Pages).
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -22,7 +22,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p>
       {site.name} is a static website. When you open a tool, your browser downloads a small amount of
       JavaScript and runs it locally. The data you paste or the files you choose are handled by that code
-      <strong>in your browser tab</strong>. They are never sent to us or anyone else.
+      <strong>in your browser tab</strong>. They are never uploaded to a processing server.
     </p>
 
     <h2>What we do not do</h2>
@@ -33,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <li>
         No cookies. Preferences (like light/dark theme) use <code>localStorage</code> on your device only.
       </li>
-      <li>No web fonts or CDNs. Every asset is served from this origin.</li>
+      <li>No web fonts or third-party CDNs. App assets are served from this origin.</li>
     </ul>
 
     <h2>What stays on your device</h2>
@@ -53,6 +53,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </li>
     </ul>
     <p>
+      ML tools may download public model weights from their disclosed host the first time you use
+      them. Those weights are cached locally; your audio and images are not sent with those
+      requests. The runtime files needed by the static tools are served from this site.
+    </p>
+    <p>
       Clearing your browser's site data erases both. There is no account, so there is nothing to
       reset remotely.
     </p>
@@ -64,7 +69,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         carries your content.
       </li>
       <li>
-        Turn off your connection after the page loads. Tools you've already opened keep working.
+        Turn off your connection after the page loads. Tools you've already opened keep working; ML
+        tools need their model weights cached first.
       </li>
       <li>
         Read the source. The project is open source{' '}
@@ -79,8 +85,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     {
       withNetwork.length === 0 ? (
         <p>
-          <strong>None.</strong> All {total} tools currently run with zero network requests once
-          loaded.
+          <strong>None.</strong> All {total} tools currently run with zero external network requests
+          once loaded.
         </p>
       ) : (
         <div class="overflow-x-auto">

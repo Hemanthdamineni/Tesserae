@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  MAX_FILE_COUNT,
-  MAX_TOTAL_FILE_BYTES,
-  readAsText,
-  sanitizeZipEntryNames,
-  validateFileSelection,
-} from './files';
+import { MAX_FILE_COUNT, readAsText, sanitizeZipEntryNames, validateFileSelection } from './files';
 
 describe('sanitizeZipEntryNames', () => {
   it('normalizes unsafe names and preserves duplicate entries', () => {
@@ -22,15 +16,18 @@ describe('sanitizeZipEntryNames', () => {
 });
 
 describe('validateFileSelection', () => {
-  it('rejects too many files and excessive total bytes', () => {
+  it('rejects too many files', () => {
     const tooMany = Array.from(
       { length: MAX_FILE_COUNT + 1 },
       (_, i) => new File(['x'], `file-${i}.txt`),
     );
     expect(validateFileSelection(tooMany)).toMatch(/at most/i);
+  });
 
-    const tooLarge = new File([new Uint8Array(MAX_TOTAL_FILE_BYTES + 1)], 'large.bin');
-    expect(validateFileSelection([tooLarge])).toMatch(/100 MB/i);
+  it('does not impose a shared total-byte ceiling', () => {
+    const large = new File(['x'], 'large.bin');
+    Object.defineProperty(large, 'size', { value: 200 * 1024 * 1024 });
+    expect(validateFileSelection([large])).toBeNull();
   });
 
   it('accepts a normal selection', () => {

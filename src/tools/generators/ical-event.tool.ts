@@ -84,10 +84,10 @@ function run(input: TextRunInput): TextRunResult {
   const lines: string[] = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Toolbench//EN',
+    'PRODID:-//Tesserae/EN',
     'CALSCALE:GREGORIAN',
     'BEGIN:VEVENT',
-    `UID:${randomHex(12)}@toolbench`,
+    `UID:${randomHex(12)}@tesserae`,
     `DTSTAMP:${dtstamp}`,
   ];
   if (allDay) {

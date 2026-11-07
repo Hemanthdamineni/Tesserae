@@ -87,7 +87,7 @@ const wav = buildWav(8000, 0.1, 440);
 
 /* ------------------------------ 1-page PDF ------------------------------ */
 
-// Minimal valid 1-page PDF with the text "Hello Toolbench".
+// Minimal valid 1-page PDF with the text "Hello Tesserae".
 function buildPdf() {
   const objects = [];
   const add = (body) => {
@@ -103,7 +103,7 @@ function buildPdf() {
   const catalog = add('<< /Type /Catalog /Pages 3 0 R >>');
   add('<< /Type /Pages /Kids [1 0 R] /Count 1 >>');
   const font = add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
-  const stream = 'BT /F1 12 Tf 20 100 Td (Hello Toolbench) Tj ET';
+  const stream = 'BT /F1 12 Tf 20 100 Td (Hello Tesserae) Tj ET';
   const streamObj = add(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
 
   let out = '%PDF-1.4\n';
@@ -205,7 +205,7 @@ function buildDocx() {
     'word/_rels/document.xml.rels':
       '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
       '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
-      '<Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="https://toolbench.example/" TargetMode="External"/>' +
+      '<Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="https://tesserae.example/" TargetMode="External"/>' +
       '</Relationships>',
     'word/styles.xml':
       `<w:styles xmlns:w="${W}">` +
@@ -228,7 +228,7 @@ function buildDocx() {
       '<w:p><w:pPr><w:numPr><w:ilvl w:val="0"/><w:numId w:val="1"/></w:numPr></w:pPr><w:r><w:t>Numbered item</w:t></w:r></w:p>' +
       '<w:tbl><w:tr><w:tc><w:p><w:r><w:t>Name</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>Value</w:t></w:r></w:p></w:tc></w:tr>' +
       '<w:tr><w:tc><w:p><w:r><w:t>alpha</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>1</w:t></w:r></w:p></w:tc></w:tr></w:tbl>' +
-      `<w:p><w:hyperlink r:id="rId9"><w:r><w:t>Toolbench</w:t></w:r></w:hyperlink></w:p>` +
+      `<w:p><w:hyperlink r:id="rId9"><w:r><w:t>Tesserae</w:t></w:r></w:hyperlink></w:p>` +
       '</w:body></w:document>',
   };
   return buildZip(

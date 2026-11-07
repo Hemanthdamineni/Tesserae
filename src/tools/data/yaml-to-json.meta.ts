@@ -40,7 +40,7 @@ export const meta: ToolMeta = {
   examples: [
     {
       title: 'Mapping to JSON',
-      input: 'name: Toolbench\ntags:\n  - a\n  - b\n',
+      input: 'name: Tesserae\ntags:\n  - a\n  - b\n',
     },
     {
       title: 'Sort keys, tab indent',

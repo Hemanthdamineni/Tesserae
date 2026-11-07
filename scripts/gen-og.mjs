@@ -31,7 +31,7 @@ const siteText = readFileSync(join(ROOT, 'src', 'lib', 'site.ts'), 'utf8');
 // is only a fallback so the script still runs if the site module is reshaped.
 const themeHex = /themeColor:\s*'([^']+)'/.exec(siteText)?.[1] ?? '#1d1d1b';
 const bgHex = /backgroundColor:\s*'([^']+)'/.exec(siteText)?.[1] ?? '#faf9f7';
-const siteName = /^\s{2}name:\s*'([^']+)'/m.exec(siteText)?.[1] ?? 'Toolbench';
+const siteName = /^\s{2}name:\s*'([^']+)'/m.exec(siteText)?.[1] ?? 'Tesserae';
 
 const BG = hexToRgb(themeHex) ?? [29, 29, 27];
 const FG = hexToRgb(bgHex) ?? [250, 249, 247];

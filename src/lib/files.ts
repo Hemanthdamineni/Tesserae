@@ -1,12 +1,9 @@
 /** Browser-only file I/O helpers. Never import from a `.tool.ts` that must stay pure. */
 
 export const MAX_FILE_COUNT = 20;
-export const MAX_TOTAL_FILE_BYTES = 100 * 1024 * 1024;
 
 export function validateFileSelection(files: File[]): string | null {
   if (files.length > MAX_FILE_COUNT) return `Choose at most ${MAX_FILE_COUNT} files.`;
-  const total = files.reduce((sum, file) => sum + file.size, 0);
-  if (total > MAX_TOTAL_FILE_BYTES) return 'Selected files exceed the 100 MB total limit.';
   return null;
 }
 

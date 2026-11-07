@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Toolbench">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Tesserae">
   <rect width="32" height="32" rx="6" fill="#1d1d1b"/>
-  <path d="M9 20.5 15 8m8 12.5L17 8" fill="none" stroke="#faf9f7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="16" cy="22.5" r="2.1" fill="#b3422a"/>
+  <rect x="2.24" y="2.24" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="12.16" y="2.24" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="22.08" y="2.24" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="2.24" y="12.16" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="12.16" y="12.16" width="7.68" height="7.68" rx="1.69" fill="#b3422a"/>
+  <rect x="22.08" y="12.16" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="2.24" y="22.08" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="12.16" y="22.08" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
+  <rect x="22.08" y="22.08" width="7.68" height="7.68" rx="1.69" fill="#faf9f7"/>
 </svg>

@@ -7,7 +7,7 @@ Please do not file public issues for undisclosed vulnerabilities.
 
 ## Threat model
 
-Toolbench ships **static files only**. There is no server, database, session or
+Tesserae ships **static files only**. There is no server, database, session or
 user account. The main asset to protect is the visitor's own data while it is
 being processed in their tab.
 
@@ -27,7 +27,7 @@ being processed in their tab.
 dependencies (esbuild, vite, sharp) that are fixed only in Astro 7.x.
 
 Assessment: every one of these advisories concerns the **Astro dev server**,
-**SSR request handling**, **server islands**, or a **server adapter**. Toolbench
+**SSR request handling**, **server islands**, or a **server adapter**. Tesserae
 builds with `output: 'static'`, uses no adapter, no middleware and no server
 islands, and deploys as pre-rendered files. None of the reported issues are
 reachable in the production artifact.

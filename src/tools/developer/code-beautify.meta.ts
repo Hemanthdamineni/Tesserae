@@ -121,7 +121,7 @@ export const meta: ToolMeta = {
     },
     {
       title: 'YAML',
-      input: 'name: toolbench\nitems:\n - one\n - two',
+      input: 'name: tesserae\nitems:\n - one\n - two',
       options: { language: 'yaml' },
     },
   ],

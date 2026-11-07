@@ -60,10 +60,10 @@ describe('ical-event', () => {
 
   it('UID is unique across runs', () => {
     const a = run('', { summary: 'A', startDateTime: '2024-06-01 09:00' }).match(
-      /UID:(.+)@toolbench/,
+      /UID:(.+)@tesserae/,
     )?.[1];
     const b = run('', { summary: 'A', startDateTime: '2024-06-01 09:00' }).match(
-      /UID:(.+)@toolbench/,
+      /UID:(.+)@tesserae/,
     )?.[1];
     expect(a).toMatch(/^[0-9a-f]{24}$/);
     expect(a).not.toBe(b);

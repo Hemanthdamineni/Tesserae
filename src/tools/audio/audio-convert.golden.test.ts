@@ -47,7 +47,7 @@ describe('audio-convert external golden output', () => {
       const output = result.outputs[0];
       expect(output).toBeDefined();
 
-      const dir = mkdtempSync(join(tmpdir(), 'toolbench-audio-golden-'));
+      const dir = mkdtempSync(join(tmpdir(), 'tesserae-audio-golden-'));
       tempDirs.push(dir);
       const path = join(dir, output!.filename);
       writeFileSync(path, Buffer.from(await output!.blob.arrayBuffer()));

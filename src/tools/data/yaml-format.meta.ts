@@ -32,7 +32,7 @@ export const meta: ToolMeta = {
     },
   ],
   examples: [
-    { title: 'Format mapping', input: 'name: Toolbench\ntags: [a,b]\n' },
+    { title: 'Format mapping', input: 'name: Tesserae\ntags: [a,b]\n' },
     { title: 'Nested data', input: 'service:\n    enabled: true\n    ports: [8080, 8081]\n' },
     { title: 'Multi-document stream', input: '---\nname: first\n---\nname: second\n' },
   ],

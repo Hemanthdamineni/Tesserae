@@ -20,21 +20,21 @@ export const content = {
     },
     {
       heading: 'Limits to expect',
-      body: 'The matte is soft by design, so hair and edges keep their natural falloff rather than a hard cut. Reinforcement of the model happens the first time you use the tool: about 6 MB of weights are fetched from the Hugging Face Hub and then cached by your browser, so later runs start immediately. Very large photos take longer, and a matte that covers everything or is empty is reported rather than silently exported.',
+      body: 'The matte is soft by design, so hair and edges keep their natural falloff rather than a hard cut. The model weights are fetched from the Hugging Face Hub the first time you use the tool and then cached by your browser. The runtime assets are served by this site. Very large photos take longer, and a matte that covers everything or is empty is reported rather than silently exported.',
     },
     {
       heading: 'What leaves your device',
-      body: 'Your photo does not. The model runs on your device and the image is never uploaded — the only network traffic is the one-time download of the model weights themselves. After that first run the tool works without contacting anything.',
+      body: 'Your photo does not. The model runs on your device and the image is never uploaded — the only external network traffic is the one-time download of the model weights. The runtime files come from this static site, and later runs work without contacting anything.',
     },
   ],
   faq: [
     {
       q: 'What gets downloaded?',
-      a: 'Two things, once: the MODNet model weights from the Hugging Face Hub, and the ONNX runtime binary (WebAssembly) from the jsDelivr CDN, which is where the runtime loads it from by default. Both are kept in your browser’s Cache Storage, so later runs work offline. Your images are never uploaded.',
+      a: 'The MODNet model weights are downloaded once from the Hugging Face Hub and cached in your browser. The ONNX runtime files are served by this site, including on GitHub Pages. Your images are never uploaded.',
     },
     {
       q: 'Is my photo sent anywhere?',
-      a: 'No. The only requests are for the model weights (huggingface.co) and the ONNX runtime binary (cdn.jsdelivr.net) on first use; the photo itself is processed entirely on your device.',
+      a: 'No. The only external request is for the model weights on first use; the photo is processed entirely on your device.',
     },
     {
       q: 'Which images work best?',

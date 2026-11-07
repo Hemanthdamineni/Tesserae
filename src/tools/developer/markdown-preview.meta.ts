@@ -89,7 +89,7 @@ export const meta: ToolMeta = {
     {
       title: 'README',
       input:
-        '# Toolbench\n\nA **privacy-first** collection of browser utilities — every tool runs in this tab.\n\n## Install\n\n```bash\nnpm install toolbench\n```\n\n## Usage\n\n```js\nimport { render } from "toolbench/markdown";\n\nconsole.log(render("# Hello"));\n```\n\n## Checklist\n\n- [x] Parse the Markdown\n- [x] Render the preview\n- [ ] Ship it\n\n| Feature        | Status |\n| -------------- | ------ |\n| Tables         | ✅     |\n| Strikethrough  | ✅     |\n| Task lists     | ✅     |\n',
+        '# Tesserae\n\nA **privacy-first** collection of browser utilities — every tool runs in this tab.\n\n## Install\n\n```bash\nnpm install tesserae\n```\n\n## Usage\n\n```js\nimport { render } from "tesserae/markdown";\n\nconsole.log(render("# Hello"));\n```\n\n## Checklist\n\n- [x] Parse the Markdown\n- [x] Render the preview\n- [ ] Ship it\n\n| Feature        | Status |\n| -------------- | ------ |\n| Tables         | ✅     |\n| Strikethrough  | ✅     |\n| Task lists     | ✅     |\n',
     },
     {
       title: 'Heading and paragraph',

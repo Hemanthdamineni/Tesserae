@@ -72,6 +72,7 @@ function installStack(
     useBrowserCache: true,
     useCustomCache: false,
     customCache: null,
+    backends: { onnx: { wasm: {} } },
     remoteHost: 'https://huggingface.co/',
     remotePathTemplate: '{model}/resolve/{revision}/{file}',
     fetch: (async () => new Response()) as MlRuntimeEnv['fetch'],
@@ -281,22 +282,18 @@ describe('outputFilename', () => {
 /* -------------------------------------------------------------------------- */
 
 describe('network disclosure', () => {
-  it('declares every host the page contacts', () => {
-    // The Hub serves the weights; the ONNX runtime WebAssembly binary comes from
-    // jsDelivr (transformers.js's default `wasmPaths`), which onnxruntime-web
-    // fetches outside the ML runtime's model fetch. Understating either host
-    // would make the privacy badge and the privacy page wrong.
+  it('declares the only external host the page contacts', () => {
     const hosts = Array.isArray(meta.privacy.network) ? meta.privacy.network : [];
-    expect(hosts).toEqual(expect.arrayContaining(['huggingface.co', 'cdn.jsdelivr.net']));
+    expect(hosts).toEqual(['huggingface.co']);
   });
 
-  it('names both downloads and the image guarantee in its visible copy', () => {
+  it('names the model download and image guarantee in visible copy', () => {
     const copy = [
       meta.description,
       ...(getContent(meta.id)?.faq ?? []).map((entry: { q: string; a: string }) => entry.a),
     ].join(' ');
     expect(copy).toMatch(/hugging[\s-]?face/i);
-    expect(copy).toMatch(/jsdelivr/i);
+    expect(copy).toMatch(/runtime/i);
     expect(copy).toMatch(/never (uploaded|leave)/i);
   });
 });

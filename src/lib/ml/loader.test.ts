@@ -28,6 +28,7 @@ function makeRuntime(options: { failWebgpu?: boolean } = {}): RuntimeHarness {
     useBrowserCache: true,
     useCustomCache: false,
     customCache: null,
+    backends: { onnx: { wasm: {} } },
     remoteHost: 'https://example.invalid/',
     remotePathTemplate: '',
     fetch: (async () => new Response()) as ModelFetch,
@@ -95,6 +96,21 @@ describe('loadModel', () => {
     expect(rt.env.useCustomCache).toBe(false);
     expect(rt.env.remotePathTemplate).toBe(HF_PATH_TEMPLATE);
     expect(typeof rt.env.fetch).toBe('function');
+  });
+  it('configures the same-origin ONNX runtime assets', async () => {
+    const { cache, rt, fetchImpl } = harness();
+    await loadModel({
+      task: 'image-segmentation',
+      model: 'Xenova/modnet',
+      cache,
+      fetchImpl: fetchImpl as unknown as typeof fetch,
+    });
+    expect(rt.env.backends?.onnx?.wasm?.wasmPaths?.mjs).toMatch(
+      /vendor\/onnxruntime\/ort-wasm-simd-threaded\.asyncify\.mjs$/,
+    );
+    expect(rt.env.backends?.onnx?.wasm?.wasmPaths?.wasm).toMatch(
+      /vendor\/onnxruntime\/ort-wasm-simd-threaded\.asyncify\.wasm$/,
+    );
   });
 
   it('prefers WebGPU when an adapter is available and uses fp16', async () => {

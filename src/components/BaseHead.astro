@@ -25,7 +25,7 @@ const canonical = absoluteUrl(path ?? Astro.url.pathname);
 const fullTitle = title === site.name ? title : `${title} · ${site.name}`;
 const schemas = jsonLd.filter(Boolean) as Record<string, unknown>[];
 
-// Asset paths must honour the deploy base path (e.g. /browser-tools-platform
+// Asset paths must honour the deploy base path (e.g. /Tesserae
 // on GitHub Pages) or they 404 at the domain root.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // On a tool page (path "/tools/<id>") prefer a per-tool OG card.

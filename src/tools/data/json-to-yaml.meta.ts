@@ -34,7 +34,7 @@ export const meta: ToolMeta = {
   examples: [
     {
       title: 'Object to YAML',
-      input: '{ "name": "Toolbench", "tags": ["a", "b"] }',
+      input: '{ "name": "Tesserae", "tags": ["a", "b"] }',
     },
     {
       title: 'Nested object, 4-space indent',

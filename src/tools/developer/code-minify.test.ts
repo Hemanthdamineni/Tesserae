@@ -470,7 +470,7 @@ describe('code-minify — round trip', () => {
   });
 
   it('minified JSON parses back to the same value', async () => {
-    const value = { name: 'toolbench', tags: ['a', 'b'], nested: { n: 1 }, unicode: '😀' };
+    const value = { name: 'tesserae', tags: ['a', 'b'], nested: { n: 1 }, unicode: '😀' };
     const minified = await run(JSON.stringify(value, null, 2), { language: 'json' });
     expect(JSON.parse(minified.output)).toEqual(value);
   });

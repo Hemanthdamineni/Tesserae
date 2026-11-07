@@ -66,7 +66,7 @@ export function runQpdf(args: string[]): string {
 export function createCliEngine(): QpdfEngine {
   return {
     protect(bytes: Uint8Array, plan: ProtectPlan): Uint8Array<ArrayBuffer> {
-      const dir = mkdtempSync(join(tmpdir(), 'toolbench-protect-'));
+      const dir = mkdtempSync(join(tmpdir(), 'tesserae-protect-'));
       const input = join(dir, 'input.pdf');
       const output = join(dir, 'output.pdf');
       try {
@@ -83,7 +83,7 @@ export function createCliEngine(): QpdfEngine {
 
 /** Write bytes to a temporary file and return its path; the caller removes the directory. */
 export function writeTempPdf(bytes: Uint8Array, name = 'file.pdf'): { dir: string; path: string } {
-  const dir = mkdtempSync(join(tmpdir(), 'toolbench-protect-'));
+  const dir = mkdtempSync(join(tmpdir(), 'tesserae-protect-'));
   const path = join(dir, name);
   writeFileSync(path, bytes);
   return { dir, path };

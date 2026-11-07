@@ -200,7 +200,7 @@ function opusHead(channels: number, sampleRate: number, preSkip: number): Uint8A
 
 /** Build the `OpusTags` comment header (RFC 7845 §5.2). */
 function opusTags(): Uint8Array {
-  const vendor = opusString('browser-tools-platform');
+  const vendor = opusString('Tesserae');
   const count = new Uint8Array(4);
   new DataView(count.buffer).setUint32(0, 0, true); // zero user comments
   const parts = [new TextEncoder().encode('OpusTags'), vendor, count];

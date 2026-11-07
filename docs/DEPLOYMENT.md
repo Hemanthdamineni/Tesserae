@@ -10,8 +10,8 @@ Two environment variables drive the build:
 
 | Variable    | Default                                                    | Meaning                                            |
 | ----------- | ---------------------------------------------------------- | -------------------------------------------------- |
-| `SITE_URL`  | `https://hemanthdamineni.github.io/browser-tools-platform` | Canonical origin. Sets Astro's `site`.             |
-| `BASE_PATH` | `/browser-tools-platform`                                  | Path the site is served from. Sets Astro's `base`. |
+| `SITE_URL`  | `https://hemanthdamineni.github.io/Tesserae` | Canonical origin. Sets Astro's `site`.             |
+| `BASE_PATH` | `/Tesserae`                                  | Path the site is served from. Sets Astro's `base`. |
 
 `SITE_URL` must be the final public origin — it is baked into canonical URLs,
 the sitemap, `robots.txt`, JSON-LD and the OpenSearch descriptor. `BASE_PATH` is

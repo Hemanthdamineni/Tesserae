@@ -1,5 +1,5 @@
 /*
- * Toolbench service worker — dependency-free, no build step.
+ * Tesserae service worker — dependency-free, no build step.
  *
  * Strategy:
  *   - Precache the app shell on install.
@@ -9,9 +9,9 @@
  *   - Never touches cross-origin requests — there are none in normal use.
  */
 
-const VERSION = 'v2';
-const RUNTIME = `tb-runtime-${VERSION}`;
-const PRECACHE = `tb-precache-${VERSION}`;
+const VERSION = 'v3';
+const RUNTIME = `tess-runtime-${VERSION}`;
+const PRECACHE = `tess-precache-${VERSION}`;
 
 // Base path derived from the service worker's own registration scope, so the
 // worker works whether the app is served at the root or under a subpath (e.g.
@@ -91,7 +91,7 @@ self.addEventListener('activate', (event) => {
       .then((keys) =>
         Promise.all(
           keys
-            .filter((k) => k.startsWith('tb-') && k !== RUNTIME && k !== PRECACHE)
+            .filter((k) => k.startsWith('tess-') && k !== RUNTIME && k !== PRECACHE)
             .map((k) => caches.delete(k)),
         ),
       )

@@ -35,7 +35,7 @@ describe('pdf-metadata external golden output', () => {
       files: [await makePdf(2)],
       options: {
         title: 'Golden Test Title',
-        author: 'Toolbench',
+        author: 'Tesserae',
         subject: 'External verification',
         keywords: 'golden, pdf, qpdf',
       },
@@ -43,7 +43,7 @@ describe('pdf-metadata external golden output', () => {
     const output = result.outputs[0];
     expect(output).toBeDefined();
 
-    const dir = mkdtempSync(join(tmpdir(), 'toolbench-pdf-golden-'));
+    const dir = mkdtempSync(join(tmpdir(), 'tesserae-pdf-golden-'));
     tempDirs.push(dir);
     const path = join(dir, output!.filename);
     writeFileSync(path, Buffer.from(await output!.blob.arrayBuffer()));
@@ -58,11 +58,11 @@ describe('pdf-metadata external golden output', () => {
     const objects = metaJson.qpdf?.find((entry) => 'obj:3 0 R' in entry);
     const infoDict = objects?.['obj:3 0 R']?.value ?? {};
     expect(infoDict['/Title']).toBe('u:Golden Test Title');
-    expect(infoDict['/Author']).toBe('u:Toolbench');
+    expect(infoDict['/Author']).toBe('u:Tesserae');
 
     const pdfInfo = execFileSync('pdfinfo', [path], { encoding: 'utf8' });
     expect(pdfInfo).toMatch(/Title:\s+Golden Test Title/);
-    expect(pdfInfo).toMatch(/Author:\s+Toolbench/);
+    expect(pdfInfo).toMatch(/Author:\s+Tesserae/);
     expect(pdfInfo).toMatch(/Subject:\s+External verification/);
     // pdfinfo renders the keyword array space-separated rather than
     // preserving the input commas, so assert on the individual terms.
