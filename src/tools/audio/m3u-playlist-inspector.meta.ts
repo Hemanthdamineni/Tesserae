@@ -1,0 +1,41 @@
+import type { ToolMeta } from '../../lib/types';
+
+export const meta: ToolMeta = {
+  id: 'm3u-playlist-inspector',
+  name: 'M3U Playlist Inspector',
+  category: 'audio',
+  summary: 'Inspect an M3U/M3U8 playlist on-device: entries, durations, URIs and missing links.',
+  description:
+    'Paste an M3U or M3U8 playlist and inspect it without uploading it. The tool checks for the EXTINF header, pairs each EXTINF entry with the URI that follows it, and counts the entries and distinct media URIs. It flags an EXTINF line with no following URI, a bare URI that has no EXTINF metadata, a non-numeric duration, and a playlist with no EXTINF header, so you can fix a broken playlist before importing it. The summary view gives the counts, the entries view lists every track with its duration and URI, and the issues view lists the structural problems.',
+  keywords: [
+    'm3u',
+    'm3u8',
+    'playlist',
+    'extinf',
+    'iptv',
+    'media',
+    'uri',
+    'track',
+    'audio',
+    'inspector',
+  ],
+  privacy: { processing: 'on-device', network: 'none', offline: true },
+  input: 'text',
+  acceptsText: true,
+  options: [
+    {
+      key: 'format',
+      label: 'View',
+      type: 'select',
+      default: 'summary',
+      choices: [
+        { value: 'summary', label: 'Summary' },
+        { value: 'entries', label: 'Entries' },
+        { value: 'issues', label: 'Issues' },
+      ],
+    },
+  ],
+  examples: [{ title: 'Inspect an M3U playlist' }],
+  related: ['srt-inspector', 'vtt-inspector', 'audio-info', 'audio-merge'],
+  status: 'stable',
+};

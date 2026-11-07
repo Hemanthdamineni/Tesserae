@@ -1,13 +1,14 @@
 # Complete Tool List
 
-Total: **506** tools across **20** categories.
+Total: **537** tools across **20** categories.
 
 Generated from `src/tools/**/*.meta.ts` (source of truth).
 
-## archive (14)
+## archive (15)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
+| `asar-inspector` | ASAR Archive Inspector | file | stable | Read an Electron ASAR archive on-device: header size, the file tree encoded in the pickle header, sizes and offsets. |
 | `compressed-file-inspector` | Compressed File Inspector | file | stable | Identify zstd, xz, bzip2, gzip, lz4 and brotli files and read their headers, sizes and checksums. |
 | `tar-create` | Create TAR Archive | file | stable | Bundle files into a TAR (optionally gzipped .tar.gz) archive. |
 | `zip-create` | Create ZIP Archive | file | stable | Create a ZIP archive from one or more files. |
@@ -23,7 +24,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `file-split` | Split File into Chunks | file | stable | Split a large file into numbered part chunks plus a JSON manifest. |
 | `warc-archive-inspector` | WARC Archive Inspector | file | stable | Inspect WARC web archives: records, block digests, target URIs, lengths and damage. |
 
-## audio (25)
+## audio (26)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -38,6 +39,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `audio-fade` | Fade Audio In / Out | file | stable | Apply a linear, exponential or logarithmic fade in and fade out to audio. |
 | `flac-inspector` | FLAC Audio Inspector | file | stable | Inspect a FLAC audio file: metadata blocks, sample rate, channels, bit depth, duration, and tags. |
 | `loudness-meter` | Loudness Meter (LUFS) | file | stable | Measure the perceived loudness of an audio file in integrated LUFS, with momentary/short-term levels, LRA and true peak. |
+| `m3u-playlist-inspector` | M3U Playlist Inspector | text | stable | Inspect an M3U/M3U8 playlist on-device: entries, durations, URIs and missing links. |
 | `audio-merge` | Merge / Concatenate Audio | file | stable | Join audio files end-to-end or mix them together into one WAV. |
 | `midi-inspector` | MIDI File Inspector | file | stable | Inspect a Standard MIDI File: header format, timing, track chunks, and note, tempo, and meta events. |
 | `id3-tag-reader` | MP3 Tag (ID3) Reader | file | stable | Read ID3v2 and ID3v1 tags from an MP3: title, artist, album, year, track and cover art. |
@@ -66,15 +68,16 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `color-convert` | Colour Converter | text | stable | Convert a colour between HEX, RGB, HSL, HSV, CMYK and OKLCH. |
 | `color-random` | Random Color Generator | text | stable | Generate random colors in a chosen style - warm, cool, pastel, vivid and more. |
 
-## converters (3)
+## converters (4)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `docx-to-markdown` | DOCX to Markdown | file | stable | Turn a Word .docx into Markdown or plain text locally — headings, lists and tables. |
+| `latlon-inspector` | Latitude / Longitude Inspector | text | stable | Parse a latitude and longitude on-device: decimal and DMS forms, hemisphere, range checks. |
 | `subtitle-converter` | Subtitle Converter | text | stable | Convert subtitle files between SRT and WebVTT, and shift cue timings, entirely on-device. |
 | `torrent-file-inspector` | Torrent File Inspector | file | stable | Read a .torrent: info-hash, magnet link, file list, piece size and tracker, decoded on-device. |
 
-## crypto (11)
+## crypto (12)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -85,18 +88,21 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `csr-decoder` | CSR Decoder | file | stable | Decode a PKCS#10 certificate request: subject, SANs, key details and a signature check. |
 | `file-hash` | File Hash / Checksum | file | stable | Compute SHA-256/384/512 and SHA-1 checksums for one or more files. |
 | `hmac` | HMAC Generator | text | stable | Compute an HMAC of text with a secret key using SHA-1, SHA-256, SHA-384 or SHA-512. |
+| `jwk-inspector` | JWK / JWKS Inspector | text | stable | Inspect a JSON Web Key or key set on-device: kty, crv, use, alg, kid and key sizes. |
 | `pbkdf2-key-derivation` | PBKDF2 Key Derivation | text | stable | Derive a key from a passphrase with PBKDF2-HMAC, or verify a stored PBKDF2 password hash. |
 | `rsa-encrypt-decrypt` | RSA Encrypt / Decrypt | text | stable | Encrypt with a public PEM key and decrypt with the private key using RSA-OAEP, fully on device. |
 | `hash` | Text Hash Generator | text | stable | Hash text with MD5, SHA-1, SHA-256, SHA-384 or SHA-512 and output hex, Base64 or base64url. |
 | `x509-certificate-inspector` | X.509 Certificate Inspector | text | stable | Parse an X.509 certificate: subject, issuer, validity, key details, SANs and fingerprints. |
 
-## data (45)
+## data (55)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
 | `dotenv` | .env <-> JSON | text | stable | Parse a .env file into JSON, or turn a JSON object into .env text. Runs entirely on your device. |
 | `ascii-table` | ASCII Table Generator | text | stable | Turn CSV (or tab-separated) rows into a bordered ASCII table for docs, emails and code comments. |
+| `bibtex-validator` | BibTeX Validator | text | stable | Validate a BibTeX bibliography on-device: entries, mandatory fields, duplicate keys and syntax problems. |
 | `csv-diff` | CSV Diff | text | stable | Compare two CSV files keyed by a column: added, removed and changed cells. |
+| `csv-dedupe` | CSV Duplicate Remover | text | stable | Remove duplicate rows from a CSV on-device, respecting quotes and embedded delimiters. |
 | `csv-sanitize` | CSV Formula Injection Guard | text | stable | Detect and neutralize spreadsheet formula injection in CSV cells. |
 | `csv-to-html` | CSV to HTML Table | text | stable | Turn CSV data into a clean HTML table, with optional inline styling, on device. |
 | `csv-to-ics` | CSV to iCalendar | text | stable | Turn a CSV of events into a downloadable .ics file importable into Google Calendar, Outlook or Apple Calendar. |
@@ -109,6 +115,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `geojson-validator` | GeoJSON Validator | file | stable | Validate GeoJSON against RFC 7946 and inspect features, rings and bounds. |
 | `gpx-track-stats` | GPX Track Stats | file | stable | Summarize a GPX track: distance, elevation gain and loss, duration, speed and splits. |
 | `html-to-csv` | HTML Table to CSV | text | stable | Extract <table> elements from pasted HTML and output clean, RFC-4180 CSV. |
+| `ics-validator` | iCalendar (ICS) Validator | text | stable | Validate an iCalendar (.ics) file on-device: components, date-times, required properties and structural issues. |
 | `ini-convert` | INI Converter | text | stable | Convert INI config files to JSON or serialize JSON back to INI, on device. |
 | `json-diff` | JSON Diff | text | stable | Structural diff of two JSON documents, showing added, removed and changed values by path. |
 | `json-format` | JSON Formatter & Validator | text | stable | Pretty-print, minify, recursively sort keys or validate JSON, with line/column errors. |
@@ -125,14 +132,21 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `json-to-python` | JSON to Python Dataclasses | text | stable | Generate Python dataclass or TypedDict definitions from a JSON sample, with nested models. |
 | `json-to-typescript` | JSON to TypeScript | text | stable | Generate TypeScript interfaces or type aliases from a JSON sample, with nested named types. |
 | `json-to-yaml` | JSON to YAML | text | stable | Convert JSON to YAML on your device, with a 2- or 4-space indent. |
+| `kml-inspector` | KML Placemark Inspector | text | stable | Read a KML map file on-device: placemarks, points, lines, polygons, folders and styles. |
+| `ldif-inspector` | LDIF Inspector | text | stable | Inspect an LDIF directory file on-device: entries, DNs, attributes and syntax errors. |
 | `mbox-archive-analyzer` | mbox Archive Analyzer | file | stable | Analyze an mbox mail archive: messages, senders, attachments, flags and archive problems. |
 | `ndjson` | NDJSON <-> JSON Array | text | stable | Convert newline-delimited JSON to a JSON array and back, one compact value per line. |
+| `pgpass-inspector` | Pgpass Inspector | text | stable | Inspect a .pgpass file on-device: host, port, database, username and password fields. |
 | `properties-convert` | Properties Converter | text | stable | Convert Java .properties config to JSON or serialize JSON back to .properties. |
 | `plist-decoder` | Property List Decoder | file | stable | Read binary and XML property lists (.plist): tree, types, object table and warnings. |
 | `querystring` | Query String <-> JSON | text | stable | Parse a URL query string into JSON, or build a query string from a JSON object. Local only. |
+| `iif-inspector` | QuickBooks IIF Inspector | text | stable | Read a QuickBooks IIF data file on-device: sections, records, fields and structural issues. |
 | `spreadsheet-viewer` | Spreadsheet Viewer | file | stable | Open XLSX, XLS, ODS or CSV on-device — switch sheets, scan the grid and convert to CSV, JSON or XLSX. |
 | `sqlite-structure-inspector` | SQLite Structure Inspector | file | stable | Audit the physical layout of a .db/.sqlite file: header fields, page types, b-tree usage, freelist and integrity. |
+| `tcx-inspector` | TCX Activity Inspector | text | stable | Read a Garmin TCX activity file on-device: laps, trackpoints, heart rate and cadence. |
 | `toml-convert` | TOML ⇄ JSON Converter | text | stable | Parse TOML into JSON, or serialize JSON back to TOML. |
+| `vcf-inspector` | vCard (VCF) Inspector | text | stable | Read a vCard contact file on-device: cards, fields, parameters, addresses and structural issues. |
+| `x12-inspector` | X12 EDI Inspector | text | stable | Read an ANSI X12 EDI document on-device: segments, ISA/GS/ST envelopes, control numbers and issues. |
 | `xml-json-convert` | XML ⇄ JSON Converter | text | stable | Convert XML documents into JSON and JSON back into XML. |
 | `xml-format` | XML Formatter | text | stable | Pretty-print or minify XML with a pure-JS tokenizer — comments, CDATA and PIs kept intact. |
 | `xml-to-csv` | XML to CSV | text | stable | Flatten repeated XML elements into a CSV table, with attributes and nested values as columns. |
@@ -160,7 +174,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `workday-calculator` | Workday Calculator | text | stable | Add business days to a date or count the working days between two dates, skipping weekends and holidays. |
 | `world-clock` | World Clock | text | stable | Current time, date and UTC offset for any IANA time zones, instantly and on your device. |
 
-## developer (66)
+## developer (75)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -173,9 +187,12 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `code-beautify` | Code Beautifier | text | beta | Beautify JS, TS, CSS, SCSS, Less, HTML, Vue, JSON, Markdown and YAML with Prettier, in your browser. |
 | `code-minify` | Code Minifier | text | beta | Minify JavaScript, TypeScript, CSS, HTML and JSON in your browser, and see exactly how many bytes you saved. |
 | `code-to-image` | Code to Image | text | beta | Turn a code snippet into a polished PNG or SVG with Shiki syntax highlighting. |
+| `codeowners-validator` | CODEOWNERS Validator | text | stable | Validate a CODEOWNERS file on-device: patterns, owner syntax, comments and trailing rules. |
 | `conventional-commit` | Conventional Commit Builder | text | stable | Compose a Conventional Commits message — type, scope, breaking change and body — and copy the ready commit text. |
+| `cpio-inspector` | cpio Archive Inspector | file | stable | Read a cpio archive on-device: format magic, entries, names, sizes, modes and metadata. |
 | `cron-parser` | Cron Expression Parser | text | stable | Explain a cron expression in plain English and list its next run times in UTC. |
 | `crontab-generator` | Crontab Generator | text | stable | Build a cron expression from presets or fields and get the crontab line plus a plain-English summary. |
+| `crx-inspector` | CRX Extension Inspector | file | stable | Read a Chrome or Chromium extension package on-device: CRX header, version and the files inside. |
 | `css-specificity-calculator` | CSS Specificity Calculator | text | stable |  |
 | `css-variables-extractor` | CSS Variables Extractor | text | stable | Extract every CSS custom property from a stylesheet into a table of names, values and scope. |
 | `csv-profiler` | CSV Profiler | text | stable | Profile a CSV file: per-column type inference, missing values, unique counts, and numeric stats. |
@@ -186,7 +203,9 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `dockerfile-generator` | Dockerfile Generator | text | stable | Build a Dockerfile from friendly fields — base image, workdir, env, ports, RUN steps and CMD — ready to paste. |
 | `elf-binary-inspector` | ELF Binary Inspector | file | stable | Parse an ELF/Linux binary on-device: class, type, machine, sections, symbols, deps and hardening. |
 | `font-inspector` | Font Inspector | file | stable | Inspect TTF, OTF, TTC, WOFF and WOFF2 fonts: tables, names, embedding rights and glyph coverage. |
+| `gitmodules-inspector` | Gitmodules Inspector | text | stable | Inspect a .gitmodules file on-device: submodules, paths, URLs and branch settings. |
 | `glob-tester` | Glob Tester | text | stable | Match a glob pattern against file paths: *, **, ?, [...] classes and {a,b} sets. |
+| `har-inspector` | HAR File Inspector | text | stable | Inspect a HAR HTTP archive on-device: entries, methods, statuses, timings and sizes. |
 | `hash-identifier` | Hash Identifier | text | stable | Guess which hash or password format a string is, from its length and character set. |
 | `html-playground` | HTML Playground | text | stable | Three panes for HTML, CSS and JS with a sandboxed live preview as you type, plus a one-click .html download. |
 | `html-validator` | HTML Tag Validator | text | stable | Check tag balance and well-formedness: unclosed, mismatched, stray and unexpected tags, with line numbers. |
@@ -214,8 +233,12 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `mermaid-renderer` | Mermaid Renderer | text | stable | Edit Mermaid diagram source and watch a live SVG render, then export the SVG or a PNG. |
 | `objectid` | MongoDB ObjectId | text | stable | Decode a 24-character MongoDB ObjectId into its timestamp, random and counter bytes. |
 | `uuid-namespace` | Namespaced UUID (v3 / v5) | text | stable | Generate a deterministic name-based UUID (v5 SHA-1 or v3 MD5) from a namespace and name. |
+| `netrc-inspector` | Netrc File Inspector | text | stable | Inspect a .netrc file on-device: machines, default entry, login, password and account. |
+| `npmrc-inspector` | Npmrc Inspector | text | stable | Inspect an .npmrc file on-device: registry, scoped registries, auth tokens and flags. |
 | `number-base` | Number Base Converter | text | stable | Convert an integer between any bases from 2 to 36 with arbitrary precision (BigInt). |
+| `packages-lock-inspector` | Packages Lock Inspector | text | stable | Inspect an npm package-lock.json on-device: version, packages, resolved and integrity. |
 | `pe-inspector` | PE Inspector | file | stable | Parse a Windows PE/COFF binary on-device: machine, subsystems, sections, imports and hardening flags. |
+| `procfile-validator` | Procfile Validator | text | stable | Validate a Heroku Procfile on-device: process types, commands, duplicates and syntax. |
 | `regex-explainer` | Regex Explainer | text | stable | Break a regular expression into tokens with a plain-English explanation of each piece. |
 | `regex-tester` | Regex Tester | text | stable | Test a JavaScript regular expression against text — highlight, list matches, replace or split. |
 | `semver` | Semantic Version Tool | text | stable | Validate, compare, and sort Semantic Versioning 2.0.0 values. |
@@ -241,7 +264,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `speaker-test` | Speaker Test | text | stable | Play a test tone or a log-spaced frequency sweep out of the left, right or both channels. |
 | `webcam-test` | Webcam Test | file | beta | Preview a camera, read its live resolution and frame rate, and save a PNG snapshot. |
 
-## encoding (17)
+## encoding (18)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -251,6 +274,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `base64` | Base64 Encode / Decode | file | stable | Convert text or a file to and from Base64, with URL-safe and MIME line-wrap options. |
 | `bson-decoder` | BSON Decoder | file | stable | Decode a BSON (MongoDB) binary document on-device into readable JSON with a per-type breakdown. |
 | `cbor-decoder` | CBOR Decoder | file | stable | Decode CBOR into readable JSON, with a structure outline and tag interpretation. |
+| `flatbuffers-inspector` | FlatBuffers Inspector | file | stable | Read a FlatBuffers binary message on-device: root offset, file identifier, vtable and field table. |
 | `hex` | Hex Encode / Decode | text | stable | Convert text to and from hexadecimal (UTF-8), with configurable separators. |
 | `html-entity` | HTML Entity Converter | text | stable | Encode text to HTML entities (safe for &<>) and decode &amp;, &eacute;, &#123; back to text. |
 | `html-entities` | HTML Entity Encode / Decode | text | stable | Escape text for safe insertion into HTML, or decode named and numeric entities. |
@@ -286,7 +310,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `uuid` | UUID Generator | text | stable | Generate RFC 4122 UUIDs (v4 random or v7 time-ordered) in bulk. |
 | `vcard` | vCard Generator | text | stable | Build vCard 3.0 contact files, or parse a pasted vCard back into fields. |
 
-## image (40)
+## image (42)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -315,6 +339,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `image-to-datauri` | Image to Data URI | file | beta | Encode an image as a data URI for HTML, CSS, or source code. |
 | `jpeg-inspector` | JPEG Segment Inspector | file | stable | Walk a JPEG as a marker stream: every segment offset, type and length, plus frame, quantisation and Huffman details. |
 | `netpbm-inspector` | Netpbm Inspector | file | stable | Parse a Netpbm image (PBM, PGM, PPM) on-device: the P1-P6 magic, dimensions, maxval, and the raw or ASCII pixel data. |
+| `exr-inspector` | OpenEXR Inspector | file | stable | Read an OpenEXR HDR image on-device: version, channels, compression, data window and dimensions. |
 | `png-chunk-inspector` | PNG Chunk Inspector | file | stable | Parse a PNG into its chunk stream: offsets, lengths, CRCs, critical/ancillary status and decompressed pixel data. |
 | `psd-inspector` | PSD Inspector | file | stable | Parse a Photoshop .psd on-device: the header, color mode, resources, layers, and image data compression. |
 | `qoi-inspector` | QOI Inspector | file | stable | Parse a Quite OK Image (.qoi) on-device: the 14-byte header, channels and colorspace, and the pixel opcode stream. |
@@ -322,6 +347,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `image-resize` | Resize Image | file | stable | Resize images by percentage or to exact dimensions, entirely in your browser. |
 | `image-rotate` | Rotate / Flip Image | file | stable | Rotate images by 90-degree steps or flip them horizontally and vertically. |
 | `image-spritesheet` | Sprite Sheet Builder | file | stable | Combine multiple images into one sprite sheet with a position map. |
+| `stl-inspector` | STL 3D Model Inspector | file | stable | Read a binary STL 3D model on-device: triangles, bounding box, vertex counts and per-axis size. |
 | `image-strip-metadata` | Strip Image Metadata | file | beta | Remove EXIF, GPS, XMP and IPTC metadata from JPEG, PNG and WebP images losslessly. |
 | `svg-to-png` | SVG to PNG | file | stable | Rasterize an SVG image to a downloadable PNG. |
 | `tga-inspector` | TGA Image Inspector | file | stable | Inspect a TGA/Targa image: header fields, image type, color map, dimensions, origin, and footer. |
@@ -349,7 +375,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `sip-calculator` | SIP Calculator | text | beta | Project a monthly SIP with an annual step-up and a one-time lumpsum, plus a growth chart. |
 | `tip-calculator` | Tip Calculator | text | stable | Calculate a tip, bill total and per-person split. |
 
-## network (7)
+## network (8)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -360,6 +386,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `mac-address` | MAC Address Analyzer | text | stable | Validate, normalize and decode MAC addresses, incl. EUI-64. |
 | `pcap-inspector` | PCAP Capture Inspector | file | stable | Inspect a PCAP packet capture: global header, byte order, version, link type, and per-packet records. |
 | `pcapng-inspector` | PCAPNG Inspector | file | stable | Parse a PCAP Next Generation capture: block type, length and offset, plus section, interface, packet and stats blocks. |
+| `whois-inspector` | Whois Inspector | text | stable | Inspect a WHOIS record on-device: registrar, dates, name servers, statuses and org. |
 
 ## numbers (12)
 
@@ -403,7 +430,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `pdf-metadata` | View / Edit PDF Metadata | file | stable | Inspect document properties or update PDF title, author, subject, keywords and more. |
 | `pdf-watermark` | Watermark PDF | file | stable | Overlay translucent text on selected PDF pages as a centered or tiled watermark. |
 
-## security (21)
+## security (22)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -416,6 +443,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `checksum-validator` | Identifier Checksum Validator | text | stable | Check Luhn, IBAN MOD-97, ISBN-10, and ISBN-13 checksums locally. |
 | `iptables-ruleset-auditor` | iptables Ruleset Auditor | file | stable | Audit an iptables-save ruleset: chains, policies, reachable ports, shadowed rules and open ports. |
 | `known-hosts-inspector` | Known Hosts Inspector | file | stable | Audit ~/.ssh/known_hosts: hashed vs plain host entries, host-key fingerprints, duplicates and collisions. |
+| `nginx-config-auditor` | nginx Config Auditor | text | stable | Audit an nginx config on-device: TLS, version hiding, redirects, server names and braces. |
 | `passphrase` | Passphrase Generator | text | stable | Diceware-style passphrases from an embedded word list — memorable and high-entropy. |
 | `password` | Password Generator | text | stable | Generate strong random passwords with your browser CSPRNG — no bias, nothing uploaded. |
 | `password-strength` | Password Strength Analyzer | text | stable | Estimate password entropy and score strength with feedback. |
@@ -429,7 +457,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `text-encrypt` | Text Encryption (AES-GCM) | text | stable | Encrypt or decrypt text with a passphrase using AES-256-GCM and PBKDF2, entirely on your device. |
 | `totp-authenticator` | TOTP Authenticator Code Generator | text | stable | Generate and verify RFC 6238 TOTP codes from a base32 secret. |
 
-## text (34)
+## text (35)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -455,6 +483,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `rot13` | ROT13 / Caesar Cipher | text | stable | Apply ROT13, ROT5, ROT18, ROT47 or an arbitrary Caesar shift to text. |
 | `slugify` | Slugify | text | stable | Turn a title into a clean URL slug — lowercase, hyphenated, accent-folded. |
 | `sort-lines` | Sort Lines | text | stable | Sort lines alphabetically, numerically, by length, naturally, or shuffle them. |
+| `srt-inspector` | SRT Subtitle Inspector | text | stable | Read a SubRip (SRT) subtitle file on-device: cue count, timestamps, duration and formatting issues. |
 | `text-similarity` | Text Similarity & Edit Distance | text | stable | Compare strings with edit distance and similarity scores to find near-duplicates. |
 | `text-stats` | Text Statistics | text | stable | Count characters, words, sentences and paragraphs, with platform limits, readability scores and reading time. |
 | `text-summarizer` | Text Summarizer | text | stable | Extract the most important sentences from a long document to make a quick summary. |
@@ -486,7 +515,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `webcam-recorder` | Webcam Recorder | file | beta | Record your webcam in the browser and download the clip — the video never leaves your device. |
 | `webm-inspector` | WebM Inspector | file | stable | Parse a Matroska or WebM file on-device: the EBML element tree, DocType, and the top-level segment structure. |
 
-## web (119)
+## web (121)
 
 | id | name | input | status | summary |
 | --- | --- | --- | --- | --- |
@@ -589,6 +618,7 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `signature-input` | Signature-Input Builder & Analyzer | text | stable | Build or inspect HTTP Message Signature-Input fields. |
 | `speculation-rules` | Speculation Rules Analyzer | text | stable | Validate and build prefetch/prerender speculation rules. |
 | `srcset-inspector` | Srcset Inspector | file | stable | Parse and validate srcset and sizes, compute each candidate density and show which image a browser picks. |
+| `sri-validator` | SRI Hash Validator | text | stable | Validate Subresource Integrity attributes on-device: algorithm, base64 and digest length. |
 | `strict-transport-security` | Strict-Transport-Security (HSTS) Builder & Analyzer | text | stable | Build or inspect HSTS policies. |
 | `sri-hash-generator` | Subresource Integrity (SRI) Hash Generator | text | stable | Generate SRI integrity hashes for scripts and styles. |
 | `sunset-deprecation` | Sunset & Deprecation Header Analyzer | text | stable | Build or inspect API lifecycle deprecation signals. |
@@ -609,3 +639,4 @@ Generated from `src/tools/**/*.meta.ts` (source of truth).
 | `x-frame-options` | X-Frame-Options Builder & Analyzer | text | stable | Build or inspect clickjacking frame controls. |
 | `request-id` | X-Request-ID / Correlation-ID Tool | text | stable | Generate or validate request correlation IDs. |
 | `x-robots-tag` | X-Robots-Tag Analyzer | text | stable | Validate per-resource indexing directives (X-Robots-Tag). |
+| `sitemap-validator` | XML Sitemap Validator | text | stable | Validate an XML sitemap on-device: URL count, required loc, lastmod, priority and limits. |
