@@ -1,29 +1,6 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-brand-50: #fbf1ed;
-  --color-brand-100: #f7e4de;
-  --color-brand-200: #efc7bc;
-  --color-brand-300: #e4a08e;
-  --color-brand-400: #d47a63;
-  --color-brand-500: #b3422a;
-  --color-brand-600: #963520;
-  --color-brand-700: #7b2c1c;
-  --color-brand-800: #64271b;
-  --color-brand-900: #54241b;
-  --color-brand-950: #32140f;
-  --color-surface-0: #fffefd;
-  --color-surface-50: #faf9f7;
-  --color-surface-100: #f6f5f2;
-  --color-surface-200: #eeece7;
-  --color-surface-300: #dedbd4;
-  --color-surface-400: #bdb9b0;
-  --color-surface-500: #88837a;
-  --color-surface-600: #5e5a53;
-  --color-surface-700: #3b3935;
-  --color-surface-800: #2d2c29;
-  --color-surface-900: #1d1d1b;
-  --color-surface-950: #141412;
   --font-sans: 'Geist', 'ui-sans-serif', 'system-ui', 'sans-serif';
   --font-mono: 'Geist Mono', 'ui-monospace', 'monospace';
   --max-width-content: 76rem;
@@ -66,32 +43,35 @@
   font-display: swap;
 }
 
-/* Toolbench uses paper, ink, and one warm signal color. No gradients, glow, or glass. */
+/* Tesserae uses charcoal ink and sand paper, plus one warm signal color
+   (umber — chosen from the Design Lab matrix). No gradients, glow, or glass.
+   The --lab-* fallbacks let the dev Design Lab (accent picker only) override
+   the accent family without touching these stock values. */
 :root {
   color-scheme: light;
-  --bg: 250 249 247;
-  --bg-subtle: 246 245 242;
-  --bg-inset: 238 236 231;
-  --surface: 255 255 253;
-  --surface-raised: 255 255 253;
-  --border: 222 219 212;
-  --border-strong: 190 185 176;
-  --text: 29 29 27;
-  --text-muted: 94 91 85;
-  --text-faint: 107 102 94;
-  --accent: 157 61 42;
-  --accent-strong: 125 45 31;
-  --accent-soft: 247 231 225;
-  --accent-fg: 255 252 249;
-  --ring: 157 61 42;
+  --bg: 248 244 235;
+  --bg-subtle: 243 238 227;
+  --bg-inset: 234 228 214;
+  --surface: 253 251 246;
+  --surface-raised: 255 254 250;
+  --border: 226 219 203;
+  --border-strong: 194 185 166;
+  --text: 30 30 28;
+  --text-muted: 93 88 76;
+  --text-faint: 133 126 110;
+  --accent: var(--lab-accent, 99 69 44);
+  --accent-strong: var(--lab-accent-strong, 77 54 34);
+  --accent-soft: var(--lab-accent-soft, 227 220 208);
+  --accent-fg: var(--lab-accent-fg, 253 251 246);
+  --ring: var(--accent);
   --danger: 177 42 42;
   --danger-soft: 251 232 230;
   --warning: 157 86 18;
   --warning-soft: 250 239 216;
   --success: 35 101 65;
-  --shadow-sm: 0 1px 2px rgb(29 29 27 / 0.04);
-  --shadow-md: 0 5px 18px rgb(29 29 27 / 0.08);
-  --shadow-lg: 0 16px 42px rgb(29 29 27 / 0.12);
+  --shadow-sm: 0 1px 2px rgb(30 30 28 / 0.05);
+  --shadow-md: 0 5px 18px rgb(30 30 28 / 0.09);
+  --shadow-lg: 0 16px 42px rgb(30 30 28 / 0.13);
   --dur-fast: 120ms;
   --dur-base: 180ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
@@ -102,21 +82,21 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: 20 20 18;
-  --bg-subtle: 26 26 23;
-  --bg-inset: 38 37 33;
-  --surface: 29 29 26;
-  --surface-raised: 35 34 30;
-  --border: 61 59 53;
-  --border-strong: 91 87 77;
-  --text: 240 238 232;
-  --text-muted: 175 170 160;
-  --text-faint: 135 130 120;
-  --accent: 224 127 99;
-  --accent-strong: 239 157 128;
-  --accent-soft: 67 38 31;
-  --accent-fg: 30 18 14;
-  --ring: 224 127 99;
+  --bg: 21 21 19;
+  --bg-subtle: 27 27 24;
+  --bg-inset: 40 39 35;
+  --surface: 31 31 28;
+  --surface-raised: 38 37 33;
+  --border: 58 56 50;
+  --border-strong: 96 92 82;
+  --text: 237 232 221;
+  --text-muted: 172 166 152;
+  --text-faint: 137 131 118;
+  --accent: var(--lab-accent-dark, 124 99 78);
+  --accent-strong: var(--lab-accent-strong-dark, 97 77 61);
+  --accent-soft: var(--lab-accent-soft-dark, 35 32 27);
+  --accent-fg: var(--lab-accent-fg-dark, 253 251 246);
+  --ring: var(--accent);
   --danger: 246 130 118;
   --danger-soft: 69 34 31;
   --warning: 239 183 91;
@@ -157,6 +137,21 @@
   }
   ::selection {
     background: rgb(var(--accent) / 0.2);
+  }
+  /* Theme toggle icons follow data-theme, not prefers-color-scheme: the OS
+     setting only decides the initial theme, so `dark:` variants can show the
+     wrong sun/moon after the user picks a theme explicitly. */
+  .theme-icon-moon {
+    display: inline-flex;
+  }
+  .theme-icon-sun {
+    display: none;
+  }
+  [data-theme='dark'] .theme-icon-moon {
+    display: none;
+  }
+  [data-theme='dark'] .theme-icon-sun {
+    display: inline-flex;
   }
   h1,
   h2,
@@ -205,12 +200,11 @@
     opacity: 0.5;
   }
   .btn-primary {
-    background: rgb(var(--text));
-    color: rgb(var(--bg));
-  }
-  .btn-primary:hover:not(:disabled) {
     background: rgb(var(--accent));
     color: rgb(var(--accent-fg));
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: rgb(var(--accent-strong));
   }
   .btn-ghost {
     border: 1px solid rgb(var(--border-strong));
@@ -258,6 +252,10 @@
     @apply inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium;
     background: rgb(var(--bg-inset));
     color: rgb(var(--text-muted));
+  }
+  .chip.is-active {
+    background: rgb(var(--text));
+    color: rgb(var(--bg));
   }
   .link {
     color: rgb(var(--accent));
@@ -407,3 +405,4 @@
   border-radius: 0.375rem;
   background: rgb(var(--bg-inset));
 }
+

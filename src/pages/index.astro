@@ -47,20 +47,20 @@ const pillars = [
   path="/"
   jsonLd={[websiteJsonLd(), organizationJsonLd()]}
 >
-  <section class="border-b pb-14 pt-14 sm:pb-16 sm:pt-20">
-    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[rgb(var(--accent))]">
+  <section class="hero relative border-b pb-14 pt-14 sm:pb-16 sm:pt-20">
+    <p class="hero-eyebrow font-mono text-[11px] uppercase tracking-[0.18em] text-[rgb(var(--accent))]">
       Private by default
     </p>
     <h1
-      class="mt-5 max-w-2xl text-[2rem] font-semibold leading-[1.08] tracking-[-0.03em] text-[rgb(var(--text))] sm:text-[3.25rem]"
+      class="hero-title mt-5 max-w-2xl text-[2rem] font-semibold leading-[1.08] tracking-[-0.03em] text-[rgb(var(--text))] sm:text-[3.25rem]"
     >
       {site.tagline}
     </h1>
-    <p class="mt-5 max-w-lg leading-relaxed text-[rgb(var(--text-muted))]">
+    <p class="hero-sub mt-5 max-w-lg leading-relaxed text-[rgb(var(--text-muted))]">
       {TOOL_COUNT} file and text utilities across {CATEGORY_COUNT} categories. Free, no sign-up, works
       offline.
     </p>
-    <div class="mt-8 flex flex-wrap items-center gap-3">
+    <div class="hero-actions mt-8 flex flex-wrap items-center gap-3">
       <a href={`${base}/tools`} class="btn btn-primary">
         Browse all tools <Icon name="arrow-right" size={16} />
       </a>
@@ -110,7 +110,7 @@ const pillars = [
     featured.length > 0 && (
       <section class="mt-14">
         <div class="flex items-end justify-between gap-4">
-          <h2 class="text-lg font-semibold tracking-[-0.02em] text-[rgb(var(--text))]">
+          <h2 class="section-title text-lg font-semibold tracking-[-0.02em] text-[rgb(var(--text))]">
             Popular tools
           </h2>
           <a
@@ -131,7 +131,7 @@ const pillars = [
 
   <section class="mt-14">
     <div class="flex items-end justify-between gap-4">
-      <h2 class="text-lg font-semibold tracking-[-0.02em] text-[rgb(var(--text))]">
+      <h2 class="section-title text-lg font-semibold tracking-[-0.02em] text-[rgb(var(--text))]">
         Browse by category
       </h2>
       <a

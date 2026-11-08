@@ -36,7 +36,7 @@ const siteName = /^\s{2}name:\s*'([^']+)'/m.exec(siteText)?.[1] ?? 'Tesserae';
 const BG = hexToRgb(themeHex) ?? [29, 29, 27];
 const FG = hexToRgb(bgHex) ?? [250, 249, 247];
 const MUTED = [180, 177, 169];
-const ACCENT = [224, 127, 99]; // --accent from the dark theme in src/styles/global.css
+const ACCENT = [124, 99, 78]; // --accent from the dark theme in src/styles/global.css
 
 // --- PNG encoding (node:zlib only) -----------------------------------------
 const CRC_TABLE = (() => {
