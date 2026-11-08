@@ -37,3 +37,12 @@ npm-debug.log*
 /tools/
 /.dsh-open-design/
 .conductor/
+
+# local scratch output from the font pipeline (never commit)
+.b64_const*.txt
+.b64ttf*.txt
+.gen_ttf*.py
+.oracle_ttf*.json
+.ttf*.ttf
+.npmrc[0-9]*
+.whois*
