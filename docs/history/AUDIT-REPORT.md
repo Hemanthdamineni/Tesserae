@@ -1,5 +1,8 @@
 # Security, Privacy, Licensing, and Integrity Audit Report
 
+> Historical document. This project is now named **Tesserae**; it was formerly known as
+> **Browser Tools Platform** (see decision D-0035). Older audit text below uses the former name.
+
 ## Browser Tools Platform Project
 
 **Date:** September 12, 2026  

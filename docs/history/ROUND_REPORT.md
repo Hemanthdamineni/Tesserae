@@ -1,5 +1,8 @@
 # Round Report
 
+> Historical document. This project is now named **Tesserae**; it was formerly known as
+> **Browser Tools Platform** (see decision D-0035). Older entries below may use the former name.
+
 Append-only log. One entry per autonomous run. A human reviews this at the end of the
 round and writes the next `BACKLOG.md` and `TODOS.md`.
 
