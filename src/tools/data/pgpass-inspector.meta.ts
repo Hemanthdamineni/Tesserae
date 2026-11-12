@@ -35,7 +35,21 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a .pgpass file' }],
+  examples: [
+    {
+      title: 'A wildcard host and two real hosts',
+      input:
+        '*:*:*:postgres:supersecret\nlocalhost:5432:appdb:appuser:apppass\ndb.example.com:5432:*:replicator:rep-pass',
+    },
+    {
+      title: 'A line with the wrong number of fields',
+      input: 'localhost:5432:appdb:appuser\nlocalhost:5432:appdb:appuser:apppass:extra',
+    },
+    {
+      title: 'A commented file with one entry',
+      input: '# personal development db\nlocalhost:5432:devdb:dev:dev-pass',
+    },
+  ],
   related: ['dotenv', 'netrc-inspector', 'ssh-key-fingerprint', 'properties-convert'],
   status: 'stable',
 };

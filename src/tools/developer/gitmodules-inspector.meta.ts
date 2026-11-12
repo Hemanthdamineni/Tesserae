@@ -35,7 +35,22 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a .gitmodules file' }],
+  examples: [
+    {
+      title: 'Two submodules',
+      input:
+        '[submodule "client"]\n\tpath = client\n\turl = https://github.com/example/client.git\n[submodule "server"]\n\tpath = server\n\turl = git@github.com:example/server.git',
+    },
+    {
+      title: 'A submodule over plain http',
+      input: '[submodule "legacy"]\n\tpath = legacy\n\turl = http://example.com/legacy.git',
+    },
+    {
+      title: 'A submodule with a branch option',
+      input:
+        '[submodule "docs"]\n\tpath = docs\n\turl = https://github.com/example/docs.git\n\tbranch = main',
+    },
+  ],
   related: ['gitignore', 'dockerfile-generator', 'codeowners-validator', 'editorconfig'],
   status: 'stable',
 };

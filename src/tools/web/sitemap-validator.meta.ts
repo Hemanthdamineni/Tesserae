@@ -37,7 +37,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Validate an XML sitemap' }],
+  examples: [
+    {
+      title: 'A sitemap with three URLs',
+      input:
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc><lastmod>2026-11-01</lastmod></url>\n  <url><loc>https://example.com/about</loc><lastmod>2026-11-02</lastmod></url>\n  <url><loc>https://example.com/contact</loc><lastmod>2026-11-03</lastmod></url>\n</urlset>',
+    },
+    {
+      title: 'A url element with no loc',
+      input:
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc></url>\n  <url><lastmod>2026-11-01</lastmod></url>\n</urlset>',
+    },
+    {
+      title: 'A sitemap that is not well-formed XML',
+      input:
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc>\n  <url><loc>https://example.com/about</loc></url>\n</urlset>',
+    },
+  ],
   related: ['robots-txt', 'feed-inspector', 'url-parse', 'meta-tags'],
   status: 'stable',
 };

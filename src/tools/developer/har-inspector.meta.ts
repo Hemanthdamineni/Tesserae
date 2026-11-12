@@ -35,12 +35,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a HAR file' }],
-  related: [
-    'http-request-builder',
-    'access-log-analyzer',
-    'http-header-analyzer',
-    'network-error-logging',
+  examples: [
+    {
+      title: 'A small HAR archive',
+      input:
+        '{\n  "log": {\n    "version": "1.2",\n    "creator": { "name": "browser", "version": "130.0" },\n    "pages": [{ "id": "p1", "title": "Example", "startedDateTime": "2026-11-08T12:00:00Z", "pageTimings": { "onContentLoad": 320, "onLoad": 700 } }],\n    "entries": [\n      {\n        "startedDateTime": "2026-11-08T12:00:01Z",\n        "time": 140,\n        "request": { "method": "GET", "url": "https://example.com/", "httpVersion": "HTTP/2", "headers": [], "queryString": [], "cookies": [], "headersSize": 120, "bodySize": 0 },\n        "response": { "status": 200, "statusText": "OK", "httpVersion": "HTTP/2", "headers": [], "cookies": [], "content": { "size": 1024, "mimeType": "text/html" }, "redirectURL": "", "headersSize": 200, "bodySize": 1024 },\n        "cache": {},\n        "timings": { "blocked": 5, "dns": 10, "connect": 25, "send": 1, "wait": 60, "receive": 39 },\n        "serverIPAddress": "93.184.216.34"\n      }\n    ]\n  }\n}',
+    },
+    {
+      title: 'A failed request in the archive',
+      input:
+        '{\n  "log": {\n    "version": "1.2",\n    "creator": { "name": "browser", "version": "130.0" },\n    "pages": [],\n    "entries": [\n      {\n        "startedDateTime": "2026-11-08T12:00:01Z",\n        "time": 400,\n        "request": { "method": "GET", "url": "https://example.com/missing", "httpVersion": "HTTP/1.1", "headers": [], "queryString": [], "cookies": [], "headersSize": 90, "bodySize": 0 },\n        "response": { "status": 404, "statusText": "Not Found", "httpVersion": "HTTP/1.1", "headers": [], "cookies": [], "content": { "size": 40, "mimeType": "text/html" }, "redirectURL": "", "headersSize": 100, "bodySize": 40 },\n        "cache": {},\n        "timings": { "blocked": 5, "dns": 10, "connect": 25, "send": 1, "wait": 300, "receive": 59 },\n        "serverIPAddress": "93.184.216.34"\n      }\n    ]\n  }\n}',
+    },
+    {
+      title: 'A HAR with a missing version',
+      input:
+        '{\n  "log": {\n    "creator": { "name": "browser", "version": "130.0" },\n    "pages": [],\n    "entries": []\n  }\n}',
+    },
   ],
+  related: ['http-request-builder', 'access-log-analyzer', 'http-header-analyzer'],
   status: 'stable',
 };

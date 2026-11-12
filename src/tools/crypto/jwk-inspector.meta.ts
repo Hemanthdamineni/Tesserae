@@ -36,7 +36,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a JWKS key set' }],
+  examples: [
+    {
+      title: 'An RSA signing key',
+      input:
+        '{\n  "keys": [\n    {\n      "kty": "RSA",\n      "kid": "rsa-2026-01",\n      "alg": "RS256",\n      "use": "sig",\n      "n": "u6iW8xv8pqx0VqYhTn5Fj6fEZmBfGQYkH0Q6XKr0Lv9N8I7Yw3TQp2m0AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789",\n      "e": "AQAB"\n    }\n  ]\n}',
+    },
+    {
+      title: 'A key missing the exponent',
+      input:
+        '{\n  "kty": "RSA",\n  "kid": "rsa-broken",\n  "alg": "RS256",\n  "n": "u6iW8xv8pqx0VqYhTn5Fj6fEZmBfGQYkH0Q6XKr0Lv9N8I7Yw3TQp2m0AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789"\n}',
+    },
+    {
+      title: 'An EC key set with two keys',
+      input:
+        '{\n  "keys": [\n    { "kty": "EC", "crv": "P-256", "kid": "ec-a", "x": "u6iW8xv8pqx0VqYhTn5Fj6fEZmBfGQYkH0Q6XKr0Lv8", "y": "u6iW8xv8pqx0VqYhTn5Fj6fEZmBfGQYkH0Q6XKr0Lv9" },\n    { "kty": "EC", "crv": "P-384", "kid": "ec-b", "x": "u6iW8xv8pqx0VqYhTn5Fj6fEZmBfGQYkH0Q6XKr0Lv0", "y": "u6iW8xv8pqx0VqYhTn5Fj6fEZmBfGQYkH0Q6XKr0Lv1" }\n  ]\n}',
+    },
+  ],
   related: ['jwt-decode', 'keypair-generator', 'asn1-inspector', 'x509-certificate-inspector'],
   status: 'stable',
 };

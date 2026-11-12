@@ -35,7 +35,20 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Validate a CODEOWNERS file' }],
+  examples: [
+    {
+      title: 'A basic CODEOWNERS file',
+      input: '# Owners for the project\n* @octocat\n\n/docs/ @docs-team\n/src/ @core-devs @octocat',
+    },
+    {
+      title: 'A pattern with no owner',
+      input: '# trailing spaces are significant\n*       @octocat\n\n/assets/\n/lib/ @platform',
+    },
+    {
+      title: 'A file using team owners',
+      input: '* @acme/web\n/scripts/ @acme/ops\n/config/*.yml @acme/platform-eng',
+    },
+  ],
   related: ['gitignore', 'editorconfig', 'dockerfile-generator', 'conventional-commit'],
   status: 'stable',
 };

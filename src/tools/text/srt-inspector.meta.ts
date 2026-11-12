@@ -36,7 +36,22 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect an SRT subtitle file' }],
+  examples: [
+    {
+      title: 'Two subtitle cues',
+      input:
+        '1\n00:00:00,000 --> 00:00:02,500\nHello from the first line.\n\n2\n00:00:03,000 --> 00:00:05,000\nAnd the second speaker answers.\n',
+    },
+    {
+      title: 'A cue with a reversed time range',
+      input: '1\n00:00:05,000 --> 00:00:02,500\nThis end time comes before the start.\n',
+    },
+    {
+      title: 'A cue with no text',
+      input:
+        '1\n00:00:00,000 --> 00:00:01,500\n\n2\n00:00:02,000 --> 00:00:03,000\nA real line of dialogue.\n',
+    },
+  ],
   related: ['vtt-inspector', 'subtitle-converter', 'text-stats'],
   status: 'stable',
 };

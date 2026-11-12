@@ -38,7 +38,22 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a vCard contact file' }],
+  examples: [
+    {
+      title: 'A single contact card',
+      input:
+        'BEGIN:VCARD\nVERSION:3.0\nFN:Ada Lovelace\nN:Lovelace;Ada;;;\nTEL;TYPE=WORK:+1-555-0100\nEMAIL;TYPE=INTERNET:ada@example.com\nUID:ada-001\nEND:VCARD',
+    },
+    {
+      title: 'Two contacts in one file',
+      input:
+        'BEGIN:VCARD\nVERSION:3.0\nFN:Alan Turing\nN:Turing;Alan;;;\nEMAIL:alan@example.com\nUID:alan-001\nEND:VCARD\n\nBEGIN:VCARD\nVERSION:3.0\nFN:Grace Hopper\nN:Hopper;Grace;;;\nEMAIL:grace@example.com\nUID:grace-002\nEND:VCARD',
+    },
+    {
+      title: 'A card with no full name',
+      input: 'BEGIN:VCARD\nVERSION:3.0\nN:Example;Some;;;\nEMAIL:some@example.com\nEND:VCARD',
+    },
+  ],
   related: ['ics-validator', 'vcard', 'bibtex-validator', 'csv-to-ics'],
   status: 'stable',
 };
