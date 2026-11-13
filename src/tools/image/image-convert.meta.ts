@@ -4,7 +4,7 @@ export const meta: ToolMeta = {
   id: 'image-convert',
   name: 'Convert Image Format',
   category: 'image',
-  summary: 'Convert images between PNG, JPEG, WebP and AVIF in your browser.',
+  summary: 'Convert images between PNG, JPEG, WebP, AVIF and BMP in your browser.',
   description:
     'Convert an image to another common format using local browser canvas encoding. The file stays on your device.',
   keywords: ['image converter', 'convert image', 'png to jpg', 'webp converter'],
@@ -18,7 +18,7 @@ export const meta: ToolMeta = {
       label: 'Target format',
       type: 'select',
       default: 'webp',
-      choices: ['png', 'jpeg', 'webp', 'avif'].map((value) => ({
+      choices: ['png', 'jpeg', 'webp', 'avif', 'bmp'].map((value) => ({
         value,
         label: value.toUpperCase(),
       })),

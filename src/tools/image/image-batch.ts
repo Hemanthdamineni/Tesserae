@@ -98,12 +98,71 @@ export function flattenForJpeg(
   ctx.fillRect(0, 0, width, height);
 }
 
+/**
+ * Encode RGBA pixel data as a 32-bit bottom-up Windows BMP (BGRA, no
+ * compression). The 40-byte BITMAPINFOHEADER keeps the file as lean as
+ * possible while still carrying full alpha.
+ */
+function encodeBmpPixels(width: number, height: number, pixels: Uint8ClampedArray): Uint8Array {
+  const rowSize = width * 4; // 32-bit pixels are always 4-byte aligned
+  const dataSize = rowSize * height;
+  const offset = 14 + 40; // BITMAPFILEHEADER + BITMAPINFOHEADER
+  const fileSize = offset + dataSize;
+  const out = new Uint8Array(fileSize);
+  const dv = new DataView(out.buffer);
+
+  // BITMAPFILEHEADER
+  dv.setUint8(0, 0x42); // 'B'
+  dv.setUint8(1, 0x4d); // 'M'
+  dv.setUint32(2, fileSize, true); // bfSize
+  dv.setUint32(6, 0, true); // bfReserved1+2
+  dv.setUint32(10, offset, true); // bfOffBits
+
+  // BITMAPINFOHEADER
+  dv.setUint32(14, 40, true); // biSize
+  dv.setInt32(18, width, true); // biWidth
+  dv.setInt32(22, height, true); // biHeight (positive = bottom-up)
+  dv.setUint16(26, 1, true); // biPlanes
+  dv.setUint16(28, 32, true); // biBitCount
+  dv.setUint32(30, 0, true); // biCompression (BI_RGB)
+  dv.setUint32(34, dataSize, true); // biSizeImage
+  dv.setInt32(38, 2835, true); // biXPelsPerMeter (72 dpi)
+  dv.setInt32(42, 2835, true); // biYPelsPerMeter
+  dv.setUint32(46, 0, true); // biClrUsed
+  dv.setUint32(50, 0, true); // biClrImportant
+
+  // Pixels: bottom-up, BGRA. Each row starts at offset + (height - 1 - y) * rowSize.
+  for (let y = 0; y < height; y++) {
+    const srcRow = y * width * 4;
+    const dstRow = offset + (height - 1 - y) * rowSize;
+    for (let x = 0; x < width; x++) {
+      const s = srcRow + x * 4;
+      const d = dstRow + x * 4;
+      out[d] = pixels[s + 2] ?? 0; // B
+      out[d + 1] = pixels[s + 1] ?? 0; // G
+      out[d + 2] = pixels[s] ?? 0; // R
+      out[d + 3] = pixels[s + 3] ?? 0; // A
+    }
+  }
+  return out;
+}
+
 /** Encode a canvas, failing with a friendly message when the format is unsupported. */
 export async function encodeCanvas(
   canvas: OffscreenCanvas,
   mime: string,
   quality?: number,
 ): Promise<Blob> {
+  // BMP is not browser-encodable via convertToBlob, so hand-encode it from the
+  // 2d context pixels. This gives the tool true client-side BMP output.
+  if (mime === 'image/bmp') {
+    const w = canvas.width;
+    const h = canvas.height;
+    const ctx = context2d(canvas);
+    const img = ctx.getImageData(0, 0, w, h);
+    const bmpBytes = encodeBmpPixels(w, h, img.data);
+    return new Blob([bmpBytes.buffer as ArrayBuffer], { type: 'image/bmp' });
+  }
   const blob = await canvas.convertToBlob({ type: mime, quality });
   if (blob.type !== mime) {
     const label = mime.replace('image/', '').toUpperCase();

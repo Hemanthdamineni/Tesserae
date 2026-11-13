@@ -13,7 +13,7 @@ import {
 } from './image-batch';
 import { meta } from './image-convert.meta';
 
-const FORMATS = ['png', 'jpeg', 'webp', 'avif'] as const;
+const FORMATS = ['png', 'jpeg', 'webp', 'avif', 'bmp'] as const;
 
 /** Identity helper kept for backwards-compatible imports. */
 export function imageOutputType(mime: string): string {
@@ -26,7 +26,7 @@ export function convertMime(to: unknown): string {
   if (!(FORMATS as readonly string[]).includes(value)) {
     throw new ToolError(
       `“${value}” is not a supported output format.`,
-      'Choose PNG, JPEG, WebP or AVIF.',
+      'Choose PNG, JPEG, WebP, AVIF or BMP.',
     );
   }
   return `image/${value}`;
