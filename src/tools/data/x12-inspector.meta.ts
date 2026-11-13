@@ -38,7 +38,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect an X12 EDI interchange' }],
+  examples: [
+    {
+      title: 'A single purchase-order interchange',
+      input:
+        'ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260108*1200*U*00401*000000001*0*P*~\nGS*PO*SENDER*RECEIVER*20261108*1200*1*X*004010\nST*850*0001\nBEG*00*SA*PO-1001**20261108\nSE*3*0001\nGE*1*1\nIEA*1*000000001',
+    },
+    {
+      title: 'An empty functional group',
+      input:
+        'ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260108*1200*U*00401*000000002*0*P*~\nGS*PO*SENDER*RECEIVER*20261108*1200*1*X*004010\nGE*-social*1\nIEA*1*000000002',
+    },
+    {
+      title: 'A custom element separator',
+      input:
+        'ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260108*1200*U*00401*000000003*0*P*>||\nGS*PO*SENDER*RECEIVER*20261108*1200*1*X*004010>|1\nST*850*0001>|1\nBEG*00*SA*PO-1002**20261108>|1\nSE*3*0001>|1\nGE*1*1>|1\nIEA*1*000000003>|1',
+    },
+  ],
   related: ['ics-validator', 'bibtex-validator', 'json-schema-check', 'csv-profiler'],
   status: 'stable',
 };

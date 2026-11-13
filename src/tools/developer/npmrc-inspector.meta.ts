@@ -35,7 +35,21 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect an .npmrc file' }],
+  examples: [
+    {
+      title: 'A registry and auth config',
+      input: 'registry=https://npm.example.com/\n_authToken=sekret-token\nsave-exact=true',
+    },
+    {
+      title: 'A proxy and strict-ssl config',
+      input:
+        'https-proxy=http://proxy.example.com:8080\nproxy=http://proxy.example.com:8080\nstrict-ssl=false',
+    },
+    {
+      title: 'A commented config with a bad key',
+      input: '# npm scope\n@myco:registry=https://myco.example.com/\nnot_a_real_key=1',
+    },
+  ],
   related: ['packages-lock-inspector', 'dotenv', 'netrc-inspector', 'properties-convert'],
   status: 'stable',
 };

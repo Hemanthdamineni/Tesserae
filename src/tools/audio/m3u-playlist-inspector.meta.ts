@@ -35,7 +35,21 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect an M3U playlist' }],
+  examples: [
+    {
+      title: 'A simple extended playlist',
+      input:
+        '#EXTM3U\n#EXTINF:245,Artist One - Track One\n/media/one.mp3\n#EXTINF:182,Artist Two - Track Two\n/media/two.flac',
+    },
+    {
+      title: 'A playlist with only paths',
+      input: '/music/alpha.mp3\n/music/beta.ogg\n/music/gamma.mp3',
+    },
+    {
+      title: 'An EXTINF line with no following entry',
+      input: '#EXTM3U\n#EXTINF:245,Orphan track\n/media/one.mp3\n#EXTINF:120,Missing media',
+    },
+  ],
   related: ['srt-inspector', 'vtt-inspector', 'audio-info', 'audio-merge'],
   status: 'stable',
 };

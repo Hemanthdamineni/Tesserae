@@ -36,7 +36,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a KML map file' }],
+  examples: [
+    {
+      title: 'Two placemarks and a folder',
+      input:
+        '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Document>\n    <name>Stops</name>\n    <Placemark>\n      <name>First</name>\n      <Point><coordinates>-73.99,40.73,0</coordinates></Point>\n    </Placemark>\n    <Folder>\n      <name>North</name>\n      <Placemark>\n        <name>Second</name>\n        <Point><coordinates>-74.01,40.71,0</coordinates></Point>\n      </Placemark>\n    </Folder>\n  </Document>\n</kml>',
+    },
+    {
+      title: 'A coordinate out of range',
+      input:
+        '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Placemark>\n    <name>Bad lat</name>\n    <Point><coordinates>-73.99,95.0,0</coordinates></Point>\n  </Placemark>\n</kml>',
+    },
+    {
+      title: 'An unclosed placemark',
+      input:
+        '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Placemark>\n    <name>Broken</name>\n    <Point><coordinates>-73.99,40.73,0</coordinates></Point>\n</kml>',
+    },
+  ],
   related: ['gpx-track-stats', 'tcx-inspector', 'geojson-validator', 'latlon-inspector'],
   status: 'stable',
 };

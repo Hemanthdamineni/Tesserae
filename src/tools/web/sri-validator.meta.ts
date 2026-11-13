@@ -36,7 +36,21 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Validate an SRI integrity attribute' }],
+  examples: [
+    {
+      title: 'A valid SHA-384 integrity attribute',
+      input:
+        '<script src="https://cdn.example.com/app.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>',
+    },
+    {
+      title: 'A tag with no integrity attribute',
+      input: '<script src="https://cdn.example.com/app.js" crossorigin="anonymous"></script>',
+    },
+    {
+      title: 'A bare integrity value with an unknown algorithm',
+      input: 'sha1-8H12Y3J4K5L6M7N8O9P0Q1R2S3T4U5V6W7X8Y9Z0aAbBcCdDeEfFgGhHi',
+    },
+  ],
   related: ['sri-hash-generator', 'hash', 'file-hash', 'security-headers'],
   status: 'stable',
 };

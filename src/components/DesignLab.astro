@@ -1,0 +1,398 @@
+---
+/**
+ * Design Lab — dev-only accent picker. Try any third colour against the
+ * charcoal + sand base: instant site restyle, contrast readouts, persisted
+ * choice, shareable `?accent=` link. Mounted from Layout only when dev.
+ */
+import { ACCENT_CANDIDATES, STOCK_ACCENT } from '@/lib/design-lab';
+---
+
+<button
+  id="lab-toggle"
+  type="button"
+  class="lab-toggle"
+  aria-expanded="false"
+  aria-controls="lab-panel"
+  title="Design Lab (dev)"
+>
+  <span class="lab-toggle-tiles" aria-hidden="true">{Array.from({ length: 9 }).map(() => <span />)}</span>
+</button>
+
+<aside id="lab-panel" class="lab-panel" hidden aria-label="Design Lab">
+  <header class="lab-head">
+    <strong>Design Lab</strong>
+    <button id="lab-close" type="button" class="lab-close" aria-label="Close Design Lab">×</button>
+  </header>
+
+  <section>
+    <h3 class="lab-eyebrow">Third colour</h3>
+    <div class="lab-swatches">
+      {
+        ACCENT_CANDIDATES.map((c) => (
+          <button
+            type="button"
+            class="lab-swatch"
+            data-hex={c.hex}
+            title={`${c.name} · ${c.hex}`}
+            style={`background: ${c.hex}`}
+            aria-label={`${c.name} accent`}
+          />
+        ))
+      }
+      <label class="lab-custom" title="Pick any colour">
+        <input type="color" id="lab-color" value={STOCK_ACCENT} aria-label="Custom accent colour" />
+      </label>
+    </div>
+    <div class="lab-row">
+      <input id="lab-hex" class="lab-input" spellcheck="false" placeholder="#aabbcc" aria-label="Accent as hex" />
+      <button id="lab-reset" type="button" class="lab-quiet">Reset to umber</button>
+    </div>
+    <dl class="lab-contrast">
+      <div><dt>On sand</dt><dd id="lab-c-light">–</dd></div>
+      <div><dt>On charcoal</dt><dd id="lab-c-dark">–</dd></div>
+      <div><dt>Text on accent</dt><dd id="lab-c-fg">–</dd></div>
+    </dl>
+  </section>
+
+  <footer class="lab-foot">
+    <button id="lab-copy" type="button" class="lab-quiet">Copy link for this accent</button>
+    <span class="lab-note">dev-only</span>
+  </footer>
+</aside>
+
+<style>
+  .lab-toggle {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgb(var(--border-strong));
+    background: rgb(var(--text));
+    color: rgb(var(--bg));
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .lab-toggle:hover {
+    transform: translateY(-2px);
+  }
+  .lab-toggle-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+  .lab-toggle-tiles span {
+    background: rgb(var(--bg));
+  }
+  .lab-toggle-tiles span:nth-child(5) {
+    background: rgb(var(--accent));
+  }
+
+  .lab-panel {
+    position: fixed;
+    right: 1rem;
+    bottom: 4rem;
+    z-index: 60;
+    width: min(21rem, calc(100vw - 2rem));
+    max-height: min(78dvh, 46rem);
+    overflow-y: auto;
+    padding: 1.1rem 1.1rem 0.9rem;
+    background: rgb(var(--surface-raised));
+    border: 1px solid rgb(var(--border-strong));
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  .lab-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .lab-close {
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1px solid rgb(var(--border));
+    border-radius: 0.375rem;
+    background: transparent;
+    color: rgb(var(--text-muted));
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+  .lab-close:hover {
+    color: rgb(var(--text));
+    border-color: rgb(var(--border-strong));
+  }
+  .lab-eyebrow {
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgb(var(--text-muted));
+  }
+  section + section {
+    margin-top: 0.9rem;
+  }
+
+  .lab-swatches {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.3rem;
+  }
+  .lab-swatch {
+    aspect-ratio: 1;
+    border: 1px solid rgb(var(--border));
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .lab-swatch:hover {
+    transform: scale(1.12);
+  }
+  .lab-swatch[data-active='true'] {
+    outline: 2px solid rgb(var(--text));
+    outline-offset: 1px;
+  }
+  .lab-custom {
+    position: relative;
+    display: grid;
+    place-items: center;
+    border: 1px dashed rgb(var(--border-strong));
+    border-radius: 0.375rem;
+    aspect-ratio: 1;
+    cursor: pointer;
+    color: rgb(var(--text-faint));
+  }
+  .lab-custom:hover {
+    border-color: rgb(var(--accent));
+  }
+  .lab-custom input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .lab-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+  }
+  .lab-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.3rem 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    background: rgb(var(--surface));
+    border: 1px solid rgb(var(--border));
+    border-radius: 0.375rem;
+    color: rgb(var(--text));
+  }
+  .lab-input:focus {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 1px;
+  }
+  .lab-quiet {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.72rem;
+    border: 1px solid rgb(var(--border));
+    border-radius: 0.375rem;
+    background: transparent;
+    color: rgb(var(--text-muted));
+    cursor: pointer;
+  }
+  .lab-quiet:hover {
+    color: rgb(var(--text));
+    border-color: rgb(var(--border-strong));
+  }
+
+  .lab-contrast {
+    display: flex;
+    gap: 1.1rem;
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.6rem;
+    background: rgb(var(--bg-subtle));
+    border-radius: 0.5rem;
+  }
+  .lab-contrast dt {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgb(var(--text-faint));
+  }
+  .lab-contrast dd {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: rgb(var(--text));
+  }
+
+  .lab-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.9rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgb(var(--border));
+    padding-bottom: 0.2rem;
+  }
+  .lab-note {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgb(var(--text-faint));
+  }
+</style>
+
+<script>
+  import {
+    STOCK_ACCENT,
+    applyAccentVars,
+    loadLab,
+    readLabFromUrl,
+    saveLab,
+    normalizeHex,
+    hexToRgb,
+    contrast,
+  } from '@/lib/design-lab';
+
+  const root = document.documentElement;
+  const panel = document.getElementById('lab-panel');
+  const toggle = document.getElementById('lab-toggle');
+  const closeBtn = document.getElementById('lab-close');
+  const swatches = Array.from(document.querySelectorAll<HTMLButtonElement>('.lab-swatch'));
+  const colorInput = document.getElementById('lab-color') as HTMLInputElement | null;
+  const hexInput = document.getElementById('lab-hex') as HTMLInputElement | null;
+  const resetBtn = document.getElementById('lab-reset');
+  const copyBtn = document.getElementById('lab-copy');
+
+  // URL deep link wins over the stored choice (share > history), then persists.
+  let choice = readLabFromUrl() ?? loadLab();
+  saveLab(choice);
+  applyAccentVars(root, choice.accent ?? null);
+
+  function syncAccentLabel() {
+    const currentAccent = getComputedStyle(root).getPropertyValue('--accent').trim();
+    toggle?.setAttribute('title', `Design Lab — accent ${currentAccent}`);
+  }
+
+  function markSwatches() {
+    for (const s of swatches) {
+      const active = choice.accent !== undefined && s.dataset.hex === choice.accent;
+      s.setAttribute('data-active', String(active));
+    }
+    if (colorInput) colorInput.value = choice.accent ?? STOCK_ACCENT;
+  }
+
+  function setContrast() {
+    const bgLight: [number, number, number] = [248, 244, 235];
+    const bgDark: [number, number, number] = [21, 21, 19];
+    const ink: [number, number, number] = [30, 30, 28];
+    const paper: [number, number, number] = [253, 251, 246];
+    const cLight = document.getElementById('lab-c-light');
+    const cDark = document.getElementById('lab-c-dark');
+    const cFg = document.getElementById('lab-c-fg');
+    if (!choice.accent) {
+      if (cLight) cLight.textContent = 'stock';
+      if (cDark) cDark.textContent = 'stock';
+      if (cFg) cFg.textContent = 'stock';
+      return;
+    }
+    const rgb = hexToRgb(choice.accent);
+    const fg = contrast(rgb, ink) >= contrast(rgb, paper) ? ink : paper;
+    const text = (r: number) => `${r.toFixed(1)}:1 ${r >= 4.5 ? 'AA' : r >= 3 ? 'AA-lg' : 'fail'}`;
+    if (cLight) cLight.textContent = text(contrast(rgb, bgLight));
+    if (cDark) cDark.textContent = text(contrast(rgb, bgDark));
+    if (cFg) cFg.textContent = text(contrast(fg, rgb));
+  }
+
+  function setAccent(hex: string | null) {
+    const normalized = hex ? normalizeHex(hex) : null;
+    if (hex && !normalized) {
+      window.toast?.(`Not a hex colour: ${hex}`, 'error');
+      return;
+    }
+    choice.accent = normalized ?? undefined;
+    applyAccentVars(root, choice.accent ?? null);
+    saveLab(choice);
+    if (hexInput && normalized) hexInput.value = normalized;
+    markSwatches();
+    setContrast();
+  }
+
+  function shareUrl(): string {
+    const url = new URL(window.location.href);
+    url.search = '';
+    // URLSearchParams url-encodes the leading '#'.
+    url.searchParams.set('accent', (choice.accent ?? STOCK_ACCENT).replace('#', ''));
+    return url.toString();
+  }
+
+  for (const s of swatches) {
+    s.addEventListener('click', () => setAccent(s.dataset.hex ?? null));
+  }
+  colorInput?.addEventListener('input', () => setAccent(colorInput.value));
+  hexInput?.addEventListener('change', () => {
+    if (hexInput.value.trim()) setAccent(hexInput.value);
+  });
+  resetBtn?.addEventListener('click', () => setAccent(null));
+
+  const urlChoice = readLabFromUrl();
+  if (urlChoice) {
+    // Clean the query string so refreshes keep using the persisted choice.
+    const clean = new URL(window.location.href);
+    clean.searchParams.delete('accent');
+    window.history.replaceState(null, '', clean);
+  }
+
+  markSwatches();
+  setContrast();
+  syncAccentLabel();
+
+  function setOpen(open: boolean) {
+    if (!panel || !toggle) return;
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle?.addEventListener('click', () => setOpen(panel?.hidden ?? true));
+  closeBtn?.addEventListener('click', () => setOpen(false));
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel && !panel.hidden) setOpen(false);
+  });
+
+  copyBtn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl());
+      window.toast?.('Accent link copied', 'info');
+    } catch {
+      window.toast?.('Copy failed — blocked by the browser', 'error');
+    }
+  });
+
+  // Keep in sync if a second tab saved a different accent.
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'tb-lab' || e.key === null) {
+      const next = loadLab();
+      choice = { ...next };
+      applyAccentVars(root, choice.accent ?? null);
+      markSwatches();
+      setContrast();
+    }
+  });
+</script>

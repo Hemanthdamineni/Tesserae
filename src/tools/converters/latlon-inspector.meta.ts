@@ -37,7 +37,20 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a latitude and longitude pair' }],
+  examples: [
+    {
+      title: 'A decimal coordinate pair',
+      input: '40.7128,-74.0060',
+    },
+    {
+      title: 'A degrees-minutes-seconds pair',
+      input: '40 42 51.7 N, 74 0 21.5 W',
+    },
+    {
+      title: 'A latitude out of range',
+      input: '95.0,-74.0060',
+    },
+  ],
   related: ['geojson-validator', 'ip-address-inspector', 'file-metadata', 'url-parse'],
   status: 'stable',
 };

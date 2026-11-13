@@ -4,6 +4,7 @@ import BaseHead from './BaseHead.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import SearchDialog from './SearchDialog.astro';
+import DesignLab from './DesignLab.astro';
 import { site } from '@/lib/site';
 
 interface Props {
@@ -24,6 +25,69 @@ const { narrow = false, ...head } = Astro.props;
 <html lang={site.locale}>
   <head>
     <BaseHead {...head} />
+    <script is:inline>
+      // Design Lab pre-paint — compact mirror of src/lib/design-lab.ts: put the
+      // persisted (or ?accent= link) accent on <html> before first paint.
+      (function () {
+        var ch = null;
+        try {
+          ch = JSON.parse(localStorage.getItem('tb-lab') || 'null');
+        } catch (e) {
+          ch = null;
+        }
+        var q = new URLSearchParams(location.search);
+        var raw = q.get('accent') || (ch && ch.accent);
+        if (!raw) return;
+        var hex = String(raw).replace('#', '');
+        if (hex.length === 3)
+          hex = hex.replace(/./g, function (c) {
+            return c + c;
+          });
+        var rgb = [0, 2, 4].map(function (i) {
+          return parseInt(hex.slice(i, i + 2), 16);
+        });
+        if (rgb.some(isNaN)) return;
+        var INK = [30, 30, 28],
+          PAPER = [253, 251, 246];
+        function lum(c) {
+          function f(x) {
+            x /= 255;
+            return x <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+          }
+          return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]);
+        }
+        function ct(a, b) {
+          var x = lum(a),
+            y = lum(b);
+          return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+        }
+        function mx(a, b, t) {
+          return a.map(function (v, i) {
+            return Math.round(v + (b[i] - v) * t);
+          });
+        }
+        function derive(a, bg) {
+          return {
+            a: a.join(' '),
+            s: mx(a, [0, 0, 0], 0.22).join(' '),
+            o: mx(a, bg, 0.86).join(' '),
+            f: (ct(a, INK) >= ct(a, PAPER) ? INK : PAPER).join(' '),
+          };
+        }
+        function write(v, suf) {
+          var st = document.documentElement.style;
+          st.setProperty('--lab-accent' + suf, v.a);
+          st.setProperty('--lab-accent-strong' + suf, v.s);
+          st.setProperty('--lab-accent-soft' + suf, v.o);
+          st.setProperty('--lab-accent-fg' + suf, v.f);
+        }
+        write(derive(rgb, [248, 244, 235]), '');
+        var dark = rgb;
+        for (var i = 0; i < 4 && ct(dark, [21, 21, 19]) < 3; i++)
+          dark = mx(dark, [255, 255, 255], 0.16);
+        write(derive(dark, [21, 21, 19]), '-dark');
+      })();
+    </script>
     <slot name="head" />
   </head>
   <body class="min-h-dvh">
@@ -42,6 +106,7 @@ const { narrow = false, ...head } = Astro.props;
 
     <Footer />
     <SearchDialog />
+    {import.meta.env.DEV && <DesignLab />}
 
     <div
       id="toast"

@@ -35,7 +35,20 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Validate a Procfile' }],
+  examples: [
+    {
+      title: 'A web and a worker process',
+      input: 'web: node server.js\nworker: node worker.js',
+    },
+    {
+      title: 'A line with no command',
+      input: 'web: node server.js\nworker:',
+    },
+    {
+      title: 'A repeated process type',
+      input: 'web: node server.js\nweb: node server2.js\nclock: node clock.js',
+    },
+  ],
   related: ['dockerfile-generator', 'systemd-unit-inspector', 'gitignore', 'nginx-config-auditor'],
   status: 'stable',
 };

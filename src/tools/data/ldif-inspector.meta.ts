@@ -35,7 +35,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect an LDIF file' }],
+  examples: [
+    {
+      title: 'Two directory entries',
+      input:
+        'dn: uid=alice,ou=people,dc=example,dc=com\nuid: alice\nobjectClass: inetOrgPerson\ncn: Alice Adams\nsn: Adams\nmail: alice@example.com\n\ndn: uid=bob,ou=people,dc=example,dc=com\nuid: bob\nobjectClass: inetOrgPerson\ncn: Bob Brown\nsn: Brown\nmail: bob@example.com',
+    },
+    {
+      title: 'An entry with a missing dn',
+      input:
+        'uid: carol\nobjectClass: inetOrgPerson\ncn: Carol Cruz\nsn: Cruz\nmail: carol@example.com',
+    },
+    {
+      title: 'An attribute line with no colon',
+      input:
+        'dn: uid=dave,ou=people,dc=example,dc=com\ncn Dave Davis\nsn: Davis\nobjectClass: inetOrgPerson',
+    },
+  ],
   related: ['x509-certificate-inspector', 'vcf-inspector', 'ics-validator', 'properties-convert'],
   status: 'stable',
 };

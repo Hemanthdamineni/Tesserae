@@ -45,7 +45,21 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Remove duplicate rows from a CSV' }],
+  examples: [
+    {
+      title: 'Remove duplicate rows from a CSV',
+      input:
+        'name,email,role\nAda,ada@example.com,admin\nLin,lin@example.com,user\nAda,ada@example.com,admin\nGrace,grace@example.com,user\nAda,ada@example.com,admin',
+    },
+    {
+      title: 'Duplicate pairs in a small table',
+      input: 'id,product,qty\n1,apple,2\n2,pear,1\n1,apple,2\n3,plum,4\n2,pear,1',
+    },
+    {
+      title: 'Rows with a repeated key column',
+      input: 'sku,color\nA-1,red\nB-2,blue\nA-1,green\nC-3,red\nB-2,blue',
+    },
+  ],
   related: ['csv-diff', 'csv-sanitize', 'csv-profiler', 'dedupe-lines'],
   status: 'stable',
 };

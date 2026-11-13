@@ -35,7 +35,22 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a .netrc file' }],
+  examples: [
+    {
+      title: 'A file with two machines',
+      input:
+        'machine api.example.com login alice password s3cr3t\nmachine ftp.example.com login bob password hunter2',
+    },
+    {
+      title: 'A default machine block',
+      input:
+        'default login anonymous password guest\nmachine api.example.com login alice password s3cr3t',
+    },
+    {
+      title: 'A line with the wrong token count',
+      input: 'machine api.example.com login alice\nmachine db.example.com login dave password p1',
+    },
+  ],
   related: ['ssh-config-auditor', 'pgp-tool', 'ssh-key-fingerprint', 'sudoers-auditor'],
   status: 'stable',
 };

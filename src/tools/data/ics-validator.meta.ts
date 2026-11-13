@@ -37,7 +37,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Validate an iCalendar export' }],
+  examples: [
+    {
+      title: 'A single VEVENT',
+      input:
+        'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Example//EN\nBEGIN:VEVENT\nUID:event-001@example.com\nDTSTAMP:20261101T120000Z\nDTSTART:20261201T090000Z\nDTEND:20261201T100000Z\nSUMMARY:Planning call\nEND:VEVENT\nEND:VCALENDAR',
+    },
+    {
+      title: 'A VEVENT with no DTSTART',
+      input:
+        'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Example//EN\nBEGIN:VEVENT\nUID:event-002@example.com\nDTSTAMP:20261101T120000Z\nSUMMARY:Missing start\nEND:VEVENT\nEND:VCALENDAR',
+    },
+    {
+      title: 'An unbalanced VCALENDAR',
+      input:
+        'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Example//EN\nBEGIN:VEVENT\nUID:event-003@example.com\nDTSTAMP:20261101T120000Z\nDTSTART:20261201T090000Z\nSUMMARY:Unclosed block\nEND:VCALENDAR',
+    },
+  ],
   related: ['csv-to-ics', 'recurrence-dates', 'rrule-builder', 'json-schema-check'],
   status: 'stable',
 };

@@ -14,10 +14,11 @@ import { dirname, join } from 'node:path';
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'icons');
 mkdirSync(OUT, { recursive: true });
 
-// palette: ink bg, bone tiles, terracotta accent
-const BG = [29, 29, 27, 255]; // #1d1d1b
-const TILE = [250, 249, 247, 255]; // #faf9f7
-const ACCENT = [179, 66, 42, 255]; // #b3422a
+// palette: ink bg, sand tiles, umber accent (dark-theme umber #7c634e, so the
+// accent tile keeps the same visual pop on charcoal ink the old rust had)
+const BG = [30, 30, 28, 255]; // #1e1e1c — charcoal ink
+const TILE = [248, 244, 235, 255]; // #f8f4eb — sand paper
+const ACCENT = [124, 99, 78, 255]; // #7c634e — umber signal
 const TRANSPARENT = [0, 0, 0, 0];
 
 const CRC_TABLE = (() => {

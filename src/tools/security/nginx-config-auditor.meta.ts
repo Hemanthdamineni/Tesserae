@@ -36,7 +36,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Audit an nginx configuration' }],
+  examples: [
+    {
+      title: 'A server with strict security headers',
+      input:
+        'server {\n  listen 443 ssl;\n  server_name example.com;\n  ssl_certificate /etc/ssl/example.crt;\n  ssl_certificate_key /etc/ssl/example.key;\n  ssl_protocols TLSv1.2 TLSv1.3;\n  add_header Strict-Transport-Security "max-age=63072000";\n  add_header X-Content-Type-Options nosniff;\n  root /var/www/example;\n}',
+    },
+    {
+      title: 'A server allowing TLSv1 and TLSv1.1',
+      input:
+        'server {\n  listen 443 ssl;\n  server_name example.com;\n  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;\n  root /var/www/example;\n}',
+    },
+    {
+      title: 'A plain http server with no headers',
+      input:
+        'server {\n  listen 80;\n  server_name example.com;\n  location / {\n    proxy_pass http://backend;\n  }\n}',
+    },
+  ],
   related: ['ssh-config-auditor', 'sudoers-auditor', 'security-headers', 'http-header-analyzer'],
   status: 'stable',
 };

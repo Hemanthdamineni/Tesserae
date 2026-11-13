@@ -37,7 +37,23 @@ export const meta: ToolMeta = {
       ],
     },
   ],
-  examples: [{ title: 'Inspect a QuickBooks IIF data file' }],
+  examples: [
+    {
+      title: 'A bank deposit transaction',
+      input:
+        '!TRNS\tTRNSID\tTRNSTYPE\tDATE\tACCNT\tNAME\tAMOUNT\tMEMO\nTRNS\t\tDEPOSIT\t11/15/2026\tChecking\t\t1000.00\tOpening deposit\n!SPL\tSPLID\tTRNSTYPE\tDATE\tACCNT\tNAME\tAMOUNT\tMEMO\nSPL\t\tDEPOSIT\t11/15/2026\tChecking\t\t1000.00\tOpening deposit\n!ENDTRNS\t\t\t\t\t\t\t',
+    },
+    {
+      title: 'A check with two splits',
+      input:
+        '!TRNS\tTRNSID\tTRNSTYPE\tDATE\tACCNT\tNAME\tAMOUNT\tMEMO\nTRNS\t\tCHECK\t11/16/2026\tChecking\tRent Ltd\t-900.00\tNovember rent\n!SPL\tSPLID\tTRNSTYPE\tDATE\tACCNT\tNAME\tAMOUNT\tMEMO\nSPL\t\tCHECK\t11/16/2026\tRent Expense\t\t-900.00\tNovember rent\n!ENDTRNS\t\t\t\t\t\t\t',
+    },
+    {
+      title: 'An invoice header with an amount column',
+      input:
+        '!INV\tINVID\tDATE\tACCNT\tNAME\tAMOUNT\tMEMO\nINV\tINV-100\t11/17/2026\tAccounts Receivable\tWidgets Co\t250.00\tConsulting\n!ENDINV\t\t\t\t\t\t\t',
+    },
+  ],
   related: ['csv-to-ics', 'x12-inspector', 'bibtex-validator', 'json-schema-check'],
   status: 'stable',
 };

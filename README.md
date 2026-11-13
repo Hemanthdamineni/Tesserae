@@ -9,6 +9,8 @@ Tesserae is a collection of 526+ file and text utilities that run **entirely in 
 browser**. No uploads, no accounts, no tracking. Works offline once loaded and
 installs as an app on every major OS.
 
+> Formerly known as **Browser Tools Platform** (see decision D-0035).
+
 ## Table of Contents
 
 - [Why](#why)
