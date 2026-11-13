@@ -3,6 +3,7 @@ import {
   isTypingTarget,
   isRunShortcut,
   isCopyShortcut,
+  isPasteShortcut,
   isModalOpen,
   onRunShortcut,
   onRunShortcutClick,
@@ -47,6 +48,15 @@ describe('copy shortcut', () => {
     expect(isCopyShortcut({ key: 'C', ctrlKey: false, metaKey: true })).toBe(true);
     expect(isCopyShortcut({ key: 'c', ctrlKey: false, metaKey: false })).toBe(false);
     expect(isCopyShortcut({ key: 'v', ctrlKey: true, metaKey: false })).toBe(false);
+  });
+});
+
+describe('paste shortcut', () => {
+  it('matches Ctrl+V and Cmd+V only', () => {
+    expect(isPasteShortcut({ key: 'v', ctrlKey: true, metaKey: false })).toBe(true);
+    expect(isPasteShortcut({ key: 'V', ctrlKey: false, metaKey: true })).toBe(true);
+    expect(isPasteShortcut({ key: 'v', ctrlKey: false, metaKey: false })).toBe(false);
+    expect(isPasteShortcut({ key: 'c', ctrlKey: true, metaKey: false })).toBe(false);
   });
 });
 

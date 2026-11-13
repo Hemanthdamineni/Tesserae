@@ -24,6 +24,16 @@ export function toolPageId(id: string): string {
 }
 
 /**
+ * High-intent `<title>` for a tool page. BaseHead appends ` · Tesserae`, so
+ * this returns just the tool-facing part. Leads with the tool name (the query
+ * people type) and reinforces the privacy/utility angle that makes Tesserae
+ * tools distinct and more likely to be chosen from a search result.
+ */
+export function toolPageTitle(meta: ToolMeta): string {
+  return `${meta.name} — Free, Private, Client-Side Tool`;
+}
+
+/**
  * The organisation behind the site. Emitted on the home page and referenced by
  * id from every SoftwareApplication / WebSite node so they share one identity.
  */
@@ -61,18 +71,31 @@ export function websiteJsonLd() {
 }
 
 export function softwareAppJsonLd(meta: ToolMeta) {
+  const appUrl = absoluteUrl(`/tools/${meta.id}`);
   return {
     '@context': 'https://schema.org',
     '@id': `${toolPageId(meta.id)}#software-application`,
     '@type': 'SoftwareApplication',
     name: meta.name,
     description: meta.summary,
+    url: appUrl,
+    image: absoluteUrl(`/og/${meta.id}.png`),
+    keywords: meta.keywords?.length ? meta.keywords.join(', ') : meta.summary,
     applicationCategory: 'UtilitiesApplication',
+    applicationSubCategory: 'Developer Utility',
     operatingSystem: 'Web browser (Windows, macOS, Linux, Android, iOS)',
-    url: absoluteUrl(`/tools/${meta.id}`),
+    browserRequirements: 'Requires JavaScript. No sign-up, no install.',
+    softwareRequirements: 'Any modern web browser',
+    permissions: 'No special access required',
+    storageRequirements: 'None — everything runs in the browser',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     isAccessibleForFree: true,
-    browserRequirements: 'Requires JavaScript. No sign-up.',
+    featureList: [
+      '100% client-side processing',
+      `Private — data never leaves the device (${meta.privacy.network === 'none' ? 'fully offline' : 'minimal network use'})`,
+      meta.privacy.offline ? 'Offline-ready' : 'Works online',
+      'No account required',
+    ],
     publisher: { '@id': organizationId() },
   };
 }
@@ -83,6 +106,8 @@ export function faqJsonLd(meta: ToolMeta, faq?: { q: string; a: string }[]) {
     '@context': 'https://schema.org',
     '@id': `${toolPageId(meta.id)}#faq`,
     '@type': 'FAQPage',
+    mainEntityOfPage: { '@id': toolPageId(meta.id) },
+    url: toolPageId(meta.id),
     mainEntity: faq.map((f) => ({
       '@type': 'Question',
       name: f.q,
@@ -122,6 +147,8 @@ export function howToJsonLd(meta: ToolMeta, article?: { heading: string; body: s
     '@id': `${toolPageId(meta.id)}#how-to`,
     '@type': 'HowTo',
     name: meta.name,
+    description: meta.summary,
+    url: toolPageId(meta.id),
     step: article.map((entry, index) => ({
       '@type': 'HowToStep',
       position: index + 1,
@@ -169,5 +196,30 @@ export function categoryBreadcrumbJsonLd(categoryId: string, categoryName: strin
         item: absoluteUrl(`/categories/${categoryId}`),
       },
     ],
+  };
+}
+
+/**
+ * ItemList of a tool's related tools, emitted on the tool page so search
+ * engines and AI assistants can recommend the surrounding tool family.
+ */
+export function relatedToolsJsonLd(
+  tool: ToolMeta,
+  related: { id: string; name: string }[],
+) {
+  if (!related.length) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@id': `${toolPageId(tool.id)}#related`,
+    '@type': 'ItemList',
+    name: `Related tools to ${tool.name}`,
+    numberOfItems: related.length,
+    itemListElement: related.map((t, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: t.name,
+      url: toolPageId(t.id),
+      item: { '@id': toolPageId(t.id) },
+    })),
   };
 }

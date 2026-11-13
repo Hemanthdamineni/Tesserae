@@ -5,6 +5,7 @@ import { getContent } from '@/lib/content';
 import { relatedTools } from '@/lib/registry';
 import Icon from './Icon.astro';
 import PrivacyBadge from './PrivacyBadge.astro';
+import PrivacyBanner from './PrivacyBanner.astro';
 import TextWorkbench from './workbench/TextWorkbench.astro';
 import FileWorkbench from './workbench/FileWorkbench.astro';
 import CameraPanel from './workbench/CameraPanel.astro';
@@ -60,7 +61,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="mt-4"><PrivacyBadge privacy={meta.privacy} /></div>
   </header>
 
-  <div class="mt-7">
+  <div class="mt-6">
+    <PrivacyBanner privacy={meta.privacy} />
+  </div>
+
+  <div class="mt-6">
     {meta.camera && <CameraPanel meta={meta} />}
     {
       meta.panel === 'signature' ? (
@@ -167,7 +172,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             See category
           </a>
         </div>
-        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {related.map((t) => (
+            <li>
+              <a
+                class="chip transition-colors hover:text-[rgb(var(--text))] hover:underline"
+                href={`${base}/tools/${t.meta.id}`}
+              >
+                {t.meta.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-3 grid gap-3 sm:grid-cols-2">
           {related.map((t) => (
             <ToolCard meta={t.meta} showCategory />
           ))}

@@ -1,0 +1,31 @@
+---
+import type { ToolPrivacy } from '@/lib/types';
+import Icon from './Icon.astro';
+
+interface Props {
+  privacy: ToolPrivacy;
+}
+
+const { privacy } = Astro.props;
+
+// Almost every tool is fully offline (`network: 'none'`): files never leave
+// the device. A small handful declare network endpoints, so for those we use
+// the accurate, softer phrasing and skip the "never leaves" claim.
+const localOnly = privacy.network === 'none';
+---
+
+<div
+  class="flex items-start gap-3 rounded-lg border px-4 py-3"
+  style="background-color: rgb(var(--accent-soft)); border-color: rgb(var(--accent) / 0.35)"
+  role="note"
+  data-privacy-banner
+>
+  <Icon name="lock" size={18} class="mt-0.5 shrink-0 text-[rgb(var(--accent-strong))]" />
+  <p class="min-w-0 text-sm font-medium leading-snug text-[rgb(var(--text))]">
+    {localOnly ? (
+      <>🔒 100% Client-Side &amp; Private — processed locally in your browser. Files never leave your device.</>
+    ) : (
+      <>🔒 Client-Side &amp; Private — processed in your browser on this device.</>
+    )}
+  </p>
+</div>

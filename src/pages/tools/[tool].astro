@@ -2,10 +2,17 @@
 import type { GetStaticPaths } from 'astro';
 import Layout from '@/components/Layout.astro';
 import ToolPage from '@/components/ToolPage.astro';
-import { ALL_TOOLS, redirectTarget } from '@/lib/registry';
+import { ALL_TOOLS, redirectTarget, relatedTools } from '@/lib/registry';
 import { absoluteUrl } from '@/lib/site';
 import { getContent } from '@/lib/content';
-import { softwareAppJsonLd, faqJsonLd, howToJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import {
+  softwareAppJsonLd,
+  faqJsonLd,
+  howToJsonLd,
+  breadcrumbJsonLd,
+  toolPageTitle,
+  relatedToolsJsonLd,
+} from '@/lib/seo';
 
 export const getStaticPaths = (() => {
   return ALL_TOOLS.map((tool) => ({
@@ -16,6 +23,7 @@ export const getStaticPaths = (() => {
 
 const { meta } = Astro.props;
 const content = getContent(meta.id);
+const related = relatedTools(meta);
 // Link paths must honour the deploy base (e.g. /Tesserae on GitHub Pages).
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -66,7 +74,7 @@ const targetUrl = target ? absoluteUrl(targetPath) : '';
     </Layout>
   ) : (
     <Layout
-      title={meta.name}
+      title={toolPageTitle(meta)}
       description={meta.summary}
       path={`/tools/${meta.id}`}
       noindex={meta.hidden}
@@ -75,6 +83,7 @@ const targetUrl = target ? absoluteUrl(targetPath) : '';
         faqJsonLd(meta, content?.faq),
         howToJsonLd(meta, content?.article),
         breadcrumbJsonLd(meta),
+        relatedToolsJsonLd(meta, related.map((t) => ({ id: t.meta.id, name: t.meta.name }))),
       ]}
     >
       <ToolPage meta={meta} />

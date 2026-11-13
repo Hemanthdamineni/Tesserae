@@ -48,6 +48,11 @@ export function isCopyShortcut(e: Pick<KeyboardEvent, 'key' | 'ctrlKey' | 'metaK
   return (e.key === 'c' || e.key === 'C') && (e.ctrlKey || e.metaKey);
 }
 
+/** Ctrl/⌘ + V — "paste from the clipboard". */
+export function isPasteShortcut(e: Pick<KeyboardEvent, 'key' | 'ctrlKey' | 'metaKey'>): boolean {
+  return (e.key === 'v' || e.key === 'V') && (e.ctrlKey || e.metaKey);
+}
+
 /** True while a modal dialog is open, so page shortcuts stay out of its way. */
 export function isModalOpen(doc: Document): boolean {
   return doc.querySelector('dialog[open]') !== null;
