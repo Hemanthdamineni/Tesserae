@@ -27,6 +27,6 @@ export const meta: ToolMeta = {
     { title: 'Compare a WAV and an MP3 export' },
     { title: 'Check a mix for clipping' },
   ],
-  related: ['audio-convert', 'audio-normalize'],
+  related: ['audio-convert', 'audio-normalize', 'audio-compress'],
   status: 'stable',
 };

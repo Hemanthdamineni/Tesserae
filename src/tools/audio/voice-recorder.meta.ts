@@ -45,6 +45,6 @@ export const meta: ToolMeta = {
     { title: 'Record a clip to share as WebM (Opus)' },
     { title: 'Record a long take, then trim it' },
   ],
-  related: ['audio-trim', 'audio-convert', 'mic-test'],
+  related: ['audio-trim', 'audio-convert', 'audio-compress', 'mic-test'],
   status: 'stable',
 };

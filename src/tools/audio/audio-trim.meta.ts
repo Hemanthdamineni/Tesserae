@@ -38,6 +38,6 @@ export const meta: ToolMeta = {
     },
     { title: 'Long ringtone tail', options: { start: '2:05', end: '2:35', fadeOut: 1500 } },
   ],
-  related: ['audio-fade', 'audio-convert'],
+  related: ['audio-fade', 'audio-convert', 'audio-compress'],
   status: 'stable',
 };

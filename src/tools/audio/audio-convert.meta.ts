@@ -107,7 +107,7 @@ export const meta: ToolMeta = {
       options: { format: 'wav', sampleRate: '16000', channels: 'mono' },
     },
   ],
-  related: ['audio-info', 'audio-trim', 'audio-speed'],
+  related: ['audio-info', 'audio-trim', 'audio-speed', 'audio-compress'],
   credits: [
     {
       name: 'lamejs (LAME MP3 encoder port)',

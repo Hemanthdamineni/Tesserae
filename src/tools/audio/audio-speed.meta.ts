@@ -30,7 +30,7 @@ export const meta: ToolMeta = {
       default: false,
     },
   ],
-  related: ['audio-trim', 'audio-reverse'],
+  related: ['audio-trim', 'audio-reverse', 'audio-compress'],
   examples: [
     { title: 'Double speed, pitch shifts', options: { rate: 200 } },
     {
